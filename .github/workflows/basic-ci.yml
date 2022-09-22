@@ -16,12 +16,12 @@ jobs:
         npx nx-cloud record -- npx nx lint
         npx nx-cloud record -- npx nx test
         npx nx-cloud record -- npx nx build
-        npx nx-cloud record -- npx nx frontend-e2e:e2e
+        npx nx-cloud record -- npx nx run frontend-e2e:e2e
       parallel-commands-on-agents: |
         npx nx affected --target=lint --parallel=4
         npx nx affected --target=test --parallel=4 --ci --code-coverage
         npx nx affected --target=build --parallel=4
-        npx nx affected frontend-e2e:e2e --parallel=4
+        npx nx run frontend-e2e:e2e --parallel=4
 
   agents:
     name: Nx Cloud - Agents
