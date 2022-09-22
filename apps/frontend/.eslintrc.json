@@ -14,7 +14,7 @@
 		"plugin:react/jsx-runtime"
 	],
 	"parserOptions": {
-		"project": "apps/patients/tsconfig.eslint.json"
+		"project": "apps/frontend/tsconfig.eslint.json"
 	},
 	"plugins": [
 		"jsx-a11y"
