@@ -6,7 +6,7 @@ export function App() {
   return (
     <>
       <NxWelcome title="frontend" />
-      <div />
+      <h1> jkjk </h1>
     </>
   );
 }
