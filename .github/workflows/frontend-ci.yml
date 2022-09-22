@@ -17,9 +17,9 @@ jobs:
         npx nx-cloud record -- npx nx test
         npx nx-cloud record -- npx nx build
       parallel-commands-on-agents: |
-        npx nx affected --target=lint --base=dev --parallel=3
-        npx nx affected --target=test --base=dev --parallel=3 --ci --code-coverage
-        npx nx affected --target=build --base=dev --parallel=3
+        npx nx affected --target=lint --parallel=3
+        npx nx affected --target=test --parallel=3 --ci --code-coverage
+        npx nx affected --target=build --parallel=3
 
   agents:
     name: Nx Cloud - Agents
