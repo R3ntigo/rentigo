@@ -1,9 +1,9 @@
-name: FrontendCI
+name: BasicCI
 
 on:
   push:
     branches:
-      - dev
+      - main
   pull_request:
 
 jobs:

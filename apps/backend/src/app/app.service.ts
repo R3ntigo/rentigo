@@ -1,8 +1,12 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class AppService {
+class AppService {
+  private message = 'Welcome to backend!';
+
   getData(): { message: string } {
-    return ({ message: 'Welcome to backend!' });
+    return { message: this.message };
   }
 }
+
+export default AppService;
