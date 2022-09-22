@@ -2,7 +2,7 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "npmScope": "rentigo",
   "affected": {
-    "defaultBase": "dev"
+    "defaultBase": "main"
   },
   "tasksRunnerOptions": {
     "default": {
