@@ -39,18 +39,6 @@
         }
       }
     },
-    "debug": {
-			"executor": "@nrwl/node:node",
-      "options": {
-        "buildTarget": "backend:build",
-				"inspect": true
-      },
-      "configurations": {
-        "production": {
-          "buildTarget": "backend:build:production"
-        }
-      }
-    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],

@@ -1,10 +1,10 @@
 import { Request, UseGuards, Controller, Get, Post } from '@nestjs/common';
 
-import AppService from './app.service';
-import LocalAuthGuard from './auth/local/local-auth.guard';
+import { AppService } from './app.service';
+import { LocalAuthGuard } from './auth/local-auth.guard';
 
 @Controller()
-class AppController {
+export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
@@ -18,5 +18,3 @@ class AppController {
     return req.user;
   }
 }
-
-export default AppController;
