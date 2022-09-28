@@ -5,18 +5,14 @@
   "targets": {
     "build": {
       "executor": "@nrwl/webpack:webpack",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "target": "node",
         "compiler": "tsc",
         "outputPath": "dist/apps/backend",
         "main": "apps/backend/src/main.ts",
         "tsConfig": "apps/backend/tsconfig.app.json",
-        "assets": [
-          "apps/backend/src/assets"
-        ]
+        "assets": ["apps/backend/src/assets"]
       },
       "configurations": {
         "production": {
@@ -43,22 +39,28 @@
         }
       }
     },
+    "debug": {
+			"executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "backend:build",
+				"inspect": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "backend:build:production"
+        }
+      }
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "apps/backend/**/*.ts"
-        ]
+        "lintFilePatterns": ["apps/backend/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/backend"
-      ],
+      "outputs": ["coverage/apps/backend"],
       "options": {
         "jestConfig": "apps/backend/jest.config.ts",
         "passWithNoTests": true

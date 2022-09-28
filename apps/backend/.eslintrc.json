@@ -72,6 +72,9 @@
 				"*.ts",
 				"*.tsx"
 			],
+			"extends": [
+				"../../.eslintrc.json"
+			],
 			"rules": {}
 		},
 		{
