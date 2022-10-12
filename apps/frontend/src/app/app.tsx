@@ -1,19 +1,19 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Test from './product-upload-frontpage/test';
-import Test2 from './product-upload-frontpage/test2';
-console.log('test');
+import { ProductUpload } from './product-upload/ProductUpload';
+import { ProductShow } from './product-show/ProductShow';
+
 const App = () => (
-  <>
-    <p className="text-yellow-500 text-2xl font-extrabold">Welcome Frontend</p>
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/test" element={<Test />} />
-          <Route path="/test2" element={<Test2 />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
-  </>
+	<>
+		<p className="text-yellow-500 text-2xl font-extrabold">Welcome Frontend</p>
+		<div>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/show" element={<ProductShow />} />
+					<Route path="/upload" element={<ProductUpload />} />
+				</Routes>
+			</BrowserRouter>
+		</div>
+	</>
 );
 
 export default App;

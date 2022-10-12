@@ -1,11 +1,8 @@
-/* eslint-disable no-tabs */
-/* eslint-disable no-underscore-dangle */
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
-import console from 'console';
 
-const Test = () => {
+const ProductUpload = () => {
 	interface Options {
 		value: string;
 		label: string;
@@ -15,21 +12,20 @@ const Test = () => {
 		name: string;
 	}
 	interface District {
-		_id: string,
-		district: string,
+		_id: string;
+		district: string;
 	}
 
 	interface Upazilla {
-		_id: string,
-		district: string,
+		_id: string;
+		district: string;
 	}
 
 	interface District2 {
-		_id: string,
-		district: string,
-		coordinates: string,
-		upazilla: string[]
-
+		_id: string;
+		district: string;
+		coordinates: string;
+		upazilla: string[];
 	}
 
 	const [productName, setProductName] = useState('');
@@ -55,16 +51,18 @@ const Test = () => {
 				productDivision,
 				productDistrict,
 				productUpazilla,
-
-			}
+			};
 			console.log(newProduct);
 		}
-	}
+	};
 	async function getDivisionOptions() {
-		const { data } = await axios.get(`https://bdapis.herokuapp.com/api/v1.1/divisions`);
+		const { data } = await axios.get(
+			`https://bdapis.herokuapp.com/api/v1.1/divisions`
+		);
 		console.log(data);
 		if (data.status.message === 'ok') {
 			const divisions = data.data.map((division: Division) => ({
+				// eslint-disable-next-line no-underscore-dangle
 				value: division._id,
 				label: division.name,
 			}));
@@ -78,10 +76,13 @@ const Test = () => {
 		getDivisionOptions();
 	}, []);
 	async function getDistrictOptions(value: string) {
-		const { data } = await axios.get(`https://bdapis.herokuapp.com/api/v1.1/division/${value}`);
+		const { data } = await axios.get(
+			`https://bdapis.herokuapp.com/api/v1.1/division/${value}`
+		);
 		console.log(data);
 		if (data.status.message === 'ok') {
 			const districts = data.data.map((district: District) => ({
+				// eslint-disable-next-line no-underscore-dangle
 				value: district._id,
 				label: district.district,
 			}));
@@ -92,11 +93,15 @@ const Test = () => {
 	}
 	async function getUpazillaOptions(value: string) {
 		console.log(value);
-		const { data } = await axios.get(`https://bdapis.herokuapp.com/api/v1.1/division/${value}`);
+		const { data } = await axios.get(
+			`https://bdapis.herokuapp.com/api/v1.1/division/${value}`
+		);
 		console.log(data);
 
 		if (data.status.message === 'ok') {
-			const upazillas = data.data.filter((upazilla: Upazilla) => upazilla.district === productDistrict);
+			const upazillas = data.data.filter(
+				(upazilla: Upazilla) => upazilla.district === productDistrict
+			);
 			console.log(upazillas.upazilla);
 			setUpazillaOptions(upazillas.upazilla);
 		} else {
@@ -105,7 +110,9 @@ const Test = () => {
 	}
 	async function getUpazillaOptions2(value: string) {
 		console.log(value);
-		const { data } = await axios.get(`https://bdapis.herokuapp.com/api/v1.1/division/${value}`);
+		const { data } = await axios.get(
+			`https://bdapis.herokuapp.com/api/v1.1/division/${value}`
+		);
 		console.log(data);
 		const tempStringArray: string[] = [];
 		const temp2: Options[] = [];
@@ -123,27 +130,25 @@ const Test = () => {
 		}
 	}
 	return (
-		<div>
-    	<h1>Product Upload</h1>
-    	<label>
-    		Product Name
-    		<input type="text" onChange={(e) => setProductName(e.target.value)} />
-  		</label>
-    	<label>
-  Product Description
-				<input type="text" onChange={(e) => setProductDescription(e.target.value)} />
+		<>
+			<h1>Product Upload</h1>
+			<label htmlFor="name">
+				Product Name
+				<input id="productName" type="text" onChange={(e) => setProductName(e.target.value)} />
 			</label>
-    <label>
-  Division
+			<label htmlFor="productDescription">
+				Product Description
+				<input id="productDescription" type="text" onChange={(e) => setProductDescription(e.target.value)} />
+			</label>
+			<label>
+				Division
 				<Select
+					id="locationDivision"
 					options={divisionOptions}
-					defaultValue={
-						{
-							value: '',
-							label: 'Select an option'
-						}
-					}
-
+					defaultValue={{
+						value: '',
+						label: 'Select an option',
+					}}
 					onChange={(e) => {
 						if (e != null) {
 							setProductDivision(e.value);
@@ -153,16 +158,14 @@ const Test = () => {
 					name="subjects"
 				/>
 			</label>
-    <label>
-  District
+			<label>
+				District
 				<Select
 					options={districtOptions}
-					defaultValue={
-						{
-							value: '',
-							label: 'Select an option'
-						}
-					}
+					defaultValue={{
+						value: '',
+						label: 'Select an option',
+					}}
 					onChange={(e) => {
 						if (e != null) {
 							setProductDistrict(e.value);
@@ -171,17 +174,17 @@ const Test = () => {
 					name="subjects"
 				/>
 			</label>
-    <label>
-  Upazilla
+			<label>
+				Upazilla
 				<Select
 					options={upazillaOptions}
-					defaultValue={
-						{
-							value: '',
-							label: 'Select an option'
-						}
-					}
-					onFocus={() => {getUpazillaOptions2(productDivision)}}
+					defaultValue={{
+						value: '',
+						label: 'Select an option',
+					}}
+					onFocus={() => {
+						getUpazillaOptions2(productDivision);
+					}}
 					onChange={(e) => {
 						if (e) {
 							console.log(productDistrict);
@@ -192,10 +195,8 @@ const Test = () => {
 					name="subjects"
 				/>
 			</label>
-    <input type="submit" value="Submit" onClick={handleSubmit} />
-
-  </div>
-	)
-
+			<input type="submit" value="Submit" onClick={handleSubmit} />
+		</>
+	);
 };
-export default Test;
+export { ProductUpload };
