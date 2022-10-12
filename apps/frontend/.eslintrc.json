@@ -16,12 +16,8 @@
 	"parserOptions": {
 		"project": "apps/frontend/tsconfig.eslint.json"
 	},
-	"plugins": [
-		"jsx-a11y"
-	],
-	"ignorePatterns": [
-		"!**/*"
-	],
+	"plugins": ["jsx-a11y"],
+	"ignorePatterns": ["!**/*"],
 	"rules": {
 		"max-len": [
 			2,
@@ -29,6 +25,8 @@
 				"code": 120
 			}
 		],
+		"indent": "off",
+  	"@typescript-eslint/indent": ["error", "tab"],
 		"comma-dangle": 0,
 		"@typescript-eslint/comma-dangle": 0,
 		"import/no-extraneous-dependencies": [
@@ -59,34 +57,21 @@
 		"react/jsx-filename-extension": [
 			2,
 			{
-				"extensions": [
-					".tsx"
-				]
+				"extensions": [".tsx"]
 			}
 		]
 	},
 	"overrides": [
 		{
-			"files": [
-				"*.ts",
-				"*.tsx",
-				"*.js",
-				"*.jsx"
-			],
+			"files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
 			"rules": {}
 		},
 		{
-			"files": [
-				"*.ts",
-				"*.tsx"
-			],
+			"files": ["*.ts", "*.tsx"],
 			"rules": {}
 		},
 		{
-			"files": [
-				"*.js",
-				"*.jsx"
-			],
+			"files": ["*.js", "*.jsx"],
 			"rules": {}
 		}
 	]
