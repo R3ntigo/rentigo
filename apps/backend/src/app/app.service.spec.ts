@@ -13,9 +13,9 @@ describe('AppService', () => {
     service = app.get<AppService>(AppService);
   });
 
-  describe('getData', () => {
+  describe('welcome', () => {
     it('should return "Welcome to backend!"', () => {
-      expect(service.getData()).toEqual({ message: 'Welcome to backend!' });
+      expect(service.welcome()).toEqual({ message: 'Welcome to backend!' });
     });
   });
 });
