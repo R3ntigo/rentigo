@@ -28,6 +28,17 @@ const ProductUpload = () => {
 		upazilla: string[];
 	}
 
+	interface Property {
+		propertyName: string;
+		propertyValue: string;
+		propertyID: number;
+	}
+	const fistProperty : Property[] = [{
+		propertyName: '',
+		propertyValue: '',
+		propertyID: 0,
+	}];
+
 	const [productName, setProductName] = useState('');
 	const [productDescription, setProductDescription] = useState('');
 	const [divisionOptions, setDivisionOptions] = useState([] as Options[]);
@@ -36,11 +47,8 @@ const ProductUpload = () => {
 	const [upazillaOptions, setUpazillaOptions] = useState([] as Options[]);
 	const [productDistrict, setProductDistrict] = useState('');
 	const [productUpazilla, setProductUpazilla] = useState('');
-
-	// const usertoken = localStorage.getItem('usertoken');
-	// console.log(usertoken);
-	// const decodeduser = jwt.decode(usertoken);
-	// console.log(decodeduser);
+	const [formFields, setFormFields] = useState(fistProperty);
+	const [policy, setPolicy] = useState('');
 	const handleSubmit = async () => {
 		if (/* decodeduser != null */ true) {
 			// const userID = decodeduser.id;
@@ -51,6 +59,8 @@ const ProductUpload = () => {
 				productDivision,
 				productDistrict,
 				productUpazilla,
+				formFields,
+				policy,
 			};
 			console.log(newProduct);
 		}
@@ -91,6 +101,7 @@ const ProductUpload = () => {
 			console.log('District fetching api failed');
 		}
 	}
+
 	async function getUpazillaOptions(value: string) {
 		console.log(value);
 		const { data } = await axios.get(
@@ -108,20 +119,27 @@ const ProductUpload = () => {
 			console.log('District fetching api failed');
 		}
 	}
+
 	async function getUpazillaOptions2(value: string) {
 		console.log(value);
 		const { data } = await axios.get(
 			`https://bdapis.herokuapp.com/api/v1.1/division/${value}`
 		);
 		console.log(data);
-		const tempStringArray: string[] = [];
+		let tempStringArray: string[] = [];
 		const temp2: Options[] = [];
 		if (data.status.message === 'ok') {
+			console.log(data.data);
 			data.data.forEach((e: District2) => {
-				if (e.district === productDistrict) {
-					tempStringArray.push(...e.upazilla);
+				console.log(productDistrict);
+				console.log(e.district);
+				// console.log(e.upazilla);
+				if (e.district.toUpperCase == productDistrict.toUpperCase) {
+					console.log(e.upazilla);
+					tempStringArray = e.upazilla;
 				}
 			});
+			console.log(tempStringArray);
 			tempStringArray.forEach((e) => {
 				temp2.push({ value: e, label: e });
 			});
@@ -129,6 +147,9 @@ const ProductUpload = () => {
 			console.log(temp2);
 		}
 	}
+	const addFields = () => {
+		setFormFields([...formFields, { propertyName: '', propertyValue: '', propertyID: formFields.length }]);
+	};
 	return (
 		<>
 			<h1>Product Upload</h1>
@@ -194,6 +215,38 @@ const ProductUpload = () => {
 					}}
 					name="subjects"
 				/>
+			</label>
+			<div>
+				{
+					formFields.map((element) => (
+						<div key={element.propertyID}>
+							<input
+								type="text"
+								placeholder="Property Name"
+								// eslint-disable-next-line no-return-assign
+								onChange={(e) => formFields[element.propertyID].propertyName = e.target.value}
+							/>
+							<input
+								type="text"
+								placeholder="Property Value"
+								// eslint-disable-next-line no-return-assign
+								onChange={(e) => formFields[element.propertyID].propertyValue = e.target.value}
+							/>
+							<button type="button" onClick={addFields}> Add Fields </button>
+						</div>
+
+					))
+				}
+			</div>
+			<label>
+				Product Policy
+				<h6>
+					Policy is used to make your products safe. Say how you want the renters to use and
+					care of your products. You can also mention the rules and regulations of the use of your products.
+					These policies will also be used to give you an
+					edge in taking legal actions if some rare incidents occurs
+				</h6>
+				<input id="productPolicy" type="text" onChange={(e) => setPolicy(e.target.value)} />
 			</label>
 			<input type="submit" value="Submit" onClick={handleSubmit} />
 		</>
