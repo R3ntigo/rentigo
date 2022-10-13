@@ -4,58 +4,13 @@
 		"es2021": true
 	},
 	"extends": [
-		"../../.eslintrc.json",
-		"airbnb",
-		"airbnb-typescript"
+		"../../.eslintrc.ts.json"
 	],
 	"ignorePatterns": [
 		"!**/*"
 	],
 	"parserOptions": {
 		"project": "apps/backend/tsconfig.eslint.json"
-	},
-	"rules": {
-		"max-len": [
-			2,
-			{
-				"code": 120
-			}
-		],
-		"comma-dangle": 0,
-		"@typescript-eslint/comma-dangle": 0,
-		"import/no-extraneous-dependencies": [
-			"error",
-			{
-				"devDependencies": [
-					"**/*.test.js",
-					"**/*.spec.js",
-					"**/*.config.js",
-					"**/*.test.ts",
-					"**/*.spec.ts"
-				]
-			}
-		],
-		"@typescript-eslint/quotes": [
-			2,
-			"single",
-			{
-				"allowTemplateLiterals": true
-			}
-		],
-		"react/function-component-definition": [
-			2,
-			{
-				"namedComponents": "arrow-function"
-			}
-		],
-		"react/jsx-filename-extension": [
-			2,
-			{
-				"extensions": [
-					".tsx"
-				]
-			}
-		]
 	},
 	"overrides": [
 		{
