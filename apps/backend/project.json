@@ -36,6 +36,10 @@
       "configurations": {
         "production": {
           "buildTarget": "backend:build:production"
+        },
+        "development": {
+					"inspect": true,
+					"port": 8229
         }
       }
     },
