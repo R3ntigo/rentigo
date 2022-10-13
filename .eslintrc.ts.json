@@ -40,10 +40,13 @@
           {
             "devDependencies": [
               "**/*.test.js",
+              "**/*.test.jsx",
               "**/*.spec.js",
+              "**/*.spec.jsx",
               "**/*.config.js",
               "**/*.test.ts",
-              "**/*.spec.ts"
+              "**/*.spec.ts",
+              "**/*.spec.tsx"
             ]
           }
         ],
