@@ -1,0 +1,77 @@
+{
+  "root": true,
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nrwl/nx"],
+  "extends": ["airbnb", "airbnb-typescript"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@nrwl/nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "*",
+                "onlyDependOnLibsWithTags": ["*"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nrwl/nx/typescript"],
+      "rules": {
+        "max-len": [
+          2,
+          {
+            "code": 120
+          }
+        ],
+        "comma-dangle": 0,
+        "object-curly-newline": [2, { "consistent": true }],
+        "@typescript-eslint/comma-dangle": 0,
+        "import/no-extraneous-dependencies": [
+          "error",
+          {
+            "devDependencies": [
+              "**/*.test.js",
+              "**/*.test.jsx",
+              "**/*.spec.js",
+              "**/*.spec.jsx",
+              "**/*.config.js",
+              "**/*.test.ts",
+              "**/*.spec.ts",
+              "**/*.spec.tsx"
+            ]
+          }
+        ],
+        "@typescript-eslint/quotes": [
+          2,
+          "single",
+          {
+            "allowTemplateLiterals": true
+          }
+        ],
+        "import/prefer-default-export": 0,
+        "import/no-default-export": 2
+      }
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nrwl/nx/javascript"],
+      "rules": {}
+    },
+    {
+      "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+      "env": {
+        "jest": true
+      },
+      "rules": {}
+    }
+  ]
+}

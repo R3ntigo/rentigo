@@ -4,14 +4,8 @@
 		"es2021": true
 	},
 	"extends": [
-		"plugin:@nrwl/nx/react",
-		"../../.eslintrc.json",
-		"plugin:react/recommended",
-		"airbnb",
-		"airbnb-typescript",
-		"plugin:react-hooks/recommended",
-		"plugin:jsx-a11y/recommended",
-		"plugin:react/jsx-runtime"
+		"../../.eslintrc.ts.json",
+		"../../.eslintrc.react.json"
 	],
 	"parserOptions": {
 		"project": "apps/frontend/tsconfig.eslint.json"
@@ -22,72 +16,6 @@
 	"ignorePatterns": [
 		"!**/*"
 	],
-	"rules": {
-		"max-len": [
-			2,
-			{
-				"code": 120
-			}
-		],
-		"indent": "off",
-		"no-tabs": [
-			"error",
-			{
-				"allowIndentationTabs": true
-			}
-		],
-		"@typescript-eslint/indent": [
-			"error",
-			"tab"
-		],
-		"comma-dangle": 0,
-		"@typescript-eslint/comma-dangle": 0,
-		"import/no-extraneous-dependencies": [
-			"error",
-			{
-				"devDependencies": [
-					"**/*.test.js",
-					"**/*.spec.js",
-					"**/*.config.js",
-					"**/*.test.tsx",
-					"**/*.spec.tsx"
-				]
-			}
-		],
-		"@typescript-eslint/quotes": [
-			2,
-			"single",
-			{
-				"allowTemplateLiterals": true
-			}
-		],
-		"react/function-component-definition": [
-			2,
-			{
-				"namedComponents": "arrow-function"
-			}
-		],
-		"react/jsx-filename-extension": [
-			2,
-			{
-				"extensions": [
-					".tsx"
-				]
-			}
-		],
-		"react/jsx-indent": [
-			2,
-			"tab",
-			{
-				"checkAttributes": true,
-				"indentLogicalExpressions": true
-			}
-		],
-		"react/jsx-indent-props": [
-			2,
-			"tab"
-		]
-	},
 	"overrides": [
 		{
 			"files": [

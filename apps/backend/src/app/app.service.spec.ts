@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing';
 
-import AppService from './app.service';
+import { AppService } from './app.service';
 
 describe('AppService', () => {
   let service: AppService;
@@ -13,9 +13,9 @@ describe('AppService', () => {
     service = app.get<AppService>(AppService);
   });
 
-  describe('getData', () => {
+  describe('welcome', () => {
     it('should return "Welcome to backend!"', () => {
-      expect(service.getData()).toEqual({ message: 'Welcome to backend!' });
+      expect(service.welcome()).toEqual({ message: 'Welcome to backend!' });
     });
   });
 });
