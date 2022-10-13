@@ -1,0 +1,3 @@
+describe('constants', () => {
+  // no tests
+});

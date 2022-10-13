@@ -2,20 +2,23 @@ import { Request, UseGuards, Controller, Get, Post } from '@nestjs/common';
 
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AppService } from './app.service';
+import { AuthService } from './auth/auth.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private appService: AppService,
+    private authService: AuthService
+  ) {}
 
   @Get()
   welcome() {
     return this.appService.welcome();
   }
 
-  // eslint-disable-next-line class-methods-use-this
   @UseGuards(LocalAuthGuard)
   @Post('login')
   login(@Request() req) {
-    return req.user;
+    return this.authService.login(req.user);
   }
 }

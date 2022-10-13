@@ -6,7 +6,7 @@
 		"!**/*"
 	],
 	"parserOptions": {
-		"project": "libs/types/tsconfig.eslint.json"
+		"project": "libs/constants/tsconfig.eslint.json"
 	},
 	"overrides": [
 		{
