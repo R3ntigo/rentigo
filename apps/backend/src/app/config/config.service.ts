@@ -13,4 +13,12 @@ export class ConfigService {
   get(key: string): string {
     return this.envConfig[key];
   }
+
+  get JWT_ACCESS_TOKEN_SECRET(): string {
+    return this.get('JWT_ACCESS_TOKEN_SECRET');
+  }
+
+  get JWT_REFRESH_TOKEN_SECRET(): string {
+    return this.get('JWT_REFRESH_TOKEN_SECRET');
+  }
 }

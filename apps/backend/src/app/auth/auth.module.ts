@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
 import { LocalStrategy } from './local.strategy';
 import { ConfigService } from '../config/config.service';
-import { ConfigModule } from '../config/config.module';
+import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [
@@ -15,13 +15,13 @@ import { ConfigModule } from '../config/config.module';
     PassportModule,
     JwtModule.registerAsync({
       useFactory: async (configService: ConfigService) => ({
-        secret: configService.get('JWT_SECRET'),
+        secret: configService.JWT_ACCESS_TOKEN_SECRET,
         signOptions: { expiresIn: '60s' },
       }),
       inject: [ConfigService],
     }),
   ],
-  providers: [AuthService, LocalAuthGuard, LocalStrategy],
+  providers: [AuthService, LocalAuthGuard, LocalStrategy, JwtStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}
