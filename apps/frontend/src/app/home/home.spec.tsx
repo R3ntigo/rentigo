@@ -1,4 +1,6 @@
 import { render } from '@testing-library/react';
+import 'reflect-metadata';
+import 'es6-shim';
 
 import { Home } from './home';
 
