@@ -10,18 +10,18 @@ import { ConfigService } from '../config/config.service';
 import { JwtStrategy } from './jwt.strategy';
 
 @Module({
-  imports: [
-    UsersModule,
-    PassportModule,
-    JwtModule.registerAsync({
-      useFactory: async (configService: ConfigService) => ({
-        secret: configService.JWT_ACCESS_TOKEN_SECRET,
-        signOptions: { expiresIn: '60s' },
-      }),
-      inject: [ConfigService],
-    }),
-  ],
-  providers: [AuthService, LocalAuthGuard, LocalStrategy, JwtStrategy],
-  exports: [AuthService],
+	imports: [
+		UsersModule,
+		PassportModule,
+		JwtModule.registerAsync({
+			useFactory: async (configService: ConfigService) => ({
+				secret: configService.JWT_ACCESS_TOKEN_SECRET,
+				signOptions: { expiresIn: '60s' },
+			}),
+			inject: [ConfigService],
+		}),
+	],
+	providers: [AuthService, LocalAuthGuard, LocalStrategy, JwtStrategy],
+	exports: [AuthService],
 })
 export class AuthModule {}

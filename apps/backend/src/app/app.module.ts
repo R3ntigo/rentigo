@@ -7,12 +7,12 @@ import { AppService } from './app.service';
 import { ConfigModule } from './config/config.module';
 
 @Module({
-  imports: [
-    AuthModule,
-    UsersModule,
-    ConfigModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+	imports: [
+		AuthModule,
+		UsersModule,
+		ConfigModule,
+	],
+	controllers: [AppController],
+	providers: [AppService],
 })
 export class AppModule {}

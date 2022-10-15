@@ -1,3 +1,3 @@
 describe('constants', () => {
-  // no tests
+	// no tests
 });
