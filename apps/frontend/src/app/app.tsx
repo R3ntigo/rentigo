@@ -8,6 +8,7 @@ const App = () => (
 		<div>
 			<BrowserRouter>
 				<Routes>
+					<Route path="/" element={<ProductUpload />} />
 					<Route path="/show" element={<ProductShow />} />
 					<Route path="/upload" element={<ProductUpload />} />
 					<Route path="/testuploadPic" element={<ImageUpload />} />

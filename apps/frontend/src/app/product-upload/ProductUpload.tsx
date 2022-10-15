@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
+
 const ProductUpload = () => {
   interface Options {
     value: string;
@@ -38,6 +39,22 @@ const ProductUpload = () => {
     propertyValue: '',
     propertyID: 0,
   }];
+  interface PricingScheme {
+    price: string;
+    perday: boolean;
+    exceeds: boolean;
+    exceedsDays: string;
+    pricingSchemeID: number;
+
+  }
+  const firstPricingScheme : PricingScheme[] = [{
+    price: '',
+    perday: true,
+    exceeds: false,
+    exceedsDays: '',
+    pricingSchemeID: 0,
+  }];
+	let dynamicPricingAdder: string = '';
 
   const [productName, setProductName] = useState('');
   const [productDescription, setProductDescription] = useState('');
@@ -50,8 +67,10 @@ const ProductUpload = () => {
   const [formFields, setFormFields] = useState(fistProperty);
   const [policy, setPolicy] = useState('');
   const [productPicUpload, setProductPicUpload] = useState([] as File[]);
-	const [images, setImages] = useState([]);
-  const maxNumber = 69;
+  const [images, setImages] = useState([]);
+  const [pricingScheme, setPricingScheme] = useState([] as PricingScheme[]);
+  const [formFields2, setFormFields2] = useState(firstPricingScheme);
+  const maxNumber = 10;
 
   const onChange = (
     imageList: ImageListType,
@@ -72,6 +91,7 @@ const ProductUpload = () => {
         productDistrict,
         productUpazilla,
         formFields,
+				formFields2,
         policy,
         images,
       };
@@ -163,11 +183,34 @@ const ProductUpload = () => {
   const addFields = () => {
     setFormFields([...formFields, { propertyName: '', propertyValue: '', propertyID: formFields.length }]);
   };
+  const removeFields = (index: number) => {
+    const values = [...formFields];
+    values.splice(index, 1);
+    setFormFields(values);
+  };
+  const addFields2 = () => {
+    setFormFields2([...formFields2,
+      { price: '', perday: true, exceeds: false, exceedsDays: '', pricingSchemeID: formFields2.length }]);
+  };
+  const removeFields2 = (index: number) => {
+    const values = [...formFields2];
+    values.splice(index, 1);
+    setFormFields2(values);
+  };
   const fileHandler = (e: any) => {
     console.log(e.target.files);
     setProductPicUpload(e.target.files);
-    console.log("productpic" + productPicUpload);
+    console.log(`productpic${productPicUpload}`);
   };
+    //  <input
+		// type = "number"
+		// placeholder='days'
+		// onChange={
+		// 	(e) => {
+		// 		formFields2[index].exceedsDays = e.target.value;
+		// 	}
+		// }/>
+   // injects html for exceeded days
   return (
     <>
       <h1>Product Upload</h1>
@@ -181,46 +224,46 @@ const ProductUpload = () => {
       </label>
       <label htmlFor="productPicUpload">
         Product Picture
-				<div className="App">
-      <ImageUploading
-        multiple
-        value={images}
-        onChange={onChange}
-        maxNumber={maxNumber}
-      >
-        {({
-          imageList,
-          onImageUpload,
-          onImageRemoveAll,
-          onImageUpdate,
-          onImageRemove,
-          isDragging,
-          dragProps
-        }) => (
-          // write your building UI
-          <div className="upload__image-wrapper">
-            <button
-              style={isDragging ? { color: 'red' } : undefined}
-              onClick={onImageUpload}
-              {...dragProps}
-            >
-              Click or Drop here
-            </button>
+        <div className="App">
+          <ImageUploading
+            multiple
+            value={images}
+            onChange={onChange}
+            maxNumber={maxNumber}
+          >
+            {({
+              imageList,
+              onImageUpload,
+              onImageRemoveAll,
+              onImageUpdate,
+              onImageRemove,
+              isDragging,
+              dragProps
+            }) => (
+              // write your building UI
+              <div className="upload__image-wrapper">
+                <button
+                  style={isDragging ? { color: 'red' } : undefined}
+                  onClick={onImageUpload}
+                  {...dragProps}
+                >
+                  Click or Drop here
+                </button>
             &nbsp;
-            <button onClick={onImageRemoveAll}>Remove all images</button>
-            {imageList.map((image, index) => (
-              <div key={index} className="image-item">
-                <img src={image.dataURL} alt="" width="100" />
-                <div className="image-item__btn-wrapper">
-                  <button onClick={() => onImageUpdate(index)}>Update</button>
-                  <button onClick={() => onImageRemove(index)}>Remove</button>
-                </div>
+                <button onClick={onImageRemoveAll}>Remove all images</button>
+                {imageList.map((image, index) => (
+                  <div key={index} className="image-item">
+                    <img src={image.dataURL} alt="" width="100" />
+                    <div className="image-item__btn-wrapper">
+                      <button onClick={() => onImageUpdate(index)}>Update</button>
+                      <button onClick={() => onImageRemove(index)}>Remove</button>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        )}
-      </ImageUploading>
-    </div>
+            )}
+          </ImageUploading>
+        </div>
       </label>
       <label>
         Division
@@ -294,6 +337,7 @@ const ProductUpload = () => {
                 onChange={(e) => formFields[element.propertyID].propertyValue = e.target.value}
               />
               <button type="button" onClick={addFields}> Add Fields </button>
+              <button type="button" onClick={() => removeFields(element.propertyID)}> Remove Fields </button>
             </div>
 
           ))
@@ -309,6 +353,45 @@ const ProductUpload = () => {
         </h6>
         <input id="productPolicy" type="text" onChange={(e) => setPolicy(e.target.value)} />
       </label>
+      <div>
+        {
+          formFields2.map((element) => (
+            <div key={element.pricingSchemeID} >
+              BDT
+              <input
+                type="number"
+                placeholder="Charge"
+// eslint-disable-next-line no-return-assign
+                onChange={(e) => formFields2[element.pricingSchemeID].price = e.target.value}
+              />
+              for usage
+              <select onChange={(e) => {
+                if (e.target.value == 'perday') { formFields2[element.pricingSchemeID].perday = true; }
+                else if (e.target.value == 'exceeds') { formFields2[element.pricingSchemeID].exceeds = true;
+                  dynamicPricingAdder = 'exceeds';
+                  formFields2[element.pricingSchemeID].perday = false; }
+              }}
+              >
+                <option value="default">-- select a value --</option>
+                <option value="perday">per day</option>
+                <option value="exceeds">exceeds</option>
+              </select>
+              {/* {dynamicPricingAdder == 'exceeds'
+                // eslint-disable-next-line max-len
+                ? <input type="number" onChange={(e) => formFields2[element.pricingSchemeID].exceedsDays = e.target.value}/>
+              // eslint-disable-next-line max-len
+                : <h6> Per Day was selected </h6> */}
+							if exceeds
+              <input placeholder='Exceeding days' type="number" onChange={(e) => {
+								if(formFields2[element.pricingSchemeID].exceeds){
+								formFields2[element.pricingSchemeID].exceedsDays = e.target.value}}}/>
+              <button type="button" onClick={addFields2}> Add Fields </button>
+              <button type="button" onClick={() => removeFields2(element.pricingSchemeID)}> Remove Fields </button>
+            </div>
+
+          ))
+       }
+      </div>
       <input type="submit" value="Submit" onClick={handleSubmit} />
     </>
   );
