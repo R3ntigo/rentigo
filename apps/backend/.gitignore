@@ -1,0 +1,5 @@
+# Dotenv vault
+.env*
+.flaskenv*
+!.env.project
+!.env.vault
