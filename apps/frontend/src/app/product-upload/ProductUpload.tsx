@@ -18,19 +18,6 @@ const ProductUpload = () => {
 		coordinates?: string;
 		upazilla?: string[];
 	}
-
-	interface Upazilla {
-		_id: string;
-		district: string;
-	}
-
-	interface District2 {
-		_id: string;
-		district: string;
-		coordinates: string;
-		upazilla: string[];
-	}
-
 	interface Property {
 		propertyName: string;
 		propertyValue: string;
