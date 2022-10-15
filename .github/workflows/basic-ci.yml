@@ -6,12 +6,13 @@ on:
       - main
   pull_request:
 
+env:
+  JWT_ACCESS_TOKEN_SECRET: ${{ backend.JWT_ACCESS_TOKEN_SECRET }}
+
 jobs:
   main:
     name: Nx Cloud - Main Job
     uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.6
-		env:
-			JWT_ACCESS_TOKEN_SECRET: ${{ backend.JWT_ACCESS_TOKEN_SECRET }}
     with:
       number-of-agents: 3
       parallel-commands: |
