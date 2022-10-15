@@ -7,7 +7,7 @@ import {
 	Post,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { ConfigService } from '@nestjs/config';
+import { addSeconds } from 'date-fns';
 
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AppService } from './app.service';
@@ -19,8 +19,7 @@ export class AppController {
 	constructor(
 		private appService: AppService,
 		private authService: AuthService
-	) {
-	}
+	) {}
 
 	@UseGuards(JwtAuthGuard)
 	@Get()
@@ -32,7 +31,11 @@ export class AppController {
 	@Post('sign-in')
 	login(@Req() req, @Res() res: Response) {
 		const { accessToken } = this.authService.login(req.user);
-		res.cookie('ACCESS_TOKEN', accessToken, { httpOnly: true });
+		res.cookie('ACCESS_TOKEN', accessToken, {
+			expires: addSeconds(new Date(), 60),
+			httpOnly: true,
+			sameSite: true
+		});
 		return res.json(req.user);
 	}
 }
