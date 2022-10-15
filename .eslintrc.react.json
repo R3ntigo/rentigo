@@ -74,6 +74,10 @@
 							"input"
 						]
 					}
+				],
+				"react/jsx-indent-props": [
+					2,
+					"tab"
 				]
 			}
 		},
