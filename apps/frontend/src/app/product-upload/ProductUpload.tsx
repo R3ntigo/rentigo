@@ -54,7 +54,7 @@ const ProductUpload = () => {
     exceedsDays: '',
     pricingSchemeID: 0,
   }];
-	let dynamicPricingAdder: string = '';
+  let dynamicPricingAdder = '';
 
   const [productName, setProductName] = useState('');
   const [productDescription, setProductDescription] = useState('');
@@ -70,6 +70,7 @@ const ProductUpload = () => {
   const [images, setImages] = useState([]);
   const [pricingScheme, setPricingScheme] = useState([] as PricingScheme[]);
   const [formFields2, setFormFields2] = useState(firstPricingScheme);
+  const [quantity, setQuantity] = useState(0);
   const maxNumber = 10;
 
   const onChange = (
@@ -81,22 +82,20 @@ const ProductUpload = () => {
     setImages(imageList as never[]);
   };
   const handleSubmit = async () => {
-    if (/* decodeduser != null */ true) {
-      // const userID = decodeduser.id;
-      // console.log("lol" + restaurantID);
-      const newProduct = {
-        productName,
-        productDescription,
-        productDivision,
-        productDistrict,
-        productUpazilla,
-        formFields,
-				formFields2,
-        policy,
-        images,
-      };
-      console.log(newProduct);
-    }
+    // const userID = decodeduser.id;
+    // console.log("lol" + restaurantID);
+    const newProduct = {
+      productName,
+      productDescription,
+      productDivision,
+      productDistrict,
+      productUpazilla,
+      formFields,
+      formFields2,
+      policy,
+      images,
+    };
+    console.log(newProduct);
   };
   async function getDivisionOptions() {
     const { data } = await axios.get(
@@ -202,15 +201,6 @@ const ProductUpload = () => {
     setProductPicUpload(e.target.files);
     console.log(`productpic${productPicUpload}`);
   };
-    //  <input
-		// type = "number"
-		// placeholder='days'
-		// onChange={
-		// 	(e) => {
-		// 		formFields2[index].exceedsDays = e.target.value;
-		// 	}
-		// }/>
-   // injects html for exceeded days
   return (
     <>
       <h1>Product Upload</h1>
@@ -356,7 +346,7 @@ const ProductUpload = () => {
       <div>
         {
           formFields2.map((element) => (
-            <div key={element.pricingSchemeID} >
+            <div key={element.pricingSchemeID}>
               BDT
               <input
                 type="number"
@@ -366,10 +356,11 @@ const ProductUpload = () => {
               />
               for usage
               <select onChange={(e) => {
-                if (e.target.value == 'perday') { formFields2[element.pricingSchemeID].perday = true; }
-                else if (e.target.value == 'exceeds') { formFields2[element.pricingSchemeID].exceeds = true;
+                if (e.target.value == 'perday') { formFields2[element.pricingSchemeID].perday = true; } else if (e.target.value == 'exceeds') {
+                  formFields2[element.pricingSchemeID].exceeds = true;
                   dynamicPricingAdder = 'exceeds';
-                  formFields2[element.pricingSchemeID].perday = false; }
+                  formFields2[element.pricingSchemeID].perday = false;
+                }
               }}
               >
                 <option value="default">-- select a value --</option>
@@ -381,10 +372,16 @@ const ProductUpload = () => {
                 ? <input type="number" onChange={(e) => formFields2[element.pricingSchemeID].exceedsDays = e.target.value}/>
               // eslint-disable-next-line max-len
                 : <h6> Per Day was selected </h6> */}
-							if exceeds
-              <input placeholder='Exceeding days' type="number" onChange={(e) => {
-								if(formFields2[element.pricingSchemeID].exceeds){
-								formFields2[element.pricingSchemeID].exceedsDays = e.target.value}}}/>
+              if exceeds
+              <input
+                placeholder="Exceeding days"
+                type="number"
+                onChange={(e) => {
+                  if (formFields2[element.pricingSchemeID].exceeds) {
+                    formFields2[element.pricingSchemeID].exceedsDays = e.target.value;
+                  }
+                }}
+              />
               <button type="button" onClick={addFields2}> Add Fields </button>
               <button type="button" onClick={() => removeFields2(element.pricingSchemeID)}> Remove Fields </button>
             </div>
@@ -392,6 +389,8 @@ const ProductUpload = () => {
           ))
        }
       </div>
+      Quantity
+      <input type="number" onChange={(e) => setQuantity(e.target.value)} />
       <input type="submit" value="Submit" onClick={handleSubmit} />
     </>
   );
