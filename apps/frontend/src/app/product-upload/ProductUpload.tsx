@@ -54,7 +54,6 @@ const ProductUpload = () => {
     exceedsDays: '',
     pricingSchemeID: 0,
   }];
-  let dynamicPricingAdder = '';
 
   const [productName, setProductName] = useState('');
   const [productDescription, setProductDescription] = useState('');
@@ -66,11 +65,9 @@ const ProductUpload = () => {
   const [productUpazilla, setProductUpazilla] = useState('');
   const [formFields, setFormFields] = useState(fistProperty);
   const [policy, setPolicy] = useState('');
-  const [productPicUpload, setProductPicUpload] = useState([] as File[]);
   const [images, setImages] = useState([]);
-  const [pricingScheme, setPricingScheme] = useState([] as PricingScheme[]);
   const [formFields2, setFormFields2] = useState(firstPricingScheme);
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState('');
   const maxNumber = 10;
 
   const onChange = (
@@ -78,7 +75,7 @@ const ProductUpload = () => {
     addUpdateIndex: number[] | undefined
   ) => {
     // data for submit
-    console.log(imageList, addUpdateIndex);
+    // console.log(imageList, addUpdateIndex);
     setImages(imageList as never[]);
   };
   const handleSubmit = async () => {
@@ -94,14 +91,15 @@ const ProductUpload = () => {
       formFields2,
       policy,
       images,
+      quantity
     };
-    console.log(newProduct);
+    // console.log(newProduct);
   };
   async function getDivisionOptions() {
     const { data } = await axios.get(
       `https://bdapis.herokuapp.com/api/v1.1/divisions`
     );
-    console.log(data);
+    // console.log(data);
     if (data.status.message === 'ok') {
       const divisions = data.data.map((division: Division) => ({
         // eslint-disable-next-line no-underscore-dangle
@@ -109,9 +107,9 @@ const ProductUpload = () => {
         label: division.name,
       }));
       setDivisionOptions(divisions);
-      console.log(`ere ${divisionOptions}`);
+      // console.log(`ere ${divisionOptions}`);
     } else {
-      console.log('Division fetching api failed');
+      // console.log('Division fetching api failed');
     }
   }
   useEffect(() => {
@@ -121,7 +119,7 @@ const ProductUpload = () => {
     const { data } = await axios.get(
       `https://bdapis.herokuapp.com/api/v1.1/division/${value}`
     );
-    console.log(data);
+    // console.log(data);
     if (data.status.message === 'ok') {
       const districts = data.data.map((district: District) => ({
         // eslint-disable-next-line no-underscore-dangle
@@ -135,17 +133,17 @@ const ProductUpload = () => {
   }
 
   async function getUpazillaOptions(value: string) {
-    console.log(value);
+    // console.log(value);
     const { data } = await axios.get(
       `https://bdapis.herokuapp.com/api/v1.1/division/${value}`
     );
-    console.log(data);
+    // console.log(data);
 
     if (data.status.message === 'ok') {
       const upazillas = data.data.filter(
         (upazilla: Upazilla) => upazilla.district === productDistrict
       );
-      console.log(upazillas.upazilla);
+      // console.log(upazillas.upazilla);
       setUpazillaOptions(upazillas.upazilla);
     } else {
       console.log('District fetching api failed');
@@ -153,30 +151,30 @@ const ProductUpload = () => {
   }
 
   async function getUpazillaOptions2(value: string) {
-    console.log(value);
+    // console.log(value);
     const { data } = await axios.get(
       `https://bdapis.herokuapp.com/api/v1.1/division/${value}`
     );
-    console.log(data);
+    // console.log(data);
     let tempStringArray: string[] = [];
     const temp2: Options[] = [];
     if (data.status.message === 'ok') {
-      console.log(data.data);
+      // console.log(data.data);
       data.data.forEach((e: District2) => {
-        console.log(productDistrict);
-        console.log(e.district);
+        // console.log(productDistrict);
+        // console.log(e.district);
         // console.log(e.upazilla);
-        if (e.district.toUpperCase == productDistrict.toUpperCase) {
-          console.log(e.upazilla);
+        if (e.district.toUpperCase === productDistrict.toUpperCase) {
+          // console.log(e.upazilla);
           tempStringArray = e.upazilla;
         }
       });
-      console.log(tempStringArray);
+      // console.log(tempStringArray);
       tempStringArray.forEach((e) => {
         temp2.push({ value: e, label: e });
       });
       setUpazillaOptions(temp2);
-      console.log(temp2);
+      // console.log(temp2);
     }
   }
   const addFields = () => {
@@ -196,11 +194,11 @@ const ProductUpload = () => {
     values.splice(index, 1);
     setFormFields2(values);
   };
-  const fileHandler = (e: any) => {
-    console.log(e.target.files);
-    setProductPicUpload(e.target.files);
-    console.log(`productpic${productPicUpload}`);
-  };
+  // const fileHandler = (e: any) => {
+  //   console.log(e.target.files);
+  //   setProductPicUpload(e.target.files);
+  //   console.log(`productpic${productPicUpload}`);
+  // };
   return (
     <>
       <h1>Product Upload</h1>
@@ -233,20 +231,23 @@ const ProductUpload = () => {
               // write your building UI
               <div className="upload__image-wrapper">
                 <button
+                  type="button"
                   style={isDragging ? { color: 'red' } : undefined}
                   onClick={onImageUpload}
+                  // eslint-disable-next-line react/jsx-props-no-spreading
                   {...dragProps}
                 >
                   Click or Drop here
                 </button>
             &nbsp;
-                <button onClick={onImageRemoveAll}>Remove all images</button>
+                <button type="button" onClick={onImageRemoveAll}>Remove all images</button>
                 {imageList.map((image, index) => (
+                  // eslint-disable-next-line react/no-array-index-key
                   <div key={index} className="image-item">
                     <img src={image.dataURL} alt="" width="100" />
                     <div className="image-item__btn-wrapper">
-                      <button onClick={() => onImageUpdate(index)}>Update</button>
-                      <button onClick={() => onImageRemove(index)}>Remove</button>
+                      <button type="button" onClick={() => onImageUpdate(index)}>Update</button>
+                      <button type="button" onClick={() => onImageRemove(index)}>Remove</button>
                     </div>
                   </div>
                 ))}
@@ -255,61 +256,57 @@ const ProductUpload = () => {
           </ImageUploading>
         </div>
       </label>
-      <label>
-        Division
-        <Select
-          id="locationDivision"
-          options={divisionOptions}
-          defaultValue={{
-            value: '',
-            label: 'Select an option',
-          }}
-          onChange={(e) => {
-            if (e != null) {
-              setProductDivision(e.value);
-              getDistrictOptions(e.value);
-            }
-          }}
-          name="subjects"
-        />
-      </label>
-      <label>
-        District
-        <Select
-          options={districtOptions}
-          defaultValue={{
-            value: '',
-            label: 'Select an option',
-          }}
-          onChange={(e) => {
-            if (e != null) {
-              setProductDistrict(e.value);
-            }
-          }}
-          name="subjects"
-        />
-      </label>
-      <label>
-        Upazilla
-        <Select
-          options={upazillaOptions}
-          defaultValue={{
-            value: '',
-            label: 'Select an option',
-          }}
-          onFocus={() => {
-            getUpazillaOptions2(productDivision);
-          }}
-          onChange={(e) => {
-            if (e) {
-              console.log(productDistrict);
-              getUpazillaOptions(productDistrict);
-              setProductUpazilla(e.value);
-            }
-          }}
-          name="subjects"
-        />
-      </label>
+      Division
+      <Select
+        id="locationDivision"
+        options={divisionOptions}
+        defaultValue={{
+          value: '',
+          label: 'Select an option',
+        }}
+        onChange={(e) => {
+          if (e != null) {
+            setProductDivision(e.value);
+            getDistrictOptions(e.value);
+          }
+        }}
+        name="subjects"
+      />
+
+      District
+      <Select
+        options={districtOptions}
+        defaultValue={{
+          value: '',
+          label: 'Select an option',
+        }}
+        onChange={(e) => {
+          if (e != null) {
+            setProductDistrict(e.value);
+          }
+        }}
+        name="subjects"
+      />
+
+      Upazilla
+      <Select
+        options={upazillaOptions}
+        defaultValue={{
+          value: '',
+          label: 'Select an option',
+        }}
+        onFocus={() => {
+          getUpazillaOptions2(productDivision);
+        }}
+        onChange={(e) => {
+          if (e) {
+            // console.log(productDistrict);
+            getUpazillaOptions(productDistrict);
+            setProductUpazilla(e.value);
+          }
+        }}
+        name="subjects"
+      />
       <div>
         {
           formFields.map((element) => (
@@ -333,7 +330,7 @@ const ProductUpload = () => {
           ))
        }
       </div>
-      <label>
+      <label htmlFor="productPolicy">
         Product Policy
         <h6>
           Policy is used to make your products safe. Say how you want the renters to use and
@@ -351,14 +348,14 @@ const ProductUpload = () => {
               <input
                 type="number"
                 placeholder="Charge"
-// eslint-disable-next-line no-return-assign
-                onChange={(e) => formFields2[element.pricingSchemeID].price = e.target.value}
+                onChange={(e) => { formFields2[element.pricingSchemeID].price = e.target.value; }}
               />
               for usage
               <select onChange={(e) => {
-                if (e.target.value == 'perday') { formFields2[element.pricingSchemeID].perday = true; } else if (e.target.value == 'exceeds') {
+                if (e.target.value === 'perday') {
+                  formFields2[element.pricingSchemeID].perday = true;
+                } else if (e.target.value === 'exceeds') {
                   formFields2[element.pricingSchemeID].exceeds = true;
-                  dynamicPricingAdder = 'exceeds';
                   formFields2[element.pricingSchemeID].perday = false;
                 }
               }}
@@ -367,11 +364,6 @@ const ProductUpload = () => {
                 <option value="perday">per day</option>
                 <option value="exceeds">exceeds</option>
               </select>
-              {/* {dynamicPricingAdder == 'exceeds'
-                // eslint-disable-next-line max-len
-                ? <input type="number" onChange={(e) => formFields2[element.pricingSchemeID].exceedsDays = e.target.value}/>
-              // eslint-disable-next-line max-len
-                : <h6> Per Day was selected </h6> */}
               if exceeds
               <input
                 placeholder="Exceeding days"
