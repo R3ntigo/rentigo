@@ -15,6 +15,8 @@ const ProductUpload = () => {
 	interface District {
 		_id: string;
 		district: string;
+		coordinates?: string;
+		upazilla?: string[];
 	}
 
 	interface Upazilla {
@@ -93,7 +95,7 @@ const ProductUpload = () => {
 			images,
 			quantity
 		};
-		// console.log(newProduct);
+		 console.log(newProduct);
 	};
 	async function getDivisionOptions() {
 		const { data } = await axios.get(
@@ -132,23 +134,23 @@ const ProductUpload = () => {
 		}
 	}
 
-	async function getUpazillaOptions(value: string) {
-		// console.log(value);
-		const { data } = await axios.get(
-			`https://bdapis.herokuapp.com/api/v1.1/division/${value}`
-		);
-		// console.log(data);
+	// async function getUpazillaOptions(value: string) {
+	// 	// console.log(value);
+	// 	const { data } = await axios.get(
+	// 		`https://bdapis.herokuapp.com/api/v1.1/division/${value}`
+	// 	);
+	// 	// console.log(data);
 
-		if (data.status.message === 'ok') {
-			const upazillas = data.data.filter(
-				(upazilla: Upazilla) => upazilla.district === productDistrict
-			);
-			// console.log(upazillas.upazilla);
-			setUpazillaOptions(upazillas.upazilla);
-		} else {
-			console.log('District fetching api failed');
-		}
-	}
+	// 	if (data.status.message === 'ok') {
+	// 		const upazillas = data.data.filter(
+	// 			(upazilla: Upazilla) => upazilla.district === productDistrict
+	// 		);
+	// 		// console.log(upazillas.upazilla);
+	// 		setUpazillaOptions(upazillas.upazilla);
+	// 	} else {
+	// 		console.log('District fetching api failed');
+	// 	}
+	// }
 
 	async function getUpazillaOptions2(value: string) {
 		// console.log(value);
@@ -160,13 +162,13 @@ const ProductUpload = () => {
 		const temp2: Options[] = [];
 		if (data.status.message === 'ok') {
 			// console.log(data.data);
-			data.data.forEach((e: District2) => {
+			data.data.forEach((e: District) => {
 				// console.log(productDistrict);
 				// console.log(e.district);
 				// console.log(e.upazilla);
 				if (e.district.toUpperCase === productDistrict.toUpperCase) {
 					// console.log(e.upazilla);
-					tempStringArray = e.upazilla;
+					tempStringArray = e.upazilla as string[];
 				}
 			});
 			// console.log(tempStringArray);
@@ -301,7 +303,7 @@ const ProductUpload = () => {
 				onChange={(e) => {
 					if (e) {
 						// console.log(productDistrict);
-						getUpazillaOptions(productDistrict);
+						// getUpazillaOptions(productDistrict);
 						setProductUpazilla(e.value);
 					}
 				}}
