@@ -1,62 +1,103 @@
 {
-  "root": true,
-  "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
-  "extends": [
-    "plugin:@nrwl/nx/react",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:jsx-a11y/recommended",
-    "plugin:react/jsx-runtime"
-  ],
-  "overrides": [
-    {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {
-        "@nrwl/nx/enforce-module-boundaries": [
-          "error",
-          {
-            "enforceBuildableLibDependency": true,
-            "allow": [],
-            "depConstraints": [
-              {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {
-        "react/function-component-definition": [
-          2,
-          {
-            "namedComponents": "arrow-function"
-          }
-        ],
-        "react/jsx-filename-extension": [
-          2,
-          {
-            "extensions": [".tsx"]
-          }
-        ]
-      }
-    },
-    {
-      "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nrwl/nx/javascript"],
-      "rules": {}
-    },
-    {
-      "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
-      "env": {
-        "jest": true
-      },
-      "rules": {}
-    }
-  ]
+	"root": true,
+	"ignorePatterns": [
+		"**/*"
+	],
+	"plugins": [
+		"@nrwl/nx"
+	],
+	"extends": [
+		"plugin:@nrwl/nx/react",
+		"plugin:react/recommended",
+		"plugin:react-hooks/recommended",
+		"plugin:jsx-a11y/recommended",
+		"plugin:react/jsx-runtime"
+	],
+	"overrides": [
+		{
+			"files": [
+				"*.ts",
+				"*.tsx",
+				"*.js",
+				"*.jsx"
+			],
+			"rules": {
+				"@nrwl/nx/enforce-module-boundaries": [
+					"error",
+					{
+						"enforceBuildableLibDependency": true,
+						"allow": [],
+						"depConstraints": [
+							{
+								"sourceTag": "*",
+								"onlyDependOnLibsWithTags": [
+									"*"
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"files": [
+				"*.ts",
+				"*.tsx"
+			],
+			"extends": [
+				"plugin:@nrwl/nx/typescript"
+			],
+			"rules": {
+				"react/jsx-indent": [
+					"error",
+					"tab"
+				],
+				"react/function-component-definition": [
+					2,
+					{
+						"namedComponents": "arrow-function",
+						"unnamedComponents": "arrow-function"
+					}
+				],
+				"react/jsx-filename-extension": [
+					2,
+					{
+						"extensions": [
+							".tsx"
+						]
+					}
+				],
+				"react/jsx-props-no-spreading": [
+					2,
+					{
+						"exceptions": [
+							"input"
+						]
+					}
+				]
+			}
+		},
+		{
+			"files": [
+				"*.js",
+				"*.jsx"
+			],
+			"extends": [
+				"plugin:@nrwl/nx/javascript"
+			],
+			"rules": {}
+		},
+		{
+			"files": [
+				"*.spec.ts",
+				"*.spec.tsx",
+				"*.spec.js",
+				"*.spec.jsx"
+			],
+			"env": {
+				"jest": true
+			},
+			"rules": {}
+		}
+	]
 }
