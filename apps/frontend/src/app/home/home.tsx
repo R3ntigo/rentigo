@@ -1,3 +1,3 @@
-const Home = () => <h1>Welcome Frontend!</h1>;
+const Home = () => <p>Welcome Frontend!</p>;
 
 export { Home };
