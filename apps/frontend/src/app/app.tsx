@@ -1,20 +1,18 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+
 import { ProductUpload } from './product-upload/ProductUpload';
 import { ProductShow } from './product-show/ProductShow';
+import { Home } from './home/home';
+import { SignIn } from './signin/sign-in';
 
 const App = () => (
-  <>
-    <p className="text-yellow-500 text-2xl font-extrabold">Welcome Frontend</p>
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<ProductUpload />} />
-          <Route path="/show" element={<ProductShow />} />
-          <Route path="/upload" element={<ProductUpload />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
-  </>
+	<Routes>
+		<Route path="/" element={<Home />} />
+		<Route path="/signin" element={<SignIn />} />
+		<Route path="/" element={<ProductUpload />} />
+		<Route path="/show" element={<ProductShow />} />
+		<Route path="/upload" element={<ProductUpload />} />
+	</Routes>
 );
 
 export { App };

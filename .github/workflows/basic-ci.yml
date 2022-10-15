@@ -6,6 +6,9 @@ on:
       - main
   pull_request:
 
+env:
+  JWT_ACCESS_TOKEN_SECRET: ${{ secrets.JWT_ACCESS_TOKEN_SECRET }}
+
 jobs:
   main:
     name: Nx Cloud - Main Job
