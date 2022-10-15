@@ -1,6 +1,6 @@
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
-import { ConfigService } from '../config/config.service';
+import { ConfigService } from '@nestjs/config';
 import { UsersService } from '../users/users.service';
 
 import { AuthService } from './auth.service';
@@ -13,7 +13,7 @@ describe('AuthService', () => {
 			providers: [AuthService, { provide: UsersService, useClass: UsersService }, { provide: JwtService,
 				useValue: JwtModule.registerAsync({
 					useFactory: async (configService: ConfigService) => ({
-						secret: configService.JWT_ACCESS_TOKEN_SECRET,
+						secret: configService.get('JWT_ACCESS_TOKEN_SECRET'),
 						signOptions: { expiresIn: '60s' },
 					}),
 					inject: [ConfigService],

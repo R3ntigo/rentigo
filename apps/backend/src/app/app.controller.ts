@@ -7,6 +7,7 @@ import {
 	Post,
 } from '@nestjs/common';
 import { Response } from 'express';
+import { ConfigService } from '@nestjs/config';
 
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AppService } from './app.service';
@@ -18,7 +19,8 @@ export class AppController {
 	constructor(
 		private appService: AppService,
 		private authService: AuthService
-	) {}
+	) {
+	}
 
 	@UseGuards(JwtAuthGuard)
 	@Get()

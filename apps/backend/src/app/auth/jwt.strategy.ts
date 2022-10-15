@@ -3,8 +3,8 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { Request } from 'express';
 import { User } from '@rentigo/types';
+import { ConfigService } from '@nestjs/config';
 
-import { ConfigService } from '../config/config.service';
 import { UsersService } from '../users/users.service';
 
 @Injectable()
@@ -22,7 +22,7 @@ class JwtStrategy extends PassportStrategy(Strategy) {
 				return data.token;
 			}]),
 			ignoreExpiration: false,
-			secretOrKey: configService.JWT_ACCESS_TOKEN_SECRET,
+			secretOrKey: configService.get('JWT_ACCESS_TOKEN_SECRET'),
 		});
 	}
 
