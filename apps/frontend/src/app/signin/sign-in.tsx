@@ -3,7 +3,7 @@ import { classValidatorResolver } from '@hookform/resolvers/class-validator';
 import axios, { AxiosError } from 'axios';
 import { SignInDto } from '@rentigo/types/dto';
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
 	const navigate = useNavigate();

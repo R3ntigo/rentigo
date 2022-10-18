@@ -43,6 +43,14 @@ export class AppController {
 			httpOnly: true,
 			sameSite: true
 		});
-		return res.json(req.user);
+		return res.json({ message: 'Login successful', payload: req.user });
+	}
+
+	// eslint-disable-next-line class-methods-use-this
+	@UseGuards(JwtAuthGuard)
+	@Get('sign-out')
+	logout(@Res() res: Response) {
+		res.clearCookie('ACCESS_TOKEN');
+		return res.json({ message: 'Logout successful' });
 	}
 }
