@@ -173,7 +173,19 @@ const ProductShow = () => {
 						</div>
 					</div>
 				</div>
+				<div className="self-center">
+					<button
+						type="button"
+						className="bg-transparent self-center
+					hover:bg-blue-500
+						text-blue-700 font-semibold
+							hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+					>
+						Place Rent Request
+					</button>
+				</div>
 			</div>
+
 		</div>
 	);
 };
