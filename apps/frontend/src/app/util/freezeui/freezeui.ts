@@ -1,42 +1,66 @@
-/**
- * Setup the freeze element to be appended
- */
-const freezeHtml = document.createElement('div');
-freezeHtml.classList.add('freeze-ui');
+import axios from 'axios';
+import './freezeui.css';
 
-/**
-	* Freezes the UI
-	* options = {
-	* selector: '.class-name' -> Choose an element where to limit the freeze or leave empty to freeze the whole body.
-	Make sure the element has position relative or absolute,
-	* text: 'Magic is happening' -> Choose any text to show or use the default "Loading".
-	* Be careful for long text as it will break the design.
-	* }
-	*/
-const FreezeUI = (options: { text: string, selector: string } = { text: 'Loading', selector: '' }) => {
-	const parent = options.selector !== '' ? document.querySelector(options.selector) : document.body;
-	freezeHtml.setAttribute('data-text', options.text || 'Loading');
-	if (options.selector !== '') {
-		freezeHtml.style.position = 'absolute';
+class FreezeUI {
+	private requests = 0;
+
+	private freezeHtml = document.createElement('div');
+
+	private options = {
+		text: '',
+		selector: ''
+	};
+
+	constructor(options: { text: 'Loading', selector: '' }) {
+		this.freezeHtml.classList.add('freeze-ui');
+		axios.interceptors.request.use((config) => {
+			this.freeze();
+			return config;
+		}, (error) => {
+			this.unfreeze();
+			return Promise.reject(error);
+		});
+
+		axios.interceptors.response.use((response) => {
+			this.unfreeze();
+			return response;
+		}, (error) => {
+			this.unfreeze();
+			return Promise.reject(error);
+		});
 	}
-	parent?.appendChild(freezeHtml);
-};
 
-/**
-	 * Unfreezes the UI.
-	 * No options here.
-	 */
-const UnFreezeUI = () => {
-	const element = document.querySelector('.freeze-ui');
-	if (element) {
-		element.classList.add('is-unfreezing');
-		setTimeout(() => {
+	private freeze() {
+		this.requests += 1;
+
+		const parent = this.options.selector !== '' ? document.querySelector(this.options.selector) : document.body;
+		this.freezeHtml.setAttribute('data-text', this.options.text || 'Loading');
+		if (this.options.selector !== '') {
+			this.freezeHtml.style.position = 'absolute';
+		}
+
+		parent?.appendChild(this.freezeHtml);
+	}
+
+	private unfreeze() {
+		this.requests -= 1;
+		if (this.requests === 0) {
+			const element = document.querySelector('.freeze-ui');
 			if (element) {
-				element.classList.remove('is-unfreezing');
-				element.parentElement?.removeChild(element);
+				element.classList.add('is-unfreezing');
+				setTimeout(() => {
+					if (element) {
+						element.classList.remove('is-unfreezing');
+						element.parentElement?.removeChild(element);
+					}
+				}, 0);
 			}
-		}, 50);
+		}
 	}
-};
+}
 
-export { FreezeUI, UnFreezeUI };
+const freezeUI = new FreezeUI({ text: 'Loading', selector: '' });
+
+const enableFreezeUI = () => freezeUI;
+
+export { enableFreezeUI };

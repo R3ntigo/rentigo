@@ -4,7 +4,8 @@ import { useAuth } from './useAuth';
 const withAuth = (Component: React.ComponentType) => {
 	const WrappedComponent = (): ReactElement => {
 		const { isLoading } = useAuth();
-		return isLoading ? <div>Loading...</div> : <Component />;
+		// eslint-disable-next-line react/jsx-no-useless-fragment
+		return isLoading ? <></> : <Component />;
 	};
 	return WrappedComponent;
 };

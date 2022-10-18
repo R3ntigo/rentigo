@@ -4,6 +4,9 @@ import { Home } from './home/home';
 import { SignIn } from './signin/sign-in';
 import { ProductUploadWithAuth } from './product-upload/ProductUpload';
 import { ProductShowWithAuth } from './product-show/ProductShow';
+import { enableFreezeUI } from './util/freezeui/freezeui';
+
+enableFreezeUI();
 
 const App = () => (
 	<>
