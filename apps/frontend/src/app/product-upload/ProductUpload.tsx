@@ -82,7 +82,7 @@ const ProductUpload = () => {
 			images,
 			quantity
 		};
-	// console.log(newProduct);
+	 console.log(newProduct);
 	};
 	async function getDivisionOptions() {
 		const { data } = await axios.get(
