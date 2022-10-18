@@ -82,44 +82,97 @@ const ProductShow = () => {
 		<div>
 			Product Show
 
-			<div>
-				product Name
-				<h1>{demoProduct.productName}</h1>
-				desc
-				<h2>{demoProduct.productDescription}</h2>
-				div
-				<h3>{demoProduct.productDivision}</h3>
-				disct
-				<h3>{demoProduct.productDistrict}</h3>
-				upazilla
-				<h3>{demoProduct.productUpazilla}</h3>
-				quantity
-				<h3>{demoProduct.quantity}</h3>
-
-				<h3>{demoProduct.policy}</h3>
-				properties
-				{demoProduct.formFields.map((property) => (
-					<div key={property.propertyID}>
-						<h3>{property.propertyName}</h3>
-						<h3>{property.propertyValue}</h3>
+			<div className="lg:w-4/5 mx-auto flex flex-wrap">
+				<img
+					alt="ecommerce"
+					className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
+					src=""
+				/>
+				<div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+					<h2 className="text-sm title-font text-gray-500 tracking-widest">Owner Name</h2>
+					<h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{demoProduct.productName}</h1>
+					<br />
+					<p className="break-all leading-relaxed">
+						{demoProduct.productDescription}
+					</p>
+					<div className="max-w-sm flex p-6 bg-white rounded-lg shadow-xl">
+						<div className="ml-6 pt-1">
+							<h4 className="text-xl text-gray-900">Location</h4>
+							<h3>
+								Division:
+								{' '}
+								{demoProduct.productDivision}
+							</h3>
+							<h3>
+								District:
+								{' '}
+								{demoProduct.productDistrict}
+							</h3>
+							<h3>
+								Upazilla:
+								{' '}
+								{demoProduct.productUpazilla}
+							</h3>
+						</div>
 					</div>
-				))}
+					<br />
+					<h3>
+						Quantity :
+						{' '}
+						{demoProduct.quantity}
+					</h3>
 
-				pricingScheme
-				{demoProduct.formFields2.map((pricingScheme) => (
-					<div key={pricingScheme.pricingSchemeID}>
-						price
-						<h3>{pricingScheme.price}</h3>
-						day
-						<h3>{pricingScheme.perday}</h3>
-						exceeds
-						<h3>{pricingScheme.exceeds}</h3>
-						exceeds days
-						<h3>{pricingScheme.exceedsDays}</h3>
-						id
-						<h3>{pricingScheme.pricingSchemeID}</h3>
+					<br />
+					<div className="container max-w-sm p-6 space-y-2 bg-white rounded-lg shadow-xl">
+						<h4 className="text-xl text-gray-900">Features</h4>
+						{demoProduct.formFields.map((property) => (
+							<div
+								key={property.propertyID}
+								className="container ml-6 pt-1 border-2 border-dotted
+									hover:border-solid border-indigo-500/100 "
+							>
+								<h3>
+									{property.propertyName}
+									{' '}
+									:
+									{' '}
+									{property.propertyValue}
+								</h3>
+							</div>
+
+						))}
 					</div>
-				))}
+					<br />
+					<div className="container max-w-sm p-6 space-y-2 bg-white rounded-lg shadow-xl">
+						<h4 className="text-xl text-gray-900">Pricing Options</h4>
+						{demoProduct.formFields2.map((priceScheme) => (
+							<div
+								key={priceScheme.pricingSchemeID}
+								className="container ml-6 pt-1 border-2 border-dotted
+									hover:border-solid border-green-500/100 "
+							>
+								<h3>
+									BDT
+									{' '}
+									{priceScheme.price}
+									{' '}
+									for
+									{' '}
+									{' '}
+									{priceScheme.perday ? 'each day' : `if exceeds ${priceScheme.exceedsDays}` }
+								</h3>
+							</div>
+
+						))}
+					</div>
+					<br />
+					<div className="max-w-sm flex p-6 bg-white rounded-lg shadow-xl">
+						<div className="ml-6 pt-1">
+							<h4 className="text-xl text-gray-900">Policies</h4>
+							<h6>{demoProduct.policy}</h6>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
