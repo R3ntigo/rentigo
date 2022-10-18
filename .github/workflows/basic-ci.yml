@@ -12,9 +12,11 @@ env:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    name: "lint"
+    name: "LINT"
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -25,9 +27,11 @@ jobs:
       - run: npm run lint:affected
   build:
     runs-on: ubuntu-latest
-    name: "Build"
+    name: "BUILD"
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -38,9 +42,11 @@ jobs:
       - run: npm run build:affected
   test:
     runs-on: ubuntu-latest
-    name: "test"
+    name: "TEST"
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -54,6 +60,8 @@ jobs:
   #   name: "e2e"
   #   steps:
   #     - uses: actions/checkout@v3
+  #       with:
+  # 	    fetch-depth: 0
   #     - uses: actions/setup-node@v3
   #       with:
   #         node-version: 16
