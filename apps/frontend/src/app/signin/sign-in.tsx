@@ -3,8 +3,10 @@ import { classValidatorResolver } from '@hookform/resolvers/class-validator';
 import axios, { AxiosError } from 'axios';
 import { SignInDto } from '@rentigo/types/dto';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 const SignIn = () => {
+	const navigate = useNavigate();
 	const {
 		register,
 		handleSubmit,
@@ -18,8 +20,8 @@ const SignIn = () => {
 	const onSubmit = async (data: SignInDto) => {
 		setErrorResponseMessage('');
 		try {
-			const response = await axios.post('/api/sign-in', data);
-			console.log(response);
+			await axios.post('/api/sign-in', data);
+			navigate(-1);
 		} catch (error) {
 			const axiosError = error as AxiosError;
 			setErrorResponseMessage(axiosError.message as string);

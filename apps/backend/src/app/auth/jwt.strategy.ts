@@ -14,13 +14,9 @@ class JwtStrategy extends PassportStrategy(Strategy) {
 		private usersService: UsersService
 	) {
 		super({
-			jwtFromRequest: ExtractJwt.fromExtractors([(request: Request) => {
-				const data = request?.cookies.ACCESS_TOKEN;
-				if (!data) {
-					return null;
-				}
-				return data.token;
-			}]),
+			jwtFromRequest: ExtractJwt.fromExtractors([
+				(request: Request) => request?.cookies?.ACCESS_TOKEN
+			]),
 			ignoreExpiration: false,
 			secretOrKey: configService.get('JWT_ACCESS_TOKEN_SECRET'),
 		});

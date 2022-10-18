@@ -1,5 +1,7 @@
-const ProductShow = () => (
-	<h1>Product Show</h1>
-);
+import { withAuth } from '../auth/withAuth';
 
-export { ProductShow };
+const ProductShow = () => <h1>Product Show</h1>;
+
+const ProductShowWithAuth = withAuth(ProductShow);
+
+export { ProductShow, ProductShowWithAuth };
