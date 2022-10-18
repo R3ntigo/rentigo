@@ -63,4 +63,4 @@ const freezeUI = new FreezeUI({ text: 'Loading', selector: '' });
 
 const enableFreezeUI = () => freezeUI;
 
-export { enableFreezeUI };
+export { enableFreezeUI, freezeUI };
