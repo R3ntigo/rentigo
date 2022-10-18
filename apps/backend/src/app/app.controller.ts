@@ -27,6 +27,13 @@ export class AppController {
 		return this.appService.welcome();
 	}
 
+	// eslint-disable-next-line class-methods-use-this
+	@UseGuards(JwtAuthGuard)
+	@Get('/authorized')
+	async authorized() {
+		return true;
+	}
+
 	@UseGuards(LocalAuthGuard)
 	@Post('sign-in')
 	login(@Req() req, @Res() res: Response) {

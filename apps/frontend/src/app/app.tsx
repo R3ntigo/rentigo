@@ -1,17 +1,25 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 
-import { ProductUpload } from './product-upload/ProductUpload';
-import { ProductShow } from './product-show/ProductShow';
 import { Home } from './home/home';
 import { SignIn } from './signin/sign-in';
+import { ProductUploadWithAuth } from './product-upload/ProductUpload';
+import { ProductShowWithAuth } from './product-show/ProductShow';
 
 const App = () => (
-	<Routes>
-		<Route path="/" element={<Home />} />
-		<Route path="/signin" element={<SignIn />} />
-		<Route path="/show" element={<ProductShow />} />
-		<Route path="/upload" element={<ProductUpload />} />
-	</Routes>
+	<>
+		<nav>
+			<Link to="/">Home</Link>
+			<Link to="/sign-in">Sign In</Link>
+			<Link to="/upload">Product Upload</Link>
+			<Link to="/show">Product Show</Link>
+		</nav>
+		<Routes>
+			<Route path="/" element={<Home />} />
+			<Route path="/sign-in" element={<SignIn />} />
+			<Route path="/show" element={<ProductShowWithAuth />} />
+			<Route path="/upload" element={<ProductUploadWithAuth />} />
+		</Routes>
+	</>
 );
 
 export { App };
