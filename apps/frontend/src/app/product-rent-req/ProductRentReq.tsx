@@ -121,15 +121,15 @@ const ProductRentReq = () => {
 	};
 
 	const calculatePaisa = () => {
-		let total : number[];
+		const total : number[] = [0];
 		let exceedsTotal : number;
 		exceedsTotal = 0;
 		let currentExceedday : number;
 		currentExceedday = 0;
-		total = [0];
 		demoProduct.formFields2.forEach((element) => {
 			if (element.exceeds) {
-				if (rentReq.numOfReqDays > parseInt(element.exceedsDays, 10) && currentExceedday < rentReq.numOfReqDays) {
+				if (rentReq.numOfReqDays > parseInt(element.exceedsDays, 10)
+				&& currentExceedday < rentReq.numOfReqDays) {
 					exceedsTotal = rentReq.numOfReqDays * parseInt(element.price, 10);
 					currentExceedday = parseInt(element.exceedsDays, 10);
 				}
