@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
+import { withAuth } from '../auth/withAuth';
 
 const ProductShow = () => {
 	const { id } = useParams();
@@ -191,4 +192,6 @@ const ProductShow = () => {
 	);
 };
 
-export { ProductShow };
+const ProductShowWithAuth = withAuth(ProductShow);
+
+export { ProductShow, ProductShowWithAuth };

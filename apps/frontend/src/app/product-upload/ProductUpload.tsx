@@ -3,6 +3,8 @@ import Select from 'react-select';
 import axios from 'axios';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
 
+import { withAuth } from '../auth/withAuth';
+
 const ProductUpload = () => {
 	interface Options {
 		value: string;
@@ -380,4 +382,7 @@ const ProductUpload = () => {
 		</>
 	);
 };
-export { ProductUpload };
+
+const ProductUploadWithAuth = withAuth(ProductUpload);
+
+export { ProductUpload, ProductUploadWithAuth };

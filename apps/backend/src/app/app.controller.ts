@@ -7,7 +7,7 @@ import {
 	Post,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { ConfigService } from '@nestjs/config';
+import { addSeconds } from 'date-fns';
 
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AppService } from './app.service';
@@ -19,8 +19,7 @@ export class AppController {
 	constructor(
 		private appService: AppService,
 		private authService: AuthService
-	) {
-	}
+	) {}
 
 	@UseGuards(JwtAuthGuard)
 	@Get()
@@ -28,11 +27,30 @@ export class AppController {
 		return this.appService.welcome();
 	}
 
+	// eslint-disable-next-line class-methods-use-this
+	@UseGuards(JwtAuthGuard)
+	@Get('/authorized')
+	async authorized() {
+		return true;
+	}
+
 	@UseGuards(LocalAuthGuard)
 	@Post('sign-in')
 	login(@Req() req, @Res() res: Response) {
 		const { accessToken } = this.authService.login(req.user);
-		res.cookie('ACCESS_TOKEN', accessToken, { httpOnly: true });
-		return res.json(req.user);
+		res.cookie('ACCESS_TOKEN', accessToken, {
+			expires: addSeconds(new Date(), 60),
+			httpOnly: true,
+			sameSite: true
+		});
+		return res.json({ message: 'Login successful', payload: req.user });
+	}
+
+	// eslint-disable-next-line class-methods-use-this
+	@UseGuards(JwtAuthGuard)
+	@Get('sign-out')
+	logout(@Res() res: Response) {
+		res.clearCookie('ACCESS_TOKEN');
+		return res.json({ message: 'Logout successful' });
 	}
 }
