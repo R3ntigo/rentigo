@@ -7,11 +7,11 @@
 		"lint:all": "nx run-many --all --target=lint --parallel",
 		"lint:affected": "nx affected --target=lint --parallel",
 		"build:all": "nx run-many --all --target=build --parallel",
-		"build:affected": "nx affected --target=lint --parallel",
+		"build:affected": "nx affected --target=build --parallel",
 		"test:all": "nx run-many --all --target=test --parallel",
-		"test:affected": "nx affected --target=lint --parallel --ci --code-coverage",
+		"test:affected": "nx affected --target=test --parallel --ci --code-coverage",
 		"e2e:all": "nx run-many --all --target=e2e --parallel",
-		"e2e:affected": "nx affected --target=lint --parallel"
+		"e2e:affected": "nx affected --target=e2e --parallel"
 	},
 	"private": true,
 	"dependencies": {
