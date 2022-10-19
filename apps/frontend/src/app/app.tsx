@@ -1,5 +1,6 @@
 import { Routes, Route, Link } from 'react-router-dom';
 
+import { ProductRentReq } from './product-rent-req/ProductRentReq';
 import { Home } from './home/home';
 import { SignIn } from './signin/sign-in';
 import { ProductUploadWithAuth } from './product-upload/ProductUpload';
@@ -23,6 +24,8 @@ const App = () => (
 			<Route path="/sign-in" element={<SignIn />} />
 			<Route path="/show" element={<ProductShowWithAuth />} />
 			<Route path="/upload" element={<ProductUploadWithAuth />} />
+			<Route path="/rent/:id" element={<ProductRentReq />} />
+
 		</Routes>
 	</>
 );
