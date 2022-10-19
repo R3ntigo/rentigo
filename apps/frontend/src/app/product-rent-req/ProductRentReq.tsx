@@ -88,6 +88,13 @@ const ProductRentReq = () => {
 				exceeds: false,
 				exceedsDays: '',
 				pricingSchemeID: 1
+			},
+			{
+				price: '10',
+				perday: false,
+				exceeds: true,
+				exceedsDays: '18',
+				pricingSchemeID: 1
 			}
 		],
 		policy: 'hello do not do any harm',
@@ -115,18 +122,26 @@ const ProductRentReq = () => {
 
 	const calculatePaisa = () => {
 		let total : number[];
+		let exceedsTotal : number;
+		exceedsTotal = 0;
+		let currentExceedday : number;
+		currentExceedday = 0;
 		total = [0];
 		demoProduct.formFields2.forEach((element) => {
 			if (element.exceeds) {
-				if (rentReq.numOfReqDays > parseInt(element.exceedsDays, 10)) {
-					total.push(rentReq.numOfReqDays * parseInt(element.price, 10));
+				if (rentReq.numOfReqDays > parseInt(element.exceedsDays, 10) && currentExceedday < rentReq.numOfReqDays) {
+					exceedsTotal = rentReq.numOfReqDays * parseInt(element.price, 10);
+					currentExceedday = parseInt(element.exceedsDays, 10);
 				}
 			} else {
 				total.push(rentReq.numOfReqDays * parseInt(element.price, 10));
+				console.log(total);
 			}
 		});
-		const x = total.pop();
-		console.log(x);
+		const x = total[total.length - 1];
+		if (exceedsTotal) {
+			return exceedsTotal;
+		}
 		if (x) {
 			return x;
 		}

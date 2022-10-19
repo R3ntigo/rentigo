@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
 
@@ -181,7 +181,8 @@ const ProductShow = () => {
 						text-blue-700 font-semibold
 							hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
 					>
-						Place Rent Request
+						<Link to="/rent/123"> Place Rent Request </Link>
+
 					</button>
 				</div>
 			</div>
