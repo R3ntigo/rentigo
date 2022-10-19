@@ -6,6 +6,7 @@ import { ProductUploadWithAuth } from './product-upload/ProductUpload';
 import { ProductShowWithAuth } from './product-show/ProductShow';
 import { enableFreezeUI } from './util/freezeui/freezeui';
 import { SignOutButton } from './signout/components/signout-button';
+import { Register } from './register/register';
 
 enableFreezeUI();
 
@@ -17,12 +18,14 @@ const App = () => (
 			<Link to="/show">Product Show</Link>
 			<Link to="/sign-in">Sign In</Link>
 			<SignOutButton />
+			<Link to="/register">Register</Link>
 		</nav>
 		<Routes>
 			<Route path="/" element={<Home />} />
 			<Route path="/sign-in" element={<SignIn />} />
 			<Route path="/show" element={<ProductShowWithAuth />} />
 			<Route path="/upload" element={<ProductUploadWithAuth />} />
+			<Route path="/register" element={<Register />} />
 		</Routes>
 	</>
 );
