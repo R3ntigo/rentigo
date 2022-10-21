@@ -9,6 +9,7 @@ import { enableFreezeUI } from './util/freezeui/freezeui';
 import { SignOutButton } from './signout/components/signout-button';
 import { Register } from './register/register';
 import { SignIn2 } from './signin/sign-in-new';
+import { SideBar } from './navbar/Navbar';
 
 enableFreezeUI();
 
@@ -30,6 +31,7 @@ const App = () => (
 			<Route path="/upload" element={<ProductUploadWithAuth />} />
 			<Route path="/register" element={<Register />} />
 			<Route path="/rent/:id" element={<ProductRentReq />} />
+			<Route path="/testNavbar" element={<SideBar />} />
 		</Routes>
 	</>
 );
