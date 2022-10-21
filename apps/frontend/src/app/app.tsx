@@ -5,9 +5,9 @@ import { Home } from './home/home';
 import { ProductUploadWithAuth, ProductUpload } from './product-upload/ProductUpload';
 import { ProductShowWithAuth } from './product-show/ProductShow';
 import { enableFreezeUI } from './util/freezeui/freezeui';
-import { SignIn2 } from './signin/sign-in-new';
 import { SideBar } from './navbar/Navbar';
 import { Dashboard } from './dashboard/Dashboard';
+import { SignIn2 } from './signin/sign-in-new';
 
 enableFreezeUI();
 
