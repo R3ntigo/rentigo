@@ -8,6 +8,7 @@ import { ProductShowWithAuth } from './product-show/ProductShow';
 import { enableFreezeUI } from './util/freezeui/freezeui';
 import { SignOutButton } from './signout/components/signout-button';
 import { Register } from './register/register';
+import { SignIn2 } from './signin/sign-in-new';
 
 enableFreezeUI();
 
@@ -24,6 +25,7 @@ const App = () => (
 		<Routes>
 			<Route path="/" element={<Home />} />
 			<Route path="/sign-in" element={<SignIn />} />
+			<Route path="/sign-in2" element={<SignIn2 />} />
 			<Route path="/show" element={<ProductShowWithAuth />} />
 			<Route path="/upload" element={<ProductUploadWithAuth />} />
 			<Route path="/register" element={<Register />} />
