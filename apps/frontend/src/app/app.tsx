@@ -14,13 +14,14 @@ enableFreezeUI();
 
 const App = () => (
 	<>
-		<nav>
+		{/* <nav>
 			<Link to="/">Home</Link>
 			<Link to="/upload">Product Upload</Link>
 			<Link to="/show">Product Show</Link>
 			<Link to="/sign-in">Sign In</Link>
 			<SignOutButton />
-		</nav>
+		</nav> */}
+		<SideBar />
 		<Routes>
 			<Route path="/" element={<Home />} />
 			<Route path="/sign-in" element={<SignIn />} />
@@ -29,7 +30,6 @@ const App = () => (
 			<Route path="/upload" element={<ProductUploadWithAuth />} />
 			<Route path="/rent/:id" element={<ProductRentReq />} />
 			<Route path="/testNavbar" element={<SideBar />} />
-
 
 		</Routes>
 	</>
