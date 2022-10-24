@@ -1,13 +1,10 @@
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import { ProductRentReq } from './product-rent-req/ProductRentReq';
 import { Home } from './home/home';
-import { SignIn } from './signin/sign-in';
-import { ProductUploadWithAuth } from './product-upload/ProductUpload';
+import { ProductUploadWithAuth, ProductUpload } from './product-upload/ProductUpload';
 import { ProductShowWithAuth } from './product-show/ProductShow';
 import { enableFreezeUI } from './util/freezeui/freezeui';
-import { SignOutButton } from './signout/components/signout-button';
-import { Register } from './register/register';
 import { SignIn2 } from './signin/sign-in-new';
 import { SideBar } from './navbar/Navbar';
 
@@ -24,17 +21,21 @@ const App = () => (
 			<Link to="/register">Register</Link>
 		</nav>
 		</nav> */}
-		<SideBar />
-		<Routes>
-			<Route path="/" element={<Home />} />
-			<Route path="/sign-in" element={<SignIn2 />} />
-			<Route path="/sign-in2" element={<SignIn2 />} />
-			<Route path="/show" element={<ProductShowWithAuth />} />
-			<Route path="/upload" element={<ProductUploadWithAuth />} />
-			<Route path="/register" element={<Register />} />
-			<Route path="/rent/:id" element={<ProductRentReq />} />
-			<Route path="/testNavbar" element={<SideBar />} />
-		</Routes>
+		<div className="flex w-full">
+			<SideBar />
+			<div className="grow h-full">
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/sign-in" element={<SignIn2 />} />
+					<Route path="/sign-in2" element={<SignIn2 />} />
+					<Route path="/show" element={<ProductShowWithAuth />} />
+					<Route path="/upload" element={<ProductUploadWithAuth />} />
+					<Route path="/uploadinsecured" element={<ProductUpload />} />
+					<Route path="/rent/:id" element={<ProductRentReq />} />
+					<Route path="/testNavbar" element={<SideBar />} />
+				</Routes>
+			</div>
+		</div>
 	</>
 );
 

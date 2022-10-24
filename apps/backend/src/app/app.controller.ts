@@ -41,7 +41,7 @@ export class AppController {
 	login(@Req() req, @Res() res: Response) {
 		const { accessToken } = this.authService.login(req.user);
 		res.cookie('ACCESS_TOKEN', accessToken, {
-			expires: addHours(new Date(), 1),
+			expires: addHours(new Date(), 3),
 			httpOnly: true,
 			sameSite: true
 		});
