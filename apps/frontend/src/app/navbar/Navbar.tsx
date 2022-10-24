@@ -1,6 +1,8 @@
 import { ReactElement } from 'react';
 import { BsPlus, BsFillLightningFill, BsGearFill } from 'react-icons/bs';
+import { ImHome3 } from 'react-icons/im';
 import { FaFire, FaPoo } from 'react-icons/fa';
+import { RiLoginCircleFill } from 'react-icons/ri';
 
 const SideBar = () => {
 	const classes = 33;
@@ -8,13 +10,13 @@ const SideBar = () => {
 	return (
 		<div className="flex">
 			<div
-				className="fixed top-0 left-0 h-screen
-					w-16 m-0 flex flex-col bg-yellow-300 text-yellow-500 shadow-lg"
+				className="fixed bottom-0 w-screen
+					 m-0 flex flex-row bg-yellow-300 text-yellow-500 shadow-lg"
 			>
-				<SideBarIcon icon={<BsPlus size="28" />} text="Home" />
-				<SideBarIcon icon={<BsFillLightningFill size="28" />} text="Upload" />
+				<SideBarIcon icon={<ImHome3 size="28" />} text="Home" />
+				<SideBarIcon icon={<BsPlus size="28" />} text="Upload" />
 				<SideBarIcon icon={<FaFire size="28" />} text="show" />
-				<SideBarIcon icon={<FaPoo size="28" />} text="sign in" />
+				<SideBarIcon icon={<RiLoginCircleFill size="28" />} text="sign in" />
 				<SideBarIcon icon={<BsGearFill size="28" />} text="Settings" />
 			</div>
 		</div>
