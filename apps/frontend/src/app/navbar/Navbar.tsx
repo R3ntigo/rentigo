@@ -9,7 +9,7 @@ const SideBar = () => {
 		<div className="flex">
 			<div
 				className="fixed top-0 left-0 h-screen
-					w-16 m-0 flex flex-col bg-slate-500 text-yellow-500 shadow-lg"
+					w-16 m-0 flex flex-col bg-yellow-300 text-yellow-500 shadow-lg"
 			>
 				<SideBarIcon icon={<BsPlus size="28" />} text="Home" />
 				<SideBarIcon icon={<BsFillLightningFill size="28" />} text="Upload" />
