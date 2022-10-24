@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
+import { FaUpload } from 'react-icons/fa';
 
 import { withAuth } from '../auth/withAuth';
 
@@ -198,20 +199,31 @@ const ProductUpload = () => {
 					<div className="">
 						<label htmlFor="name" className="text-lg">
 							Product Name
-							<input id="productName" className="shadow appearance-none
+							<input
+								id="productName"
+								className="shadow appearance-none
 									border rounded w-full py-2 px-3 text-[#db2777]
-										leading-tight focus:outline-[#10b981]" type="text" onChange={(e) => setProductName(e.target.value)} />
+										leading-tight focus:outline-[#10b981]"
+								type="text"
+								onChange={(e) => setProductName(e.target.value)}
+							/>
 						</label>
 					</div>
 					<label htmlFor="productDescription">
 						Product Description
-						<textarea id="productDescription" className="shadow appearance-none
+						<textarea
+							id="productDescription"
+							className="shadow appearance-none
 									border rounded w-full py-2 px-3 h-16 text-[#db2777]
-										leading-tight focus:outline-[#10b981]" onChange={(e) => setProductDescription(e.target.value)} />
+										leading-tight focus:outline-[#10b981]"
+							onChange={(e) => setProductDescription(e.target.value)}
+						/>
 					</label>
+					<span>
 					<label htmlFor="productPicUpload">
-						Product Picture
-						<div className="App">
+
+							Product Picture
+
 							<ImageUploading
 								multiple
 								value={images}
@@ -227,21 +239,22 @@ const ProductUpload = () => {
 									isDragging,
 									dragProps
 								}) => (
-									// write your building UI
+								// write your building UI
 									<div className="upload__image-wrapper">
 										<button
 											type="button"
+											className="btn btn-primary"
 											style={isDragging ? { color: 'red' } : undefined}
 											onClick={onImageUpload}
 											// eslint-disable-next-line react/jsx-props-no-spreading
 											{...dragProps}
 										>
-											Click or Drop here
+											<FaUpload size="34" />
 										</button>
-            &nbsp;
+										{/* &nbsp	 */}
 										<button type="button" onClick={onImageRemoveAll}>Remove all images</button>
 										{imageList.map((image, index) => (
-											// eslint-disable-next-line react/no-array-index-key
+										// eslint-disable-next-line react/no-array-index-key
 											<div key={index} className="image-item">
 												<img src={image.dataURL} alt="" width="100" />
 												<div className="image-item__btn-wrapper">
@@ -253,8 +266,10 @@ const ProductUpload = () => {
 									</div>
 								)}
 							</ImageUploading>
-						</div>
+
+
 					</label>
+					</span>
 					Division
 					<Select
 						id="locationDivision"
