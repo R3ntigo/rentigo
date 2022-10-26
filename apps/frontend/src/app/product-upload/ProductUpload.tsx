@@ -3,7 +3,7 @@ import Select from 'react-select';
 import axios from 'axios';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
 import { FaUpload } from 'react-icons/fa';
-
+import { IoIosRemoveCircle	} from 'react-icons/io';
 import { withAuth } from '../auth/withAuth';
 
 const ProductUpload = () => {
@@ -219,8 +219,8 @@ const ProductUpload = () => {
 							onChange={(e) => setProductDescription(e.target.value)}
 						/>
 					</label>
-					<span>
-					<label htmlFor="productPicUpload">
+					<span className="inline">
+						<label htmlFor="productPicUpload">
 
 							Product Picture
 
@@ -240,26 +240,46 @@ const ProductUpload = () => {
 									dragProps
 								}) => (
 								// write your building UI
-									<div className="upload__image-wrapper">
-										<button
-											type="button"
-											className="btn btn-primary"
-											style={isDragging ? { color: 'red' } : undefined}
-											onClick={onImageUpload}
-											// eslint-disable-next-line react/jsx-props-no-spreading
-											{...dragProps}
-										>
-											<FaUpload size="34" />
-										</button>
+									<div className="flex grid grid-cols-2">
+										<div>
+											<button
+												type="button"
+												className="border border-[#db2777] rounded-md px-3 py-2 align-middle"
+												style={isDragging ? { color: 'red' } : undefined}
+												onClick={onImageUpload}
+												// eslint-disable-next-line react/jsx-props-no-spreading
+												{...dragProps}
+											>
+												<FaUpload size="34" />
+											</button>
+										</div>
 										{/* &nbsp	 */}
-										<button type="button" onClick={onImageRemoveAll}>Remove all images</button>
+										<div>
+											<button
+												type="button"
+												className="border border-[#db2777] rounded-md px-3 py-2 align-middle"
+												onClick={onImageRemoveAll}
+											>
+												<IoIosRemoveCircle size="34" />
+											</button>
+										</div>
 										{imageList.map((image, index) => (
 										// eslint-disable-next-line react/no-array-index-key
 											<div key={index} className="image-item">
 												<img src={image.dataURL} alt="" width="100" />
 												<div className="image-item__btn-wrapper">
-													<button type="button" onClick={() => onImageUpdate(index)}>Update</button>
-													<button type="button" onClick={() => onImageRemove(index)}>Remove</button>
+													<button
+														type="button"
+														onClick={() => onImageUpdate(index)}
+													>
+														Update
+													</button>
+													<button
+														type="button"
+														onClick={() => onImageRemove(index)}
+													>
+														Remove
+													</button>
 												</div>
 											</div>
 										))}
@@ -267,8 +287,7 @@ const ProductUpload = () => {
 								)}
 							</ImageUploading>
 
-
-					</label>
+						</label>
 					</span>
 					Division
 					<Select
@@ -350,7 +369,8 @@ const ProductUpload = () => {
 						Product Policy
 						<h6>
 							Policy is used to make your products safe. Say how you want the renters to use and
-							care of your products. You can also mention the rules and regulations of the use of your products.
+							care of your products.
+							You can also mention the rules and regulations of the use of your products.
 							These policies will also be used to give you an
 							edge in taking legal actions if some rare incidents occurs
 						</h6>
@@ -364,7 +384,9 @@ const ProductUpload = () => {
 									<input
 										type="number"
 										placeholder="Charge"
-										onChange={(e) => { formFields2[element.pricingSchemeID].price = e.target.value; }}
+										onChange={(e) => {
+											formFields2[element.pricingSchemeID].price = e.target.value;
+										}}
 									/>
 									for usage
 									<select onChange={(e) => {
