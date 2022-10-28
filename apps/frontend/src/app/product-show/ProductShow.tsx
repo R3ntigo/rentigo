@@ -80,58 +80,69 @@ const ProductShow = () => {
 	// };
 
 	return (
-		<div>
-			Product Show
+		<div className=" mx-auto  rounded justify-center ">
+			<img
+				src="E:\dp1\production-Rentingo\rentigo\apps\frontend\src\app\product-show\ll.jpg"
+				alt="ecommerce"
+				className="lg:w-1/2   object-cover object-center rounded border border-gray-200"
 
-			<div className="lg:w-4/5 mx-auto flex flex-wrap">
-				<img
-					alt="ecommerce"
-					className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
-					src=""
-				/>
-				<div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-					<h2 className="text-sm title-font text-gray-500 tracking-widest">Owner Name</h2>
-					<h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{demoProduct.productName}</h1>
-					<br />
-					<p className="break-all leading-relaxed">
-						{demoProduct.productDescription}
-					</p>
-					<div className="max-w-sm flex p-6 bg-white rounded-lg shadow-xl">
-						<div className="ml-6 pt-1">
-							<h4 className="text-xl text-gray-900">Location</h4>
-							<h3>
-								Division:
-								{' '}
-								{demoProduct.productDivision}
-							</h3>
-							<h3>
-								District:
-								{' '}
-								{demoProduct.productDistrict}
-							</h3>
-							<h3>
-								Upazilla:
-								{' '}
-								{demoProduct.productUpazilla}
-							</h3>
-						</div>
+			/>
+
+			<div className="mx-auto p-6 rounded justify-center">
+				<h2 className="text-sm title-font text-gray-500 tracking-widest">Owner Name</h2>
+				<h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{demoProduct.productName}</h1>
+				<br />
+				<div className="max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-pink-300">
+					<div className="ml-6 pt-1">
+						<h4 className="text-xl text-gray-900 leading-tight">Product Description</h4>
+						<p className="text-base text-gray-600 leading-normal">{demoProduct.productDescription}</p>
 					</div>
-					<br />
-					<h3>
-						Quantity :
-						{' '}
-						{demoProduct.quantity}
-					</h3>
+				</div>
+				<br />
+				<div className="max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-yellow-300">
+					<div className="ml-6 pt-1">
+						<h4 className="text-xl text-gray-900">Location</h4>
+						<h3>
+							Division:
+							{' '}
+							{demoProduct.productDivision}
+						</h3>
+						<h3>
+							District:
+							{' '}
+							{demoProduct.productDistrict}
+						</h3>
+						<h3>
+							Upazilla:
+							{' '}
+							{demoProduct.productUpazilla}
+						</h3>
+					</div>
+				</div>
+				<br />
+				<div className="max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-purple-300">
+					<div className="ml-6 pt-1">
+						<h4 className="text-xl text-gray-900 leading-tight">Available Quantity</h4>
+						<p className="text-base text-gray-600 leading-normal">
+							{demoProduct.quantity}
+							{' '}
+							pcs
+							{' '}
+						</p>
+					</div>
+				</div>
+				<br />
 
-					<br />
-					<div className="container max-w-sm p-6 space-y-2 bg-white rounded-lg shadow-xl">
-						<h4 className="text-xl text-gray-900">Features</h4>
-						{demoProduct.formFields.map((property) => (
-							<div
-								key={property.propertyID}
-								className="container ml-6 pt-1 border-2 border-dotted
-									hover:border-solid border-indigo-500/100 "
-							>
+				<br />
+				<div className="flex-col space-y-3 max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-pink-300 ">
+					<h4 className="text-xl text-gray-900">Features</h4>
+					{demoProduct.formFields.map((property) => (
+						<div
+							key={property.propertyID}
+							className="flex-row border-2 border-solid
+									hover:border-dotted border-indigo-500/100 p-2"
+						>
+							<div className=" ">
 								<h3>
 									{property.propertyName}
 									{' '}
@@ -140,54 +151,53 @@ const ProductShow = () => {
 									{property.propertyValue}
 								</h3>
 							</div>
-
-						))}
-					</div>
-					<br />
-					<div className="container max-w-sm p-6 space-y-2 bg-white rounded-lg shadow-xl">
-						<h4 className="text-xl text-gray-900">Pricing Options</h4>
-						{demoProduct.formFields2.map((priceScheme) => (
-							<div
-								key={priceScheme.pricingSchemeID}
-								className="container ml-6 pt-1 border-2 border-dotted
-									hover:border-solid border-green-500/100 "
-							>
-								<h3>
-									BDT
-									{' '}
-									{priceScheme.price}
-									{' '}
-									for
-									{' '}
-									{' '}
-									{priceScheme.perday ? 'each day' : `if exceeds ${priceScheme.exceedsDays}` }
-								</h3>
-							</div>
-
-						))}
-					</div>
-					<br />
-					<div className="max-w-sm flex p-6 bg-white rounded-lg shadow-xl">
-						<div className="ml-6 pt-1">
-							<h4 className="text-xl text-gray-900">Policies</h4>
-							<h6>{demoProduct.policy}</h6>
 						</div>
+
+					))}
+				</div>
+				<br />
+				<div className="container max-w-sm p-6 space-y-2 bg-white rounded-lg shadow-xl">
+					<h4 className="text-xl text-gray-900">Pricing Options</h4>
+					{demoProduct.formFields2.map((priceScheme) => (
+						<div
+							key={priceScheme.pricingSchemeID}
+							className="container ml-6 pt-1 border-2 border-dotted
+									hover:border-solid border-green-500/100 "
+						>
+							<h3>
+								BDT
+								{' '}
+								{priceScheme.price}
+								{' '}
+								for
+								{' '}
+								{' '}
+								{priceScheme.perday ? 'each day' : `if exceeds ${priceScheme.exceedsDays}` }
+							</h3>
+						</div>
+
+					))}
+				</div>
+				<br />
+				<div className="max-w-sm flex p-6 bg-white rounded-lg shadow-xl">
+					<div className="ml-6 pt-1">
+						<h4 className="text-xl text-gray-900">Policies</h4>
+						<h6>{demoProduct.policy}</h6>
 					</div>
 				</div>
-				<div className="self-center">
-					<button
-						type="button"
-						className="bg-transparent self-center
+			</div>
+			<div className="self-center">
+				<button
+					type="button"
+					className="bg-transparent self-center
 					hover:bg-blue-500
 						text-blue-700 font-semibold
 							hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-					>
-						<Link to="/rent/123"> Place Rent Request </Link>
+				>
+					<Link to="/rent/123"> Place Rent Request </Link>
 
-					</button>
-				</div>
+				</button>
 			</div>
-
 		</div>
 	);
 };
