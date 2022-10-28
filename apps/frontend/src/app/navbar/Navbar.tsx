@@ -11,7 +11,7 @@ const SideBar = () => {
 		<div className="flex">
 			<div
 				className="fixed bottom-0 w-screen
-					 m-0 flex flex-row bg-yellow-300 text-yellow-500 shadow-lg"
+					 m-0 flex flex-row bg-opacity-80 bg-yellow-300 text-yellow-500 shadow-lg"
 			>
 				<SideBarIcon icon={<ImHome3 size="28" />} text="Home" />
 				<SideBarIcon icon={<BsPlus size="28" />} text="Upload" />
