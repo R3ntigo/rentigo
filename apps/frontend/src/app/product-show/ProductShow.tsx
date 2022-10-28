@@ -136,24 +136,65 @@ const ProductShow = () => {
 				<br />
 				<div className="flex-col space-y-3 max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-pink-300 ">
 					<h4 className="text-xl text-gray-900">Features</h4>
-					{demoProduct.formFields.map((property) => (
-						<div
-							key={property.propertyID}
-							className="flex-row border-2 border-solid
+					{demoProduct.formFields.map((property) => {
+						if (property.propertyID % 3 == 0) {
+							return (
+								<div
+									key={property.propertyID}
+									className="flex-row border-2 border-solid
 									hover:border-dotted border-indigo-500/100 p-2"
-						>
-							<div className=" ">
-								<h3>
-									{property.propertyName}
-									{' '}
-									:
-									{' '}
-									{property.propertyValue}
-								</h3>
-							</div>
-						</div>
+								>
+									<div className=" ">
+										<h3>
+											{property.propertyName}
+											{' '}
+											:
+											{' '}
+											{property.propertyValue}
+										</h3>
+									</div>
+								</div>
 
-					))}
+							);
+						} if (property.propertyID % 3 == 1) {
+							return (
+								<div
+									key={property.propertyID}
+									className="flex-row border-2 border-solid
+									hover:border-dotted border-yellow-500 p-2"
+								>
+									<div className=" ">
+										<h3>
+											{property.propertyName}
+											{' '}
+											:
+											{' '}
+											{property.propertyValue}
+										</h3>
+									</div>
+								</div>
+
+							);
+						}
+
+						return (
+							<div
+								key={property.propertyID}
+								className="flex-row border-2 border-solid
+										hover:border-dotted border-purple-500 p-2"
+							>
+								<div className=" ">
+									<h3>
+										{property.propertyName}
+										{' '}
+										:
+										{' '}
+										{property.propertyValue}
+									</h3>
+								</div>
+							</div>
+						);
+					})}
 				</div>
 				<br />
 				<div className="container max-w-sm p-6 space-y-2 bg-white rounded-lg shadow-xl">
