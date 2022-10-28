@@ -4,6 +4,9 @@ import axios from 'axios';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
 import { FaUpload } from 'react-icons/fa';
 import { IoIosRemoveCircle	} from 'react-icons/io';
+import { ImCross } from 'react-icons/im';
+import { MdSystemUpdateAlt, MdOutlineRemoveCircle } from 'react-icons/md';
+import { BsPlusSquareFill } from 'react-icons/bs';
 import { withAuth } from '../auth/withAuth';
 
 const ProductUpload = () => {
@@ -193,9 +196,26 @@ const ProductUpload = () => {
 	// };
 	return (
 		<>
-			<h1>Product Upload</h1>
-			<div className="mt-8 mx-auto bg-slate-100 rounded justify-center ">
-				<div className="bg-blue w-400 py-8 px-6 shadow rounded-lg sm:px-10 ">
+		<div className="absolute top-6 left-14 text-center
+				">
+					<h1 className="text-2xl font-semibold">Add Your Product to rent</h1>
+				 </div>
+			<div className="h-24 md:p-8  grid grid-cols-3">
+				<div
+					className="
+			bg-purple-300 mix-blend-multiply filter blur-xl opacity-70 "
+				/>
+				<div
+					className="
+			bg-yellow-300 mix-blend-multiply filter blur-xl opacity-70 "
+				/>
+				<div
+					className="
+			bg-pink-300 mix-blend-multiply filter blur-xl opacity-70 "
+				/>
+			</div>
+			<div className=" mx-auto  rounded justify-center ">
+				<div className="bg-blue w-400 py-8 px-6 shadow rounded-lg sm:px-10 font-semibold text-lg ">
 					<div className="">
 						<label htmlFor="name" className="text-lg">
 							Product Name
@@ -263,26 +283,49 @@ const ProductUpload = () => {
 												<IoIosRemoveCircle size="34" />
 											</button>
 										</div>
-										{imageList.map((image, index) => (
-										// eslint-disable-next-line react/no-array-index-key
-											<div key={index} className="image-item">
-												<img src={image.dataURL} alt="" width="100" />
-												<div className="image-item__btn-wrapper">
-													<button
-														type="button"
-														onClick={() => onImageUpdate(index)}
-													>
-														Update
-													</button>
-													<button
-														type="button"
-														onClick={() => onImageRemove(index)}
-													>
-														Remove
-													</button>
+										<div className="p-4">
+											<div
+												className="border-dashed border-2
+													border-[#f59e0b] w-80 rounded-2xl p-2 flex mb-4"
+											>
+												{imageList.length == 0
+						&& (
+							<div className=" flex flex-col
+                    items-center justify-center align-middle"
+							>
+								<p className="mt-2 text-sm text-red-600 dark:text-red-500 animate-pulse ">
+									No image uploaded. Highest count 10
+								</p>
+							</div>
+
+						)}
+												<div className="container grid grid-cols-3 gap-2 mx-auto">
+													{imageList.map((image, index) => (
+														// eslint-disable-next-line react/no-array-index-key
+														<div key={index} className="w-full rounded ">
+															<img src={image.dataURL} alt="" width="100" />
+															<div className="border-spacing-2">
+																<button
+																	type="button"
+																	className="border border-[#db2777] rounded-md px-2 py-2 align-middle"
+																	onClick={() => onImageUpdate(index)}
+																>
+																	<MdSystemUpdateAlt size="24" />
+																</button>
+																<button
+																	type="button"
+																	className="border border-[#db2777] rounded-md px-2 py-2 align-middle"
+
+																	onClick={() => onImageRemove(index)}
+																>
+																	<ImCross size="25" />
+																</button>
+															</div>
+														</div>
+													))}
 												</div>
 											</div>
-										))}
+										</div>
 									</div>
 								)}
 							</ImageUploading>
@@ -292,6 +335,7 @@ const ProductUpload = () => {
 					Division
 					<Select
 						id="locationDivision"
+						className=""
 						options={divisionOptions}
 						defaultValue={{
 							value: '',
@@ -343,23 +387,46 @@ const ProductUpload = () => {
 					<div>
 						{
 							formFields.map((element) => (
-								<div key={element.propertyID}>
-									<input
-										type="text"
-										placeholder="Property Name"
-										// eslint-disable-next-line no-return-assign
-										onChange={(e) => formFields[element.propertyID].propertyName = e.target.value}
-									/>
-									<input
-										type="text"
-										placeholder="Property Value"
-										// eslint-disable-next-line no-return-assign
-										onChange={(e) => formFields[element.propertyID].propertyValue = e.target.value}
-									/>
-									<button type="button" onClick={addFields}> Add Fields </button>
-									<button type="button" onClick={() => removeFields(element.propertyID)}>
-										Remove Fields
-									</button>
+								<div key={element.propertyID} className="">
+									<div className="grid grid-cols-2 gap-1">
+										<input
+											type="text"
+											placeholder="Property Name"
+											className="shadow appearance-none
+										border rounded w-full py-2 px-3 text-[#db2777]
+											leading-tight focus:outline-[#10b981]"
+											// eslint-disable-next-line no-return-assign
+											onChange={(e) => formFields[element.propertyID].propertyName = e.target.value}
+										/>
+
+										<input
+											type="text"
+											placeholder="Property Value"
+											className="shadow appearance-none
+										border rounded w-full py-2 px-3 text-[#10b981]
+											leading-tight focus:outline-[#db2777]"
+											// eslint-disable-next-line no-return-assign
+											onChange={(e) => formFields[element.propertyID].propertyValue = e.target.value}
+										/>
+									</div>
+									<div className="grid grid-cols-2 gap-1">
+										<div className="flex items-center align-middle justify-center">
+											<div className="">
+												<button type="button" onClick={addFields}>
+													{' '}
+													<BsPlusSquareFill size="24" />
+													{' '}
+												</button>
+											</div>
+										</div>
+										<div className="flex items-center align-middle justify-center">
+											<div className="">
+												<button type="button" onClick={() => removeFields(element.propertyID)}>
+													<MdOutlineRemoveCircle size="29" />
+												</button>
+											</div>
+										</div>
+									</div>
 								</div>
 
 							))
@@ -367,14 +434,20 @@ const ProductUpload = () => {
 					</div>
 					<label htmlFor="productPolicy">
 						Product Policy
-						<h6>
+						<h6 className="font-normal">
 							Policy is used to make your products safe. Say how you want the renters to use and
 							care of your products.
 							You can also mention the rules and regulations of the use of your products.
 							These policies will also be used to give you an
 							edge in taking legal actions if some rare incidents occurs
 						</h6>
-						<input id="productPolicy" type="text" onChange={(e) => setPolicy(e.target.value)} />
+						<textarea
+							id="productDescription"
+							className="shadow appearance-none
+									border rounded w-full py-2 px-3 h-16 text-[#db2777]
+										leading-tight focus:outline-[#10b981]"
+							onChange={(e) => setPolicy(e.target.value)}
+						/>
 					</label>
 					<div>
 						{
