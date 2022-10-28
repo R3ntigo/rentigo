@@ -1,0 +1,10 @@
+<h3>
+								BDT
+								{' '}
+								{pricingScheme.price}
+								{' '}
+								for
+								{' '}
+								{' '}
+								{pricingScheme.perday ? 'each day' : `if exceeds ${pricingScheme.exceedsDays}` }
+							</h3>

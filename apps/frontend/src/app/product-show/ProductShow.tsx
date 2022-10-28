@@ -134,14 +134,14 @@ const ProductShow = () => {
 				<br />
 
 				<br />
-				<div className="flex-col space-y-3 max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-pink-300 ">
+				<div className="flex-col space-y-3 max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-green-300 ">
 					<h4 className="text-xl text-gray-900">Features</h4>
 					{demoProduct.formFields.map((property) => {
 						if (property.propertyID % 3 == 0) {
 							return (
 								<div
 									key={property.propertyID}
-									className="flex-row border-2 border-solid
+									className="flex-row border-2 border-solid rounded-xl
 									hover:border-dotted border-indigo-500/100 p-2"
 								>
 									<div className=" ">
@@ -160,7 +160,7 @@ const ProductShow = () => {
 							return (
 								<div
 									key={property.propertyID}
-									className="flex-row border-2 border-solid
+									className="flex-row border-2 border-solid rounded-xl
 									hover:border-dotted border-yellow-500 p-2"
 								>
 									<div className=" ">
@@ -180,7 +180,7 @@ const ProductShow = () => {
 						return (
 							<div
 								key={property.propertyID}
-								className="flex-row border-2 border-solid
+								className="flex-row border-2 border-solid rounded-xl
 										hover:border-dotted border-purple-500 p-2"
 							>
 								<div className=" ">
@@ -197,47 +197,103 @@ const ProductShow = () => {
 					})}
 				</div>
 				<br />
-				<div className="container max-w-sm p-6 space-y-2 bg-white rounded-lg shadow-xl">
+				<br />
+				<div className="flex-col space-y-3 max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-pink-300 ">
 					<h4 className="text-xl text-gray-900">Pricing Options</h4>
-					{demoProduct.formFields2.map((priceScheme) => (
-						<div
-							key={priceScheme.pricingSchemeID}
-							className="container ml-6 pt-1 border-2 border-dotted
-									hover:border-solid border-green-500/100 "
-						>
-							<h3>
-								BDT
-								{' '}
-								{priceScheme.price}
-								{' '}
-								for
-								{' '}
-								{' '}
-								{priceScheme.perday ? 'each day' : `if exceeds ${priceScheme.exceedsDays}` }
-							</h3>
-						</div>
+					{demoProduct.formFields2.map((pricingScheme) => {
+						if (pricingScheme.pricingSchemeID % 3 == 0) {
+							return (
+								<div
+									key={pricingScheme.pricingSchemeID}
+									className="flex-row border-2 border-solid rounded-xl
+									hover:border-dotted border-indigo-500/100 p-2"
+								>
+									<div className=" ">
+										<h3>
+											BDT
+											{' '}
+											{pricingScheme.price}
+											{' '}
+											for
+											{' '}
+											{' '}
+											{pricingScheme.perday ? 'each day' : `if exceeds ${pricingScheme.exceedsDays}` }
+										</h3>
+									</div>
+								</div>
 
-					))}
+							);
+						} if (pricingScheme.pricingSchemeID % 3 == 1) {
+							return (
+								<div
+									key={pricingScheme.pricingSchemeID}
+									className="flex-row border-2 border-solid rounded-xl
+									hover:border-dotted border-yellow-500 p-2"
+								>
+									<div className=" ">
+										<h3>
+											BDT
+											{' '}
+											{pricingScheme.price}
+											{' '}
+											for
+											{' '}
+											{' '}
+											{pricingScheme.perday ? 'each day' : `if exceeds ${pricingScheme.exceedsDays}` }
+										</h3>
+									</div>
+								</div>
+
+							);
+						}
+
+						return (
+							<div
+								key={pricingScheme.pricingSchemeID}
+								className="flex-row border-2 border-solid rounded-xl
+										hover:border-dotted border-purple-500 p-2"
+							>
+								<div className=" ">
+									<h3>
+										BDT
+										{' '}
+										{pricingScheme.price}
+										{' '}
+										for
+										{' '}
+										{' '}
+										{pricingScheme.perday ? 'each day' : `if exceeds ${pricingScheme.exceedsDays}` }
+									</h3>
+
+								</div>
+							</div>
+						);
+					})}
 				</div>
 				<br />
-				<div className="max-w-sm flex p-6 bg-white rounded-lg shadow-xl">
+				<br />
+				<div className="max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-purple-300">
 					<div className="ml-6 pt-1">
-						<h4 className="text-xl text-gray-900">Policies</h4>
-						<h6>{demoProduct.policy}</h6>
+						<h4 className="text-xl text-gray-900 leading-tight">Policy</h4>
+						<p className="text-base text-gray-600 leading-normal">
+							{demoProduct.policy}
+						</p>
 					</div>
 				</div>
-			</div>
-			<div className="self-center">
-				<button
-					type="button"
-					className="bg-transparent self-center
+				<br />
+				<div className="self-center">
+					<button
+						type="button"
+						className="bg-transparent self-center
 					hover:bg-blue-500
 						text-blue-700 font-semibold
 							hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-				>
-					<Link to="/rent/123"> Place Rent Request </Link>
+					>
+						<Link to="/rent/123"> Place Rent Request </Link>
 
-				</button>
+					</button>
+				</div>
+				<div className="h-20 bg-transparent"></div>
 			</div>
 		</div>
 	);
