@@ -196,10 +196,9 @@ const ProductUpload = () => {
 	// };
 	return (
 		<>
-		<div className="absolute top-6 left-14 text-center
-				">
-					<h1 className="text-2xl font-semibold">Add Your Product to rent</h1>
-				 </div>
+			<div className="absolute top-6 left-14 text-center">
+				<h1 className="text-2xl font-semibold">Add Your Product to rent</h1>
+			</div>
 			<div className="h-24 md:p-8  grid grid-cols-3">
 				<div
 					className="
@@ -315,7 +314,6 @@ const ProductUpload = () => {
 																<button
 																	type="button"
 																	className="border border-[#db2777] rounded-md px-2 py-2 align-middle"
-
 																	onClick={() => onImageRemove(index)}
 																>
 																	<ImCross size="25" />
@@ -396,7 +394,8 @@ const ProductUpload = () => {
 										border rounded w-full py-2 px-3 text-[#db2777]
 											leading-tight focus:outline-[#10b981]"
 											// eslint-disable-next-line no-return-assign
-											onChange={(e) => formFields[element.propertyID].propertyName = e.target.value}
+											onChange={
+												(e) => formFields[element.propertyID].propertyName = e.target.value}
 										/>
 
 										<input

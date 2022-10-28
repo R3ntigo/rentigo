@@ -28,8 +28,8 @@ const SignIn2 = () => {
 		}
 	};
 	return (
-		<div className="bg-gray-50 min-h-screen flex items-center justify-center px-16">
-			<div className="relative w-full max-w-lg">
+		<div className="grid h-screen place-items-center">
+			<div className="relative w-full">
 				<div
 					className="absolute top-0
 				-left-4 w-72 h-72
