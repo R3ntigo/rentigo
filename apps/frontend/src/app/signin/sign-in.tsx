@@ -34,8 +34,8 @@ const SignIn = () => {
 			<div className="h-screen relative flex items-center justify-center px-16">
 				<div className="relative w-full max-w-lg">
 					<div className="">
-						<div className="absoulute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full" ></div>
-						<div className="absoulute top-0 -right-4 w-72 h-72 bg-yellow-300 rounded-full"></div>
+						<div className="absoulute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full" />
+						<div className="absoulute top-0 -right-4 w-72 h-72 bg-yellow-300 rounded-full" />
 					</div>
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<label htmlFor="username" className="text-2xl">
