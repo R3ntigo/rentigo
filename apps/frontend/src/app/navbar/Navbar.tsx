@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 import { ReactElement } from 'react';
 import { BsPlus, BsFillLightningFill, BsGearFill } from 'react-icons/bs';
 import { ImHome3 } from 'react-icons/im';
