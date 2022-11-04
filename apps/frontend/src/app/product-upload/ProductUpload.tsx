@@ -400,7 +400,7 @@ const ProductUpload = () => {
 											onChange={
 												// eslint-disable-next-line no-return-assign
 												(e) => formFields[element.propertyID].propertyName = e.target.value
-}
+											}
 										/>
 
 										<input
