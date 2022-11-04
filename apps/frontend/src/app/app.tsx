@@ -9,6 +9,7 @@ import { enableFreezeUI } from './util/freezeui/freezeui';
 import { SignOutButton } from './signout/components/signout-button';
 import { SignIn2 } from './signin/sign-in-new';
 import { SideBar } from './navbar/Navbar';
+import { Dashboard } from './dashboard/Dashboard';
 
 enableFreezeUI();
 
@@ -22,7 +23,7 @@ const App = () => (
 			<SignOutButton />
 		</nav> */}
 		<div className="flex w-full">
-				<SideBar />
+			<SideBar />
 			<div className="grow h-full">
 				<Routes>
 					<Route path="/" element={<Home />} />
@@ -33,6 +34,7 @@ const App = () => (
 					<Route path="/uploadinsecured" element={<ProductUpload />} />
 					<Route path="/rent/:id" element={<ProductRentReq />} />
 					<Route path="/testNavbar" element={<SideBar />} />
+					<Route path="/dashboard" element={<Dashboard />} />
 
 				</Routes>
 			</div>
