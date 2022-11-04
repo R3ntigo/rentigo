@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
@@ -306,14 +307,16 @@ const ProductUpload = () => {
 															<div className="border-spacing-2">
 																<button
 																	type="button"
-																	className="border border-[#db2777] rounded-md px-2 py-2 align-middle"
+																	className="border
+																	border-[#db2777] rounded-md px-2 py-2 align-middle"
 																	onClick={() => onImageUpdate(index)}
 																>
 																	<MdSystemUpdateAlt size="24" />
 																</button>
 																<button
 																	type="button"
-																	className="border border-[#db2777] rounded-md px-2 py-2 align-middle"
+																	className="border
+																	border-[#db2777] rounded-md px-2 py-2 align-middle"
 																	onClick={() => onImageRemove(index)}
 																>
 																	<ImCross size="25" />
@@ -395,7 +398,9 @@ const ProductUpload = () => {
 											leading-tight focus:outline-[#10b981]"
 											// eslint-disable-next-line no-return-assign
 											onChange={
-												(e) => formFields[element.propertyID].propertyName = e.target.value}
+												// eslint-disable-next-line no-return-assign
+												(e) => formFields[element.propertyID].propertyName = e.target.value
+}
 										/>
 
 										<input
@@ -405,7 +410,9 @@ const ProductUpload = () => {
 										border rounded w-full py-2 px-3 text-[#10b981]
 											leading-tight focus:outline-[#db2777]"
 											// eslint-disable-next-line no-return-assign
-											onChange={(e) => formFields[element.propertyID].propertyValue = e.target.value}
+											onChange={
+												(e) => formFields[element.propertyID].propertyValue = e.target.value
+											}
 										/>
 									</div>
 									<div className="grid grid-cols-2 gap-1">

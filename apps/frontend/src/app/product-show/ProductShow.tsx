@@ -134,7 +134,9 @@ const ProductShow = () => {
 				<br />
 
 				<br />
-				<div className="flex-col space-y-3 max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-green-300 ">
+				<div className="flex-col
+				space-y-3 max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-green-300 "
+				>
 					<h4 className="text-xl text-gray-900">Features</h4>
 					{demoProduct.formFields.map((property) => {
 						if (property.propertyID % 3 == 0) {
@@ -198,7 +200,9 @@ const ProductShow = () => {
 				</div>
 				<br />
 				<br />
-				<div className="flex-col space-y-3 max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-pink-300 ">
+				<div className="flex-col
+				space-y-3 max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-pink-300 "
+				>
 					<h4 className="text-xl text-gray-900">Pricing Options</h4>
 					{demoProduct.formFields2.map((pricingScheme) => {
 						if (pricingScheme.pricingSchemeID % 3 == 0) {
@@ -217,7 +221,8 @@ const ProductShow = () => {
 											for
 											{' '}
 											{' '}
-											{pricingScheme.perday ? 'each day' : `if exceeds ${pricingScheme.exceedsDays}` }
+											{pricingScheme.perday
+												? 'each day' : `if exceeds ${pricingScheme.exceedsDays}` }
 										</h3>
 									</div>
 								</div>
@@ -239,7 +244,8 @@ const ProductShow = () => {
 											for
 											{' '}
 											{' '}
-											{pricingScheme.perday ? 'each day' : `if exceeds ${pricingScheme.exceedsDays}` }
+											{pricingScheme.perday
+												? 'each day' : `if exceeds ${pricingScheme.exceedsDays}` }
 										</h3>
 									</div>
 								</div>
@@ -293,7 +299,7 @@ const ProductShow = () => {
 
 					</button>
 				</div>
-				<div className="h-20 bg-transparent"></div>
+				<div className="h-20 bg-transparent" />
 			</div>
 		</div>
 	);
