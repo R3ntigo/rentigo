@@ -7,6 +7,7 @@ import { ProductShowWithAuth } from './product-show/ProductShow';
 import { enableFreezeUI } from './util/freezeui/freezeui';
 import { SignIn2 } from './signin/sign-in-new';
 import { SideBar } from './navbar/Navbar';
+import { Dashboard } from './dashboard/Dashboard';
 
 enableFreezeUI();
 
@@ -33,6 +34,7 @@ const App = () => (
 					<Route path="/uploadinsecured" element={<ProductUpload />} />
 					<Route path="/rent/:id" element={<ProductRentReq />} />
 					<Route path="/testNavbar" element={<SideBar />} />
+					<Route path="/dashboard" element={<Dashboard />} />
 				</Routes>
 			</div>
 		</div>
