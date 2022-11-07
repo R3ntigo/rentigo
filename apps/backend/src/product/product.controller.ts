@@ -15,8 +15,9 @@ export class ProductController {
     }
 
     @Get()
-    findOne(@Param('id') id): string {
-        return `Product ID: ${id}`; 
+    async getUsers() {
+        const products = await this.productService.findProducts();
+        return products;
     }
 
     @Post()
@@ -27,13 +28,16 @@ export class ProductController {
     }
 
     @Delete()
-    deleteOne(@Param('id') id): string {
-        return `Delete ${id}`;
+    async deleteOne(@Param('id') id): string {
+        await this.productService.deleteProduct(id);
     }
 
     @Put()
-    updateOne(@Body() updateProductDto: CreateProductDto, @Param('id') id): string {
-        return `Update ${id} - Name: ${updateProductDto}`;
+    async updateProduct(
+        @Param('id') id: string,
+        @Body() updateProductDto: UpdateProductDto
+    ) {
+        await this.productService.updateProducts(id, updateProductDto)
     }
 
 

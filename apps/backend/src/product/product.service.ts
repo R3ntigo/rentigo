@@ -9,6 +9,9 @@ export class ProductService {
     ) {
 
     }
+    findProducts(){
+        return this.userRepository.find();
+    }
 
     createProduct(productDetails: CreateProductParams) {
         const newProduct = this.productRepository.create({
@@ -16,5 +19,13 @@ export class ProductService {
             uploadedOn: new Date(),
         });
         return this.productRepository.save(newProduct);
+    }
+
+    updateProducts(id: string, updateProductDetails: UpdateProductParams){
+        return this.productRepository.update({ id }, { ...updateProductDetails });
+    }
+
+    deleteProduct(id: string){
+        return this.productRepository.delete({ id });
     }
 }
