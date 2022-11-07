@@ -11,7 +11,7 @@ import { ProductService } from './product.service';
 export class ProductController {
     
     constructor(private productService: ProductService) {
-        
+
     }
 
     @Get()
@@ -20,8 +20,9 @@ export class ProductController {
     }
 
     @Post()
-    createProduct(@Body() createProductDto: CreateProductDto): void {
-        // const product = repository.create(createProductDto);
+    createProduct(@Body() createProductDto: CreateProductDto) {
+        const { ...productDetails } = createProductDto;
+        this.productService.createProduct(productDetails);
 
     }
 
