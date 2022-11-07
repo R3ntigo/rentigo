@@ -1,17 +1,28 @@
 import { Controller, Get, Post, Body, Req, Res, Param, Delete, Put} from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { Request, Response} from 'express';
+import { ProductService } from './product.service';
+// const manager = repository.manager;
+// const metadata = repository.metadata;
+// const queryRunner = repository.queryRunner;
+// const target = repository.target;
 
 @Controller('product')
 export class ProductController {
+    
+    constructor(private productService: ProductService) {
+        
+    }
+
     @Get()
     findOne(@Param('id') id): string {
         return `Product ID: ${id}`; 
     }
 
     @Post()
-    createProduct(@Body() createProductDto: CreateProductDto): string {
-        return `Name: ${createProductDto.name}`;
+    createProduct(@Body() createProductDto: CreateProductDto): void {
+        // const product = repository.create(createProductDto);
+
     }
 
     @Delete()
