@@ -1,13 +1,17 @@
-import { useEffect, useRef } from 'react';
+import { ForwardedRef, forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 
 interface CameraProps {
 	constraints?: MediaStreamConstraints
 	width: number;
 	height: number;
-	getPicture(): void;
 }
 
-const Camera = (props: CameraProps) => {
+interface Refs {
+	takePicture: () => Promise<unknown>;
+}
+
+// eslint-disable-next-line react/display-name
+const Camera = forwardRef((props: CameraProps, ref: ForwardedRef<Refs>) => {
 	const { constraints, width, height } = props;
 
 	const videoRef = useRef<HTMLVideoElement>(null);
@@ -24,20 +28,22 @@ const Camera = (props: CameraProps) => {
 		}
 	};
 
-	const takePicture = () => {
-		const video = videoRef.current;
-		const photo = photoRef.current;
-		photo!.width = width;
-		photo!.height = height;
-		const ctx = photo!.getContext('2d');
-		ctx!.drawImage(video!, 0, 0, width, height);
-	};
-
-	const clearImage = () => {
-		const photo = photoRef.current;
-		const ctx = photo!.getContext('2d');
-		ctx!.clearRect(0, 0, photo!.width, photo!.height);
-	};
+	useImperativeHandle(ref, () => ({
+		takePicture: async () => {
+			const video = videoRef.current;
+			const photo = photoRef.current;
+			photo!.width = width;
+			photo!.height = height;
+			const ctx = photo!.getContext('2d');
+			ctx!.drawImage(video!, 0, 0, width, height);
+			return new Promise((resolve) => {
+				photo!.toBlob((blob: Blob | null) => {
+					const url = URL.createObjectURL(blob!);
+					resolve({ url, blob });
+				}, 'image/png');
+			});
+		}
+	}));
 
 	useEffect(() => {
 		getVideo();
@@ -48,13 +54,19 @@ const Camera = (props: CameraProps) => {
 			<video ref={videoRef} width={width} height={height}>
 				<track kind="captions" />
 			</video>
+			<canvas
+				ref={photoRef}
+				width={width}
+				height={height}
+				className="hidden absolute -z-10"
+			/>
 		</div>
 	);
-};
+});
 
 Camera.defaultProps = {
 	constraints: {
-		video: true,
+		video: { facingMode: 'environment' },
 		audio: false,
 	},
 };

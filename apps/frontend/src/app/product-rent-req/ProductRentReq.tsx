@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import ImageUploading, { ImageListType } from 'react-images-uploading';
+import { ImageListType } from 'react-images-uploading';
 
 const ProductRentReq = () => {
 	const [initialProductState, setInitialProductState] = useState([]);

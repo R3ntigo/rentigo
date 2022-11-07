@@ -7,7 +7,7 @@ import {
 	Post,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { addSeconds } from 'date-fns';
+import { addHours, addSeconds } from 'date-fns';
 
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AppService } from './app.service';
@@ -39,7 +39,7 @@ export class AppController {
 	login(@Req() req, @Res() res: Response) {
 		const { accessToken } = this.authService.login(req.user);
 		res.cookie('ACCESS_TOKEN', accessToken, {
-			expires: addSeconds(new Date(), 60),
+			expires: addHours(new Date(), 1),
 			httpOnly: true,
 			sameSite: true
 		});
