@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
+import { BsCaretDown, BsCaretUp } from 'react-icons/bs';
 
 const ProductRentReq = () => {
 	const [initialProductState, setInitialProductState] = useState([]);
@@ -94,7 +95,7 @@ const ProductRentReq = () => {
 				perday: false,
 				exceeds: true,
 				exceedsDays: '18',
-				pricingSchemeID: 1
+				pricingSchemeID: 2
 			}
 		],
 		policy: 'hello do not do any harm',
@@ -149,70 +150,133 @@ const ProductRentReq = () => {
 	};
 
 	return (
-		<div>
-			<h1>Product Rent Request</h1>
-			<div>
-				<h2>
-					Product Name:
-					{demoProduct.productName}
-
-				</h2>
-				<h2>
-					Product Description:
-					{demoProduct.productDescription}
-				</h2>
-				<h2>
-					Product location:
-				</h2>
-				<span>
-					<button type="button" onClick={decreaseQuantity}> dec </button>
-					<input
-						type="text"
-						value={rentReq.quantity}
-						onChange={
-							(e) => {
+		<>
+			<div className="absolute top-6 w-full text-center">
+				<h1 className="text-2xl font-semibold">Rent req for product X</h1>
+			</div>
+			<div className="h-24 md:p-8  grid grid-cols-3">
+				<div
+					className="
+			bg-purple-300 mix-blend-multiply filter blur-xl opacity-70 "
+				/>
+				<div
+					className="
+			bg-yellow-300 mix-blend-multiply filter blur-xl opacity-70 "
+				/>
+				<div
+					className="
+			bg-pink-300 mix-blend-multiply filter blur-xl opacity-70 "
+				/>
+			</div>
+			<div className="p-7 space-y-4">
+				<img
+					src="E:\dp1\production-Rentingo\rentigo\apps\frontend\src\app\product-show\ll.jpg"
+					alt="ecommerce"
+					className="lg:w-1/2 object-cover object-center rounded border border-gray-200"
+				/>
+				<div>
+					<div className="max-w-sm
+						p-4 space-y-3 bg-slate-200 rounded-lg shadow-lg border-4 border-purple-400"
+					>
+						<h2>
+							The location you will be going to pick up the product
+						</h2>
+						<div className="bg-white
+							h-10 flex items-center rounded-2xl border-2 border-rose-500 border-dashed"
+						>
+							<div className="p-3 font-semibold font">
+								{demoProduct.productUpazilla}
+								,
+								{' '}
+								{' '}
+								,
+								{demoProduct.productDistrict}
+								{' '}
+								{' '}
+								,
+								{demoProduct.productDivision}
+							</div>
+						</div>
+					</div>
+					<br />
+					<div className="max-w-sm
+						p-4 space-y-3 bg-slate-200 rounded-lg shadow-lg border-4 border-purple-400"
+					>
+						<span>
+							<button
+								type="button"
+								className=" bg-rose-400 rounded-md px-3 py-2 align-middle mr-12 ml-1"
+								onClick={decreaseQuantity}
+							>
+								<BsCaretDown size="30" />
+							</button>
+							<input
+								type="text"
+								className="shadow appearance-none bg-white
+									border rounded-2xl w-20 py-2 px-3 text-[#db2777]
+										leading-tight focus:outline-[#10b981] text-center"
+								value={rentReq.quantity}
+								onChange={
+									(e) => {
+										setRentReq({
+											...rentReq,
+											quantity: parseInt(e.target.value, 10)
+										});
+										console.log(rentReq);
+									}
+								}
+								disabled
+							/>
+							<button
+								type="button"
+								className=" bg-green-300 rounded-md px-3 py-2 align-middle ml-12"
+								onClick={increaseQuantity}
+							>
+								<BsCaretUp size="30" />
+							</button>
+						</span>
+					</div>
+					<br />
+					<div className="max-w-sm
+						p-4 space-y-3 bg-slate-200 rounded-lg shadow-lg border-4 border-purple-400"
+					>
+						Enter time for rent in days
+						<br />
+						<input
+							placeholder="Input days of rent"
+							className="shadow appearance-none
+									border rounded w-full py-2 px-3 text-[#db2777]
+										leading-tight focus:outline-[#10b981]"
+							onChange={(e) => {
 								setRentReq({
 									...rentReq,
-									quantity: parseInt(e.target.value, 10)
+									numOfReqDays: parseInt(e.target.value, 10)
 								});
-								console.log(rentReq);
-							}
-						}
-						disabled
-					/>
-					<button type="button" onClick={increaseQuantity}> Add </button>
-				</span>
-				<input
-					placeholder="Input days of rent"
-					onChange={(e) => {
-						setRentReq({
-							...rentReq,
-							numOfReqDays: parseInt(e.target.value, 10)
-						});
-					}}
-				/>
+							}}
+						/>
+					</div>
+					<div>
+						<h2>Recap the policies</h2>
+						<p>
+							{demoProduct.policy}
+						</p>
+					</div>
 
-				<div>
-					<h2>Recap the policies</h2>
-					<p>
-						{demoProduct.policy}
-					</p>
+					<div>
+						<button type="button" onClick={calculatePaisa}> Calculate Fare </button>
+					</div>
+
+					<div><h1>{calculatePaisa()}</h1></div>
+
+					<div>
+						<button type="button">
+							Send request to Sakib
+						</button>
+					</div>
+
 				</div>
-
-				<div>
-					<button type="button" onClick={calculatePaisa}> Calculate Fare </button>
-				</div>
-
-				<div><h1>{calculatePaisa()}</h1></div>
-
-				<div>
-					<button type="button">
-						Send request to Sakib
-					</button>
-				</div>
-
 			</div>
-		</div>
+		</>
 	);
 };
 
