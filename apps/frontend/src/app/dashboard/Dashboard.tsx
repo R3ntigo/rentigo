@@ -1,10 +1,10 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { TfiLayoutMediaRight } from 'react-icons/tfi';
 import { BsChatLeftText } from 'react-icons/bs';
 import { RiLoginBoxLine } from 'react-icons/ri';
-import { MdOutlineProductionQuantityLimits } from 'react-icons/md';
+import { MdOutlineProductionQuantityLimits, MdOutlinePayments } from 'react-icons/md';
 import { GrNotification } from 'react-icons/gr';
 import { IoMdStats } from 'react-icons/io';
-import { MdOutlinePayments } from 'react-icons/md';
 
 const Dashboard = () => {
 	const ll = 0;
@@ -40,7 +40,12 @@ const Dashboard = () => {
 					</div>
 					<div className=" top-20 left-3 text-left font-semibold text-xl">Request for rent</div>
 				</div>
-				<div className="bg-slate-100 rounded-lg p-1 border-4 border-solid border-purple-400" onClick={sayHello}>
+				<div
+					className="bg-slate-100
+					rounded-lg p-1 border-4 border-solid border-purple-400"
+					onClick={sayHello}
+					onKeyDown={sayHello}
+				>
 					<div className="flex justify-end">
 						<div className="p-3">
 							<BsChatLeftText size="44" color="yellow[300]" />
