@@ -1,11 +1,20 @@
 /* eslint-disable import/no-cycle */
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { IsEmail, IsPhoneNumber, IsUrl, Max, Min } from 'class-validator';
+import { Column,
+	Entity,
+	JoinColumn,
+	JoinTable,
+	ManyToMany,
+	OneToMany,
+	OneToOne,
+	PrimaryGeneratedColumn } from 'typeorm';
+import { IsEmail, IsPhoneNumber, Max, Min } from 'class-validator';
 import { Gender } from '@rentigo/types';
 
 import { Address } from './Address';
 import { Request } from './Request';
 import { Product } from './Product';
+import { RentingPolicy } from './policy';
+import { Resource } from './Resource';
 
 @Entity()
 class User {
@@ -30,9 +39,9 @@ class User {
 	@IsPhoneNumber('BD')
 	phone: string;
 
-	@Column()
-	@IsUrl()
-	photoUrl: string;
+	@OneToOne(() => Resource)
+	@JoinColumn()
+	photoUrl: Resource;
 
 	@Column()
 	nid: string;
@@ -43,7 +52,8 @@ class User {
 	})
 	gender: Gender;
 
-	@OneToMany(() => Address, (address) => address.user, { cascade: true })
+	@ManyToMany(() => Address, { cascade: true })
+	@JoinTable()
 	address: Address[];
 
 	@OneToMany(() => Request, (request) => request.id, { cascade: true })
@@ -51,6 +61,9 @@ class User {
 
 	@OneToMany(() => Product, (product) => product.id, { cascade: true })
 	products: Product;
+
+	@OneToMany(() => RentingPolicy, (rentingPolicy) => rentingPolicy.id, { cascade: true })
+	rentingPolicies: RentingPolicy;
 }
 
 export { User };

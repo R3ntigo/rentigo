@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { IsNumber } from 'class-validator';
-import { Duration } from '@rentigo/types';
+import { Duration } from './Duration';
 
 import { Address } from './Address';
 import { Product } from './Product';

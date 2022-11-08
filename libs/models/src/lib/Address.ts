@@ -1,7 +1,6 @@
+/* eslint-disable import/no-cycle */
 import { Length, Max, Min } from 'class-validator';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-// eslint-disable-next-line import/no-cycle
-import { User } from './User';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 class Address {
@@ -28,9 +27,6 @@ class Address {
 	@Column()
 	@Length(3, 20)
 	label: string;
-
-	@ManyToOne(() => User, (user) => user.address)
-	user: User;
 }
 
 export { Address };

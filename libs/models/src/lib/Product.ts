@@ -1,12 +1,23 @@
 /* eslint-disable import/no-cycle */
-import { IsNumber, Length } from 'class-validator';
-import { Column, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { IsArray, IsNumber, Length } from 'class-validator';
+import { Column,
+	Entity,
+	JoinColumn,
+	JoinTable,
+	ManyToMany,
+	ManyToOne,
+	OneToMany,
+	OneToOne,
+	PrimaryGeneratedColumn } from 'typeorm';
 
 import { Address } from './Address';
 import { PricingPolicy } from './policy/PricingPolicy';
 import { RentingPolicy } from './policy/RentingPolicy';
+import { Resource } from './Resource';
+import { Tag } from './Tag';
 import { User } from './User';
 
+@Entity()
 class Product {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;
@@ -24,24 +35,31 @@ class Product {
 	lender: User;
 
 	@OneToOne(() => Address)
+	@JoinColumn()
 	address: Address;
 
-	@Column()
+	@OneToMany(() => RentingPolicy, (rentingPolicy) => rentingPolicy.product, { cascade: true })
+	@JoinColumn()
+	@IsArray()
 	rentingPolicies: RentingPolicy[];
 
-	@Column()
+	@OneToMany(() => PricingPolicy, (pricingPolicy) => pricingPolicy.product, { cascade: true })
+	@JoinColumn()
+	@IsArray()
 	pricingPolicies: PricingPolicy[];
 
-	@Column()
-	tags: string[];
+	@OneToMany(() => Tag, (tag) => tag.product, { cascade: true })
+	@JoinColumn()
+	tags: Tag;
 
 	@Column()
 	family: string;
 
 	// category;
 
-	@Column()
-	imageUrls: string[];
+	@ManyToMany(() => Resource, { cascade: true })
+	@JoinTable()
+	imageUrls: Resource[];
 
 	@Column()
 	@IsNumber()

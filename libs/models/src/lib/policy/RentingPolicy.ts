@@ -1,5 +1,8 @@
-import { Length } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+/* eslint-disable import/no-cycle */
+import { IsDate, Length } from 'class-validator';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+
+import { Product } from '../Product';
 import { User } from '../User';
 
 @Entity()
@@ -7,7 +10,8 @@ class RentingPolicy {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;
 
-	@Column()
+	@ManyToOne(() => User, (user) => user.rentingPolicies)
+	@JoinColumn()
 	user: User;
 
 	@Column()
@@ -21,7 +25,13 @@ class RentingPolicy {
 	@Length(10, 1000)
 	legalDescription: string;
 
-	lastUpdated: string;
+	@Column()
+	@IsDate()
+	lastUpdated: Date;
+
+	@ManyToOne(() => Product, (product) => product.rentingPolicies)
+	@JoinColumn()
+	product: Product;
 }
 
 export { RentingPolicy };
