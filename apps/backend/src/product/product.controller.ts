@@ -14,12 +14,16 @@ export class ProductController {
 
     }
 
+    @Get(':id')
+    async getProduct(@Param('id') id): Promise<Product> {
+        const product = await this.productService.findProduct(id);
+        return product;
+    }
     @Get()
-    async getUsers() {
+    async getProducts(): Promise<Product[]> {
         const products = await this.productService.findProducts();
         return products;
     }
-
     @Post()
     createProduct(@Body() createProductDto: CreateProductDto) {
         const { ...productDetails } = createProductDto;
@@ -28,7 +32,7 @@ export class ProductController {
     }
 
     @Delete()
-    async deleteOne(@Param('id') id): string {
+    async deleteOne(@Param('id') id){
         await this.productService.deleteProduct(id);
     }
 
