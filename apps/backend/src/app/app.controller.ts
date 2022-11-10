@@ -6,6 +6,7 @@ import {
 	Get,
 	Post,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { addHours } from 'date-fns';
 
@@ -14,6 +15,7 @@ import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
+@ApiTags('app')
 @Controller()
 export class AppController {
 	constructor(

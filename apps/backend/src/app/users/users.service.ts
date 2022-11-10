@@ -29,4 +29,8 @@ export class UsersService {
 	async findOne(username: string): Promise<User> {
 		return this.users.find((user) => user.username === username);
 	}
+
+	printHello() {
+		console.log('Hello');
+	}
 }
