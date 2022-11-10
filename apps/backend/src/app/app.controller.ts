@@ -7,7 +7,7 @@ import {
 	Post,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { addHours, addSeconds } from 'date-fns';
+import { addHours } from 'date-fns';
 
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AppService } from './app.service';

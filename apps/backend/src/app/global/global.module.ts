@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { TypeOrmConfigService } from '../db/typeorm-config.service';
+import { StorageModule } from '../storage/storage.module';
 
 @Global()
 @Module({
@@ -13,6 +14,12 @@ import { TypeOrmConfigService } from '../db/typeorm-config.service';
 		TypeOrmModule.forRootAsync({
 			useClass: TypeOrmConfigService,
 		}),
+		StorageModule
+	],
+	exports: [
+		ConfigModule,
+		TypeOrmModule,
+		StorageModule
 	]
 })
 export class GlobalModule {}

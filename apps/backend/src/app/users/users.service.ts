@@ -1,8 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '@rentigo/types';
+import { StorageService } from '../storage/storage.service';
+import { UserRepository } from './users.repository';
 
 @Injectable()
 export class UsersService {
+	constructor(
+		private userRepository: UserRepository,
+		private storageService: StorageService
+	) {
+		storageService.listBuckets().then(console.log);
+		userRepository.findBy({ email: 'a@gmail.com' }).then(console.log);
+	}
+
 	private readonly users: User[] = [
 		{
 			id: 1,

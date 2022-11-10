@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  rentigo-dev-db:
+  backend-dev-db:
     image: postgres:${POSTGRES_DEV_VERSION}
     restart: always
     environment:
@@ -9,13 +9,36 @@ services:
       POSTGRES_USER: ${POSTGRES_DEV_USER}
       POSTGRES_PASSWORD: ${POSTGRES_DEV_PASSWORD}
     volumes:
-      - rentigo-dev-data:/var/lib/postgresql/data
+      - backend-dev-db-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
-networks:
-  rentigo-dev:
-    driver: bridge
+  dev-storage:
+    image: minio/minio
+    restart: always
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=${MINIO_DEV_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_DEV_ROOT_PASSWORD}
+    volumes:
+      - dev-storage:/data
+    command: server --console-address ":9001" /data
 
+  create-buckets:
+    image: minio/mc
+    depends_on:
+      - dev-storage
+    environment:
+      - MINIO_ROOT_USER=${MINIO_DEV_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_DEV_ROOT_PASSWORD}
+    entrypoint: >
+      /bin/sh -c "
+        mc alias set dev-storage http://dev-storage:9000 $MINIO_ROOT_USER $MINIO_ROOT_PASSWORD;
+        mc mb dev-storage/rentigo-dev-backend;
+        exit 0;
+      "
 volumes:
-  rentigo-dev-data:
+  backend-dev-db-data:
+  dev-storage:
