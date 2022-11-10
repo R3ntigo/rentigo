@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '@rentigo/types';
 import { StorageService } from '../storage/storage.service';
-import { UserRepository } from './users.repository';
+import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UsersService {
@@ -28,9 +28,5 @@ export class UsersService {
 
 	async findOne(username: string): Promise<User> {
 		return this.users.find((user) => user.username === username);
-	}
-
-	printHello() {
-		console.log('Hello');
 	}
 }

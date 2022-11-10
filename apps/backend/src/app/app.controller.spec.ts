@@ -1,8 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing';
+// import { Test, TestingModule } from '@nestjs/testing';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AuthService } from './auth/auth.service';
+// import { AppController } from './app.controller';
+// import { AppService } from './app.service';
+// import { AuthService } from './auth/auth.service';
 
 describe('AppController', () => {
 	// TODO: Integrate auth with jwt
