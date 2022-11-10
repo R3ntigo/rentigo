@@ -4,23 +4,23 @@ import { UpdateMessageDto } from './dto/update-message.dto';
 
 @Injectable()
 export class MessagesService {
+
+  identify(name:string, clientId: string){
+
+  }
+
+  getClientName(clientId: string){
+    return "Name of the user of ClientID";
+  }
+
   create(createMessageDto: CreateMessageDto) {
-    return 'This action adds a new message';
+    const message = {...createMessageDto};
+    // push in the database
+    return 'Return the created message';
   }
 
   findAll() {
     return `This action returns all messages`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} message`;
-  }
-
-  update(id: number, updateMessageDto: UpdateMessageDto) {
-    return `This action updates a #${id} message`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} message`;
-  }
 }
