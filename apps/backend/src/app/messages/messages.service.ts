@@ -6,6 +6,7 @@ import { UpdateMessageDto } from './dto/update-message.dto';
 export class MessagesService {
 
   identify(name:string, clientId: string){
+    return "name of c"
 
   }
 
