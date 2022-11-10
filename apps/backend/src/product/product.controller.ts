@@ -2,10 +2,6 @@ import { Controller, Get, Post, Body, Req, Res, Param, Delete, Put} from '@nestj
 import { CreateProductDto } from './dto/create-product.dto';
 import { Request, Response} from 'express';
 import { ProductService } from './product.service';
-// const manager = repository.manager;
-// const metadata = repository.metadata;
-// const queryRunner = repository.queryRunner;
-// const target = repository.target;
 
 @Controller('product')
 export class ProductController {
