@@ -25,7 +25,6 @@ const App = () => (
 			<Route path="/show" element={<ProductShowWithAuth />} />
 			<Route path="/upload" element={<ProductUploadWithAuth />} />
 			<Route path="/rent/:id" element={<ProductRentReq />} />
-
 		</Routes>
 	</>
 );

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@rentigo/types';
 
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../user/user.service';
 
 @Injectable()
 export class AuthService {

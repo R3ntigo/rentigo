@@ -6,14 +6,16 @@ import {
 	Get,
 	Post,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import { addSeconds } from 'date-fns';
+import { addHours } from 'date-fns';
 
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
+@ApiTags('app')
 @Controller()
 export class AppController {
 	constructor(
@@ -39,7 +41,7 @@ export class AppController {
 	login(@Req() req, @Res() res: Response) {
 		const { accessToken } = this.authService.login(req.user);
 		res.cookie('ACCESS_TOKEN', accessToken, {
-			expires: addSeconds(new Date(), 60),
+			expires: addHours(new Date(), 1),
 			httpOnly: true,
 			sameSite: true
 		});
