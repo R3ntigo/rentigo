@@ -15,6 +15,8 @@ import {
 
 @Injectable()
 class TypeOrmConfigService implements TypeOrmOptionsFactory {
+	constructor(private config: ConfigService) {}
+
 	public createTypeOrmOptions(): TypeOrmModuleOptions {
 		return {
 			type: 'postgres',
@@ -29,9 +31,6 @@ class TypeOrmConfigService implements TypeOrmOptionsFactory {
 			synchronize: true,
 		};
 	}
-
-  @Inject(ConfigService)
-  private readonly config: ConfigService;
 }
 
 export { TypeOrmConfigService };

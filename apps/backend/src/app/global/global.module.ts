@@ -5,20 +5,25 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfigService } from '../config/typeorm.config';
 import { StorageModule } from '../storage/storage.module';
 
+const configModule = ConfigModule.forRoot({
+	isGlobal: true,
+});
+
+const typeOrmModule = TypeOrmModule.forRootAsync({
+	inject: [configModule],
+	useClass: TypeOrmConfigService,
+});
+
 @Global()
 @Module({
 	imports: [
-		ConfigModule.forRoot({
-			isGlobal: true,
-		}),
-		TypeOrmModule.forRootAsync({
-			useClass: TypeOrmConfigService,
-		}),
+		configModule,
+		typeOrmModule,
 		StorageModule
 	],
 	exports: [
-		ConfigModule,
-		TypeOrmModule,
+		configModule,
+		typeOrmModule,
 		StorageModule
 	]
 })
