@@ -157,15 +157,15 @@ const ProductRentReq = () => {
 			<div className="h-24 md:p-8  grid grid-cols-3">
 				<div
 					className="
-			bg-purple-300 mix-blend-multiply filter blur-xl opacity-70 "
+			bg-primary mix-blend-multiply filter blur-xl opacity-70 "
 				/>
 				<div
 					className="
-			bg-yellow-300 mix-blend-multiply filter blur-xl opacity-70 "
+			bg-secondary mix-blend-multiply filter blur-xl opacity-70 "
 				/>
 				<div
 					className="
-			bg-pink-300 mix-blend-multiply filter blur-xl opacity-70 "
+			bg-accent1 mix-blend-multiply filter blur-xl opacity-70 "
 				/>
 			</div>
 			<div className="p-7 space-y-4">

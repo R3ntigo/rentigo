@@ -92,14 +92,14 @@ const ProductShow = () => {
 				<h2 className="text-sm title-font text-gray-500 tracking-widest">Owner Name</h2>
 				<h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{demoProduct.productName}</h1>
 				<br />
-				<div className="max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-pink-300">
+				<div className="max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-accent1">
 					<div className="ml-6 pt-1">
 						<h4 className="text-xl text-gray-900 leading-tight">Product Description</h4>
 						<p className="text-base text-gray-600 leading-normal">{demoProduct.productDescription}</p>
 					</div>
 				</div>
 				<br />
-				<div className="max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-yellow-300">
+				<div className="max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-secondary">
 					<div className="ml-6 pt-1">
 						<h4 className="text-xl text-gray-900">Location</h4>
 						<h3>
@@ -120,7 +120,7 @@ const ProductShow = () => {
 					</div>
 				</div>
 				<br />
-				<div className="max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-purple-300">
+				<div className="max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-primary">
 					<div className="ml-6 pt-1">
 						<h4 className="text-xl text-gray-900 leading-tight">Available Quantity</h4>
 						<p className="text-base text-gray-600 leading-normal">
@@ -201,7 +201,7 @@ const ProductShow = () => {
 				<br />
 				<br />
 				<div className="flex-col
-				space-y-3 max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-pink-300 "
+				space-y-3 max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-accent1 "
 				>
 					<h4 className="text-xl text-gray-900">Pricing Options</h4>
 					{demoProduct.formFields2.map((pricingScheme) => {
@@ -278,7 +278,7 @@ const ProductShow = () => {
 				</div>
 				<br />
 				<br />
-				<div className="max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-purple-300">
+				<div className="max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-primary">
 					<div className="ml-6 pt-1">
 						<h4 className="text-xl text-gray-900 leading-tight">Policy</h4>
 						<p className="text-base text-gray-600 leading-normal">

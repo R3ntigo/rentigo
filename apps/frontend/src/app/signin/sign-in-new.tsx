@@ -33,17 +33,17 @@ const SignIn2 = () => {
 				<div
 					className="absolute top-0
 				-left-4 w-72 h-72
-			bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"
+			bg-primary rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"
 				/>
 				<div
 					className="absolute top-0
 			-right-4 w-72 h-72
-			bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"
+			bg-secondary rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"
 				/>
 				<div
 					className="absolute -bottom-8
 			left-20 w-72 h-72
-			bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"
+			bg-accent1 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"
 				/>
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<div className="m-8 relative space-y-4">
@@ -67,7 +67,7 @@ const SignIn2 = () => {
 						)}
 							</div>
 							<div>
-								<div className="w-6 h-24 rounded-lg bg-purple-300" />
+								<div className="w-6 h-24 rounded-lg bg-primary" />
 							</div>
 						</div>
 						<div className="p-5 bg-white rounded-lg flex items-center justify-between space-x-8">
@@ -91,7 +91,7 @@ const SignIn2 = () => {
 						)}
 							</div>
 							<div>
-								<div className="w-6 h-20 rounded-lg bg-yellow-300" />
+								<div className="w-6 h-20 rounded-lg bg-secondary" />
 							</div>
 						</div>
 						<div className="p-5 bg-white rounded-lg flex items-center justify-between space-x-8">
@@ -105,7 +105,7 @@ const SignIn2 = () => {
 								</button>
 							</div>
 							<div>
-								<div className="w-28 h-6 rounded-lg bg-pink-300" />
+								<div className="w-28 h-6 rounded-lg bg-accent1" />
 							</div>
 						</div>
 					</div>
