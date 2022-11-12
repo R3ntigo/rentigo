@@ -14,6 +14,7 @@ enableFreezeUI();
 const App = () => (
 	<>
 		{/* <nav>
+		<nav>
 			<Link to="/">Home</Link>
 			<Link to="/upload">Product Upload</Link>
 			<Link to="/show">Product Show</Link>
