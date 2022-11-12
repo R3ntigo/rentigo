@@ -12,7 +12,14 @@ module.exports = {
     ...createGlobPatternsForDependencies(__dirname),
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#D8B4FE', // purple
+        secondary: '#FDFE47', // yellow
+        accent1: '#F9A8D4', // pink
+        primeaccent: '#F9A8D4', // pink
+      },
+    },
   },
   plugins: [],
 };
