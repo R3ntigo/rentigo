@@ -93,6 +93,11 @@ const Dashboard = () => {
 					</div>
 					<div className=" font-semibold text-xl">Payments </div>
 				</div>
+				<div className=" p-4"></div>
+				<div className=" p-4"></div>
+
+				<div className=" p-4"></div>
+
 
 			</div>
 		</>
