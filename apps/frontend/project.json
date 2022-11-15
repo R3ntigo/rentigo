@@ -56,7 +56,10 @@
 			"options": {
 				"buildTarget": "frontend:build",
 				"hmr": true,
-				"proxyConfig": "apps/frontend/proxy.conf.json"
+				"proxyConfig": "apps/frontend/proxy.conf.json",
+				"ssl": true,
+				"sslCert": "localhost.pem",
+				"sslKey": "localhost-key.pem"
 			},
 			"configurations": {
 				"development": {

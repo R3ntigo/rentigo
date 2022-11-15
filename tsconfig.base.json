@@ -21,6 +21,9 @@
       "@rentigo/constants": [
         "libs/constants/src/index.ts"
       ],
+      "@rentigo/models": [
+        "libs/models/src/index.ts"
+      ],
       "@rentigo/types": [
         "libs/types/src/index.ts"
       ],
