@@ -1,0 +1,78 @@
+version: '3.4'
+
+volumes:
+  compreface-postgres-data:
+
+services:
+  compreface-postgres-db:
+    image: ${COMPREFACE_REGISTRY}compreface-postgres-db:${COMPREFACE_POSTGRES_VERSION}
+    restart: always
+    container_name: "compreface-postgres-db"
+    environment:
+      - POSTGRES_USER=${COMPREFACE_POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${COMPREFACE_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${COMPREFACE_POSTGRES_DB}
+    volumes:
+      - compreface-postgres-data:/var/lib/postgresql/data
+
+  compreface-admin:
+    restart: always
+    image: ${COMPREFACE_REGISTRY}compreface-admin:${COMPREFACE_ADMIN_VERSION}
+    container_name: "compreface-admin"
+    environment:
+      - POSTGRES_USER=${COMPREFACE_POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${COMPREFACE_POSTGRES_PASSWORD}
+      - POSTGRES_URL=jdbc:postgresql://${COMPREFACE_POSTGRES_DOMAIN}:${COMPREFACE_POSTGRES_PORT}/${COMPREFACE_POSTGRES_DB}
+      - SPRING_PROFILES_ACTIVE=dev
+      - ENABLE_EMAIL_SERVER=${COMPREFACE_ENABLE_EMAIL_SERVER}
+      - EMAIL_HOST=${COMPREFACE_EMAIL_HOST}
+      - EMAIL_USERNAME=${COMPREFACE_EMAIL_USERNAME}
+      - EMAIL_FROM=${COMPREFACE_EMAIL_FROM}
+      - EMAIL_PASSWORD=${COMPREFACE_EMAIL_PASSWORD}
+      - ADMIN_JAVA_OPTS=${COMPREFACE_COMPREFACE_ADMIN_JAVA_OPTIONS}
+      - MAX_FILE_SIZE=${COMPREFACE_MAX_FILE_SIZE}
+      - MAX_REQUEST_SIZE=${COMPREFACE_MAX_REQUEST_SIZE}B
+    depends_on:
+      - compreface-postgres-db
+      - compreface-api
+
+  compreface-api:
+    restart: always
+    image: ${COMPREFACE_REGISTRY}compreface-api:${COMPREFACE_API_VERSION}
+    container_name: "compreface-api"
+    depends_on:
+      - compreface-postgres-db
+    environment:
+      - POSTGRES_USER=${COMPREFACE_POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${COMPREFACE_POSTGRES_PASSWORD}
+      - POSTGRES_URL=jdbc:postgresql://${COMPREFACE_POSTGRES_DOMAIN}:${COMPREFACE_POSTGRES_PORT}/${COMPREFACE_POSTGRES_DB}
+      - SPRING_PROFILES_ACTIVE=dev
+      - API_JAVA_OPTS=${COMPREFACE_COMPREFACE_API_JAVA_OPTIONS}
+      - SAVE_IMAGES_TO_DB=${COMPREFACE_SAVE_IMAGES_TO_DB}
+      - MAX_FILE_SIZE=${COMPREFACE_MAX_FILE_SIZE}
+      - MAX_REQUEST_SIZE=${COMPREFACE_MAX_REQUEST_SIZE}B
+      - CONNECTION_TIMEOUT=${connection_timeout:-10000}
+      - READ_TIMEOUT=${read_timeout:-60000}
+
+  compreface-fe:
+    restart: always
+    image: ${COMPREFACE_REGISTRY}compreface-fe:${COMPREFACE_FE_VERSION}
+    container_name: "compreface-ui"
+    ports:
+      - "9010:80"
+    depends_on:
+      - compreface-api
+      - compreface-admin
+    environment:
+      - CLIENT_MAX_BODY_SIZE=${COMPREFACE_MAX_REQUEST_SIZE}
+      - PROXY_READ_TIMEOUT=${read_timeout:-60000}ms
+      - PROXY_CONNECT_TIMEOUT=${connection_timeout:-10000}ms
+
+  compreface-core:
+    restart: always
+    image: ${COMPREFACE_REGISTRY}compreface-core:${COMPREFACE_CORE_VERSION}
+    container_name: "compreface-core"
+    environment:
+      - ML_PORT=3000
+      - UWSGI_PROCESSES=${uwsgi_processes:-2}
+      - UWSGI_THREADS=${uwsgi_threads:-1}
