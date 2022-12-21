@@ -10,8 +10,7 @@ class PricingPolicy {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;
 
-	@OneToOne(() => Duration)
-	@JoinColumn()
+	@Column(() => Duration)
 	duration: Duration;
 
 	@Column()

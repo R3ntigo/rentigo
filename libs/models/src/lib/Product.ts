@@ -38,8 +38,10 @@ class Product {
 	@JoinColumn()
 	address: Address;
 
-	@OneToMany(() => RentingPolicy, (rentingPolicy) => rentingPolicy.product, { cascade: true })
-	@JoinColumn()
+	@ManyToMany(() => RentingPolicy)
+	@JoinTable({
+		name: 'product_renting_policy',
+	})
 	@IsArray()
 	rentingPolicies: RentingPolicy[];
 
@@ -58,7 +60,9 @@ class Product {
 	// category;
 
 	@ManyToMany(() => Resource, { cascade: true })
-	@JoinTable()
+	@JoinTable({
+		name: 'product_image_urls'
+	})
 	imageUrls: Resource[];
 
 	@Column()

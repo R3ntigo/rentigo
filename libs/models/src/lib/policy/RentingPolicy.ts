@@ -2,7 +2,6 @@
 import { IsDate, Length } from 'class-validator';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Product } from '../Product';
 import { User } from '../User';
 
 @Entity()
@@ -28,10 +27,6 @@ class RentingPolicy {
 	@Column()
 	@IsDate()
 	lastUpdated: Date;
-
-	@ManyToOne(() => Product, (product) => product.rentingPolicies)
-	@JoinColumn()
-	product: Product;
 }
 
 export { RentingPolicy };

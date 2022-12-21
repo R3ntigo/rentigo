@@ -7,7 +7,7 @@ import { Column,
 	OneToMany,
 	OneToOne,
 	PrimaryGeneratedColumn } from 'typeorm';
-import { IsEmail, IsPhoneNumber, Max, Min } from 'class-validator';
+import { IsAlpha, IsArray, IsEmail, IsPhoneNumber, Max, Min } from 'class-validator';
 import { Gender } from '@rentigo/types';
 
 import { Address } from './Address';
@@ -53,17 +53,20 @@ class User {
 	gender: Gender;
 
 	@ManyToMany(() => Address, { cascade: true })
-	@JoinTable()
+	@JoinTable({
+		name: 'user_address',
+	})
+	@IsArray()
 	address: Address[];
 
 	@OneToMany(() => Request, (request) => request.id, { cascade: true })
 	requests: Request[];
 
 	@OneToMany(() => Product, (product) => product.id, { cascade: true })
-	products: Product;
+	products: Product[];
 
 	@OneToMany(() => RentingPolicy, (rentingPolicy) => rentingPolicy.id, { cascade: true })
-	rentingPolicies: RentingPolicy;
+	rentingPolicies: RentingPolicy[];
 }
 
 export { User };

@@ -8,7 +8,6 @@ import {
 	User,
 	PricingPolicy,
 	RentingPolicy,
-	Duration,
 	Tag,
 	Resource
 } from '@rentigo/models';
@@ -25,7 +24,7 @@ class TypeOrmConfigService implements TypeOrmOptionsFactory {
 			database: this.config.get('POSTGRES_DB_NAME'),
 			username: this.config.get('POSTGRES_DB_USER'),
 			password: this.config.get('POSTGRES_DB_PASSWORD'),
-			entities: [Address, Product, Request, User, PricingPolicy, RentingPolicy, Duration, Tag, Resource],
+			entities: [Address, Product, Request, User, PricingPolicy, RentingPolicy, Tag, Resource],
 			migrations: ['apps/backend/migrations/*.{ts,js}'],
 			migrationsTableName: 'typeorm_migrations',
 			synchronize: true,

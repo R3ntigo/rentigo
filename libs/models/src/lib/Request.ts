@@ -34,8 +34,7 @@ class Request {
 	@JoinColumn()
 	address: Address;
 
-	@OneToOne(() => Duration)
-	@JoinColumn()
+	@Column(() => Duration)
 	duration: Duration;
 
 	@Column({
