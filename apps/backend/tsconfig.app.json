@@ -7,14 +7,15 @@
 			"node"
 		],
 		"emitDecoratorMetadata": true,
-		"target": "ES2015"
 	},
 	"exclude": [
 		"jest.config.ts",
 		"**/*.spec.ts",
-		"**/*.test.ts"
+		"**/*.test.ts",
 	],
 	"include": [
-		"**/*.ts"
+		"**/*.ts",
+		"src/app/config/typeorm-migrations.config.ts",
+		"./migrations/*.ts"
 	]
 }

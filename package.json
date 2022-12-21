@@ -11,7 +11,16 @@
 		"test:all": "nx run-many --all --target=test --parallel",
 		"test:affected": "nx affected --target=test --parallel --ci --code-coverage",
 		"e2e:all": "nx run-many --all --target=e2e --parallel",
-		"e2e:affected": "nx affected --target=e2e --parallel"
+		"e2e:affected": "nx affected --target=e2e --parallel",
+
+		"typeorm:cli": "TS_NODE_PROJECT=apps/backend/tsconfig.app.json ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli -d apps/backend/src/app/config/typeorm-migrations.config.ts",
+		"migration:generate": "TS_NODE_PROJECT=apps/backend/tsconfig.app.json npm run typeorm:cli -- migration:generate apps/backend/migrations/$NAME",
+    "migration:create": "TS_NODE_PROJECT=apps/backend/tsconfig.app.json npm run typeorm:cli -- migration:create -d apps/backend/migrations -n",
+    "migration:run": "TS_NODE_PROJECT=apps/backend/tsconfig.app.json npm run typeorm:cli -- migration:run",
+    "migration:revert": "TS_NODE_PROJECT=apps/backend/tsconfig.app.json npm run typeorm:cli -- migration:revert",
+    "seed:config": "TS_NODE_PROJECT=apps/backend/tsconfig.app.json ts-node ./node_modules/typeorm-seeding/dist/cli.js config -n apps/backend/src/app/config/typeorm-migrations.config.ts",
+    "seed:run": "TS_NODE_PROJECT=apps/backend/tsconfig.app.json ts-node ./node_modules/typeorm-seeding/dist/cli.js seed -n apps/backend/src/app/config/typeorm-migrations.config.ts",
+    "db:refresh": "TS_NODE_PROJECT=apps/backend/tsconfig.app.json npm run typeorm:cli schema:drop && npm run migration:run && npm run seed:run"
 	},
 	"private": true,
 	"dependencies": {

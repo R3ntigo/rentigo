@@ -1,6 +1,6 @@
 import { TimeUnit } from '@rentigo/types';
 import { IsNumber } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column } from 'typeorm';
 
 class Duration {
 	@Column({
