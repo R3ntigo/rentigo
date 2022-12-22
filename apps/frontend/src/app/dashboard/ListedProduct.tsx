@@ -70,6 +70,9 @@ const ListedProduct = () => {
 		}],
 		totalQuantity: 10,
 		availableQuantity: 10,
+		createdAt: new Date(),
+		updatedAt: new Date(),
+		deletedAt: new Date()
 
 	}];
 	const getProducts = async () => {
