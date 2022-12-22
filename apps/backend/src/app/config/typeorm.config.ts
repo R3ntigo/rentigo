@@ -9,13 +9,18 @@ import {
 	PricingPolicy,
 	RentingPolicy,
 	Tag,
-	Resource
+	Resource,
+	UserCredential
 } from '@rentigo/models';
 import { DataSource } from 'typeorm';
 
 @Injectable()
 class TypeOrmConfigService implements TypeOrmOptionsFactory {
 	constructor(private config: ConfigService) {}
+
+	private static getEntities() {
+		return [Address, Product, Request, User, PricingPolicy, RentingPolicy, Tag, Resource, UserCredential];
+	}
 
 	public createTypeOrmOptions(): TypeOrmModuleOptions {
 		return {
@@ -25,7 +30,7 @@ class TypeOrmConfigService implements TypeOrmOptionsFactory {
 			database: this.config.get('POSTGRES_DB_NAME'),
 			username: this.config.get('POSTGRES_DB_USER'),
 			password: this.config.get('POSTGRES_DB_PASSWORD'),
-			entities: [Address, Product, Request, User, PricingPolicy, RentingPolicy, Tag, Resource],
+			entities: TypeOrmConfigService.getEntities(),
 			migrationsTableName: 'typeorm_migrations',
 			synchronize: false,
 			logging: true,
@@ -40,7 +45,7 @@ class TypeOrmConfigService implements TypeOrmOptionsFactory {
 			database: this.config.get('POSTGRES_DB_NAME'),
 			username: this.config.get('POSTGRES_DB_USER'),
 			password: this.config.get('POSTGRES_DB_PASSWORD'),
-			entities: [Address, Product, Request, User, PricingPolicy, RentingPolicy, Tag, Resource],
+			entities: TypeOrmConfigService.getEntities(),
 			migrations: ['apps/backend/migrations/*.{ts,js}'],
 			migrationsTableName: 'typeorm_migrations',
 			logging: true,

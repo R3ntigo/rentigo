@@ -6,3 +6,4 @@ export * from './lib/policy';
 export * from './lib/Duration';
 export * from './lib/Tag';
 export * from './lib/Resource';
+export * from './lib/UserCredential';

@@ -18,6 +18,7 @@ import { Request } from './Request';
 import { Product } from './Product';
 import { RentingPolicy } from './policy';
 import { Resource } from './Resource';
+import { UserCredential } from './UserCredential';
 
 @Entity()
 class User {
@@ -70,6 +71,12 @@ class User {
 
 	@OneToMany(() => RentingPolicy, (rentingPolicy) => rentingPolicy.id, { cascade: true })
 	rentingPolicies: RentingPolicy[];
+
+	@OneToOne(() => UserCredential, { cascade: true })
+	@JoinColumn({
+		name: 'credentialId',
+	})
+	credential: UserCredential;
 
 	@CreateDateColumn()
 	createdAt: Date;
