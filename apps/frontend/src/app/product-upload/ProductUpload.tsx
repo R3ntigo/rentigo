@@ -93,7 +93,7 @@ const ProductUpload = () => {
 	};
 	async function getDivisionOptions() {
 		const { data } = await axios.get(
-			`https://bdapis.herokuapp.com/api/v1.1/divisions`
+			`https://bdapis.com/api/v1.1/divisions`
 		);
 		// console.log(data);
 		if (data.status.message === 'ok') {
@@ -113,7 +113,7 @@ const ProductUpload = () => {
 	}, []);
 	async function getDistrictOptions(value: string) {
 		const { data } = await axios.get(
-			`https://bdapis.herokuapp.com/api/v1.1/division/${value}`
+			`https://bdapis.com/api/v1.1/division/${value}`
 		);
 		// console.log(data);
 		if (data.status.message === 'ok') {
@@ -149,7 +149,7 @@ const ProductUpload = () => {
 	async function getUpazillaOptions2(value: string) {
 		// console.log(value);
 		const { data } = await axios.get(
-			`https://bdapis.herokuapp.com/api/v1.1/division/${value}`
+			`https://bdapis.com/api/v1.1/division/${value}`
 		);
 		// console.log(data);
 		let tempStringArray: string[] = [];

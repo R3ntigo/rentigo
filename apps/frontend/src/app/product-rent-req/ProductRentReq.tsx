@@ -22,7 +22,7 @@ const ProductRentReq = () => {
 	}
 
 	const [rentReq, setRentReq] = useState<RentReq>({
-		rentTakerID: '',
+		rentTakerID: '', // get from token
 		rentTakerName: '',
 		productID: '',
 		quantity: 0,

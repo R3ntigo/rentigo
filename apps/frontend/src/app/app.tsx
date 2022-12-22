@@ -10,6 +10,7 @@ import { SignOutButton } from './signout/components/signout-button';
 import { SignIn2 } from './signin/sign-in-new';
 import { SideBar } from './navbar/Navbar';
 import { Dashboard } from './dashboard/Dashboard';
+import { ListedProduct } from './dashboard/ListedProduct';
 
 enableFreezeUI();
 
@@ -35,6 +36,7 @@ const App = () => (
 					<Route path="/rent/:id" element={<ProductRentReq />} />
 					<Route path="/testNavbar" element={<SideBar />} />
 					<Route path="/dashboard" element={<Dashboard />} />
+					<Route path="/listed-product" element={<ListedProduct />} />
 
 				</Routes>
 			</div>

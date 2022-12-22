@@ -60,10 +60,10 @@ class User {
 	requests: Request[];
 
 	@OneToMany(() => Product, (product) => product.id, { cascade: true })
-	products: Product;
+	products: Product[];
 
 	@OneToMany(() => RentingPolicy, (rentingPolicy) => rentingPolicy.id, { cascade: true })
-	rentingPolicies: RentingPolicy;
+	rentingPolicies: RentingPolicy[];
 }
 
 export { User };

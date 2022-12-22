@@ -61,7 +61,13 @@ const Dashboard = () => {
 					</div>
 					<div className="relativeoff px-1 left-3 text-left font-semibold text-xl">My Requested Products</div>
 				</div>
-				<div className="col-span-2 bg-slate-100 p-1 rounded-lg border-4 border-solid border-green-500">
+				<div
+					className="col-span-2 bg-slate-100 p-1 rounded-lg border-4 border-solid border-green-500"
+					onClick={(e) => {
+						window.location.href = '/listed-product';
+					}}
+					onKeyDown={sayHello}
+				>
 					<div className="flex justify-end">
 						<div className="px-2">
 							<MdOutlineProductionQuantityLimits size="44" color="yellow[300]" />
@@ -93,11 +99,10 @@ const Dashboard = () => {
 					</div>
 					<div className=" font-semibold text-xl">Payments </div>
 				</div>
-				<div className=" p-4"></div>
-				<div className=" p-4"></div>
+				<div className=" p-4" />
+				<div className=" p-4" />
 
-				<div className=" p-4"></div>
-
+				<div className=" p-4" />
 
 			</div>
 		</>
