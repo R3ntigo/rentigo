@@ -8,6 +8,7 @@ import { enableFreezeUI } from './util/freezeui/freezeui';
 import { SideBar } from './navbar/Navbar';
 import { Dashboard } from './dashboard/Dashboard';
 import { SignIn2 } from './signin/sign-in-new';
+import { ListedProduct } from './dashboard/ListedProduct';
 
 enableFreezeUI();
 
@@ -36,6 +37,7 @@ const App = () => (
 					<Route path="/rent/:id" element={<ProductRentReq />} />
 					<Route path="/testNavbar" element={<SideBar />} />
 					<Route path="/dashboard" element={<Dashboard />} />
+					<Route path="/listed-product" element={<ListedProduct />} />
 				</Routes>
 			</div>
 		</div>

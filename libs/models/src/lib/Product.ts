@@ -52,7 +52,7 @@ class Product {
 
 	@OneToMany(() => Tag, (tag) => tag.product, { cascade: true })
 	@JoinColumn()
-	tags: Tag;
+	tags: Tag[];
 
 	@Column()
 	family: string;
