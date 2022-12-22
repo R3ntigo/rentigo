@@ -43,10 +43,16 @@ const ListedProduct = () => {
 				name: 'demo',
 				url: 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
 				size: 1000,
-				mimeType: 'image/png'
+				mimeType: 'image/png',
+				createdAt: new Date(),
+				updatedAt: new Date(),
+				deletedAt: new Date()
 			},
 			rentingPolicies: [],
-			products: []
+			products: [],
+			createdAt: new Date(),
+			updatedAt: new Date(),
+			deletedAt: new Date()
 
 		},
 		address: {
@@ -67,10 +73,16 @@ const ListedProduct = () => {
 			name: 'demo',
 			url: 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
 			size: 1000,
-			mimeType: 'image/png'
+			mimeType: 'image/png',
+			createdAt: new Date(),
+			updatedAt: new Date(),
+			deletedAt: new Date()
 		}],
 		totalQuantity: 10,
 		availableQuantity: 10,
+		createdAt: new Date(),
+		updatedAt: new Date(),
+		deletedAt: new Date()
 
 	}];
 	const getProducts = async () => {
