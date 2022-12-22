@@ -1,6 +1,3 @@
-// TODO: export * form interface
-import { User } from './interface/user';
-
-export { User };
+export { User } from './interface/user';
 
 export * from './util';
