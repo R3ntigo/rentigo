@@ -70,7 +70,8 @@ const ListedProduct = () => {
 			mimeType: 'image/png'
 		}],
 		totalQuantity: 10,
-		availableQuantity: 10
+		availableQuantity: 10,
+
 	}];
 	const getProducts = async () => {
 		const res = await fetch('http://localhost:3333/api/product');
