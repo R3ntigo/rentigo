@@ -33,12 +33,14 @@ const Dashboard = () => {
 			<div className="border-spacing-4 h-10" />
 			<div className="grid grid-cols-2 gap-4 px-10 h-fit">
 				<div className="bg-slate-100 rounded-lg p-1 border-4 border-solid border-yellow-300">
-					<div className="flex justify-end">
-						<div className="px-2">
-							<TfiLayoutMediaRight size="64" color="yellow[300]" />
+					<a href="/rent-req-dash">
+						<div className="flex justify-end">
+							<div className="px-2">
+								<TfiLayoutMediaRight size="64" color="yellow[300]" />
+							</div>
 						</div>
-					</div>
-					<div className=" top-20 left-3 text-left font-semibold text-xl">Request for rent</div>
+						<div className=" top-20 left-3 text-left font-semibold text-xl">Request for rent</div>
+					</a>
 				</div>
 				<div
 					className="bg-slate-100

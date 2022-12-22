@@ -9,6 +9,7 @@ import { SideBar } from './navbar/Navbar';
 import { Dashboard } from './dashboard/Dashboard';
 import { SignIn2 } from './signin/sign-in-new';
 import { ListedProduct } from './dashboard/ListedProduct';
+import { RequestforRent } from './dashboard/RequestforRent';
 
 enableFreezeUI();
 
@@ -38,6 +39,7 @@ const App = () => (
 					<Route path="/testNavbar" element={<SideBar />} />
 					<Route path="/dashboard" element={<Dashboard />} />
 					<Route path="/listed-product" element={<ListedProduct />} />
+					<Route path="/rent-req-dash" element={<RequestforRent />} />
 				</Routes>
 			</div>
 		</div>
