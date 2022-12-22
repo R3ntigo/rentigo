@@ -14,7 +14,7 @@ import { Gender } from '@rentigo/types';
 const ListedProduct = () => {
 	const totalNumberofProducts = 10; // this should be fetched from the backend
 	const curruntlyListedProducts = 7; // this should be fetched from the backend
-	const availableProducts = 
+	const availableProducts = 3;
 	const demoProduct: Product = {
 		id: '1',
 		description: 'demo description',
@@ -108,11 +108,11 @@ const ListedProduct = () => {
 					</div>
 					<div>
 						<p className="text-center">Currently in rent</p>
-						<p className="text-center text-2xl font-semibold">{totalNumberofProducts}</p>
+						<p className="text-center text-2xl font-semibold">{curruntlyListedProducts}</p>
 					</div>
 					<div>
 						<p className="text-center">Available Product</p>
-						<p className="text-center text-2xl font-semibold">{totalNumberofProducts}</p>
+						<p className="text-center text-2xl font-semibold">{availableProducts}</p>
 					</div>
 				</div>
 
