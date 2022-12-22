@@ -1,13 +1,16 @@
 /* eslint-disable import/no-cycle */
 import { Column,
+	CreateDateColumn,
+	DeleteDateColumn,
 	Entity,
 	JoinColumn,
 	JoinTable,
 	ManyToMany,
 	OneToMany,
 	OneToOne,
-	PrimaryGeneratedColumn } from 'typeorm';
-import { IsAlpha, IsArray, IsEmail, IsPhoneNumber, Max, Min } from 'class-validator';
+	PrimaryGeneratedColumn,
+	UpdateDateColumn } from 'typeorm';
+import { IsArray, IsEmail, IsPhoneNumber, Max, Min } from 'class-validator';
 import { Gender } from '@rentigo/types';
 
 import { Address } from './Address';
@@ -67,6 +70,15 @@ class User {
 
 	@OneToMany(() => RentingPolicy, (rentingPolicy) => rentingPolicy.id, { cascade: true })
 	rentingPolicies: RentingPolicy[];
+
+	@CreateDateColumn()
+	createdAt: Date;
+
+	@UpdateDateColumn()
+	updatedAt: Date;
+
+	@DeleteDateColumn()
+	deletedAt: Date;
 }
 
 export { User };

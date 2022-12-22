@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { IsNumber, IsString, IsUrl, Length } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 class Resource {
@@ -24,6 +24,15 @@ class Resource {
 	@IsString()
 	@Length(3, 50)
 	mimeType: string;
+
+	@CreateDateColumn()
+	createdAt: Date;
+
+	@UpdateDateColumn()
+	updatedAt: Date;
+
+	@DeleteDateColumn()
+	deletedAt: Date;
 }
 
 export { Resource };

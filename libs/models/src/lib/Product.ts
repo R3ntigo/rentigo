@@ -1,6 +1,8 @@
 /* eslint-disable import/no-cycle */
 import { IsArray, IsNumber, Length } from 'class-validator';
 import { Column,
+	CreateDateColumn,
+	DeleteDateColumn,
 	Entity,
 	JoinColumn,
 	JoinTable,
@@ -8,7 +10,8 @@ import { Column,
 	ManyToOne,
 	OneToMany,
 	OneToOne,
-	PrimaryGeneratedColumn } from 'typeorm';
+	PrimaryGeneratedColumn,
+	UpdateDateColumn } from 'typeorm';
 
 import { Address } from './Address';
 import { PricingPolicy } from './policy/PricingPolicy';
@@ -72,6 +75,15 @@ class Product {
 	@Column()
 	@IsNumber()
 	availableQuantity: number;
+
+	@CreateDateColumn()
+	createdAt: Date;
+
+	@UpdateDateColumn()
+	updatedAt: Date;
+
+	@DeleteDateColumn()
+	deletedAt: Date;
 }
 
 export { Product };

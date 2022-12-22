@@ -1,6 +1,13 @@
 /* eslint-disable import/no-cycle */
+import { Column,
+	CreateDateColumn,
+	DeleteDateColumn,
+	Entity,
+	JoinColumn,
+	ManyToOne,
+	PrimaryGeneratedColumn,
+	UpdateDateColumn } from 'typeorm';
 import { IsDate, Length } from 'class-validator';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { User } from '../User';
 
@@ -27,6 +34,15 @@ class RentingPolicy {
 	@Column()
 	@IsDate()
 	lastUpdated: Date;
+
+	@CreateDateColumn()
+	createdAt: Date;
+
+	@UpdateDateColumn()
+	updatedAt: Date;
+
+	@DeleteDateColumn()
+	deletedAt: Date;
 }
 
 export { RentingPolicy };

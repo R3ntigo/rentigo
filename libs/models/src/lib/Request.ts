@@ -1,5 +1,15 @@
 /* eslint-disable import/no-cycle */
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+	Column,
+	CreateDateColumn,
+	DeleteDateColumn,
+	Entity,
+	JoinColumn,
+	ManyToOne,
+	OneToOne,
+	PrimaryGeneratedColumn,
+	UpdateDateColumn
+} from 'typeorm';
 import { IsNumber } from 'class-validator';
 import { Duration } from './Duration';
 
@@ -43,6 +53,15 @@ class Request {
 		default: RequestStatus.PENDING,
 	})
 	status: RequestStatus;
+
+	@CreateDateColumn()
+	createdAt: Date;
+
+	@UpdateDateColumn()
+	updatedAt: Date;
+
+	@DeleteDateColumn()
+	deletedAt: Date;
 }
 
 export { Request, RequestStatus };
