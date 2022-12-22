@@ -69,7 +69,8 @@ const ListedProduct = () => {
 			deletedAt: new Date()
 		}],
 		totalQuantity: 10,
-		availableQuantity: 10
+		availableQuantity: 10,
+
 	}];
 	const getProducts = async () => {
 		const res = await fetch('http://localhost:3333/api/product');
