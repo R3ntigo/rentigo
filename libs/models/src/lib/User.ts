@@ -3,6 +3,7 @@ import { Column,
 	CreateDateColumn,
 	DeleteDateColumn,
 	Entity,
+	Index,
 	JoinColumn,
 	JoinTable,
 	ManyToMany,
@@ -10,7 +11,7 @@ import { Column,
 	OneToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn } from 'typeorm';
-import { IsArray, IsEmail, IsPhoneNumber, Max, Min } from 'class-validator';
+import { IsArray, IsEmail, IsPhoneNumber, IsUrl, Max, Min } from 'class-validator';
 import { Gender } from '@rentigo/types';
 
 import { Address } from './Address';
@@ -36,18 +37,24 @@ class User {
 	lastName: string;
 
 	@Column()
+	@Index({ unique: true })
 	@IsEmail()
 	email: string;
 
-	@Column()
+	@Column({
+		unique: true,
+	})
 	@IsPhoneNumber('BD')
 	phone: string;
 
 	@OneToOne(() => Resource)
 	@JoinColumn()
+	@IsUrl()
 	photoUrl: Resource;
 
-	@Column()
+	@Column({
+		unique: true,
+	})
 	nid: string;
 
 	@Column({
@@ -64,12 +71,15 @@ class User {
 	address: Address[];
 
 	@OneToMany(() => Request, (request) => request.id, { cascade: true })
+	@IsArray()
 	requests: Request[];
 
 	@OneToMany(() => Product, (product) => product.id, { cascade: true })
+	@IsArray()
 	products: Product[];
 
 	@OneToMany(() => RentingPolicy, (rentingPolicy) => rentingPolicy.id, { cascade: true })
+	@IsArray()
 	rentingPolicies: RentingPolicy[];
 
 	@OneToOne(() => UserCredential, { cascade: true })
