@@ -11,7 +11,6 @@ import { Column,
 	OneToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn } from 'typeorm';
-import { IsArray, IsEmail, IsPhoneNumber, IsUrl, Max, Min } from 'class-validator';
 import { Gender } from '@rentigo/types';
 
 import { Address } from './Address';
@@ -24,32 +23,25 @@ import { UserCredential } from './UserCredential';
 @Entity()
 class User {
 	@PrimaryGeneratedColumn('uuid')
-	id: string;
+	id?: string;
 
 	@Column()
-	@Min(3)
-	@Max(50)
 	firstName: string;
 
 	@Column()
-	@Min(3)
-	@Max(50)
 	lastName: string;
 
 	@Column()
 	@Index({ unique: true })
-	@IsEmail()
 	email: string;
 
 	@Column({
 		unique: true,
 	})
-	@IsPhoneNumber('BD')
 	phone: string;
 
 	@OneToOne(() => Resource)
 	@JoinColumn()
-	@IsUrl()
 	photoUrl: Resource;
 
 	@Column({
@@ -67,35 +59,31 @@ class User {
 	@JoinTable({
 		name: 'user_address',
 	})
-	@IsArray()
-	address: Address[];
+	addresses?: Address[];
 
 	@OneToMany(() => Request, (request) => request.id, { cascade: true })
-	@IsArray()
-	requests: Request[];
+	requests?: Request[];
 
 	@OneToMany(() => Product, (product) => product.id, { cascade: true })
-	@IsArray()
-	products: Product[];
+	products?: Product[];
 
 	@OneToMany(() => RentingPolicy, (rentingPolicy) => rentingPolicy.id, { cascade: true })
-	@IsArray()
-	rentingPolicies: RentingPolicy[];
+	rentingPolicies?: RentingPolicy[];
 
 	@OneToOne(() => UserCredential, { cascade: true })
 	@JoinColumn({
 		name: 'credentialId',
 	})
-	credential: UserCredential;
+	credential?: UserCredential;
 
 	@CreateDateColumn()
-	createdAt: Date;
+	createdAt?: Date;
 
 	@UpdateDateColumn()
-	updatedAt: Date;
+	updatedAt?: Date;
 
 	@DeleteDateColumn()
-	deletedAt: Date;
+	deletedAt?: Date;
 }
 
 export { User };

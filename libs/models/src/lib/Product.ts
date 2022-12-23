@@ -1,5 +1,4 @@
 /* eslint-disable import/no-cycle */
-import { IsArray, IsNumber, Length } from 'class-validator';
 import { Column,
 	CreateDateColumn,
 	DeleteDateColumn,
@@ -23,14 +22,12 @@ import { User } from './User';
 @Entity()
 class Product {
 	@PrimaryGeneratedColumn('uuid')
-	id: string;
+	id?: string;
 
 	@Column()
-	@Length(50, 500)
 	description: string;
 
 	@Column()
-	@Length(3, 50)
 	title: string;
 
 	@ManyToOne(() => User, (user) => user.products)
@@ -45,12 +42,10 @@ class Product {
 	@JoinTable({
 		name: 'product_renting_policy',
 	})
-	@IsArray()
 	rentingPolicies: RentingPolicy[];
 
 	@OneToMany(() => PricingPolicy, (pricingPolicy) => pricingPolicy.product, { cascade: true })
 	@JoinColumn()
-	@IsArray()
 	pricingPolicies: PricingPolicy[];
 
 	@OneToMany(() => Tag, (tag) => tag.product, { cascade: true })
@@ -58,7 +53,7 @@ class Product {
 	tags: Tag[];
 
 	@Column()
-	family: string;
+	family?: string;
 
 	// category;
 
@@ -69,21 +64,19 @@ class Product {
 	imageUrls: Resource[];
 
 	@Column()
-	@IsNumber()
 	totalQuantity: number;
 
 	@Column()
-	@IsNumber()
 	availableQuantity: number;
 
 	@CreateDateColumn()
-	createdAt: Date;
+	createdAt?: Date;
 
 	@UpdateDateColumn()
-	updatedAt: Date;
+	updatedAt?: Date;
 
 	@DeleteDateColumn()
-	deletedAt: Date;
+	deletedAt?: Date;
 }
 
 export { Product };

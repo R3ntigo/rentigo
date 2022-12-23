@@ -7,14 +7,13 @@ import { Column,
 	ManyToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn } from 'typeorm';
-import { IsDate, Length } from 'class-validator';
 
 import { User } from '../User';
 
 @Entity()
 class RentingPolicy {
 	@PrimaryGeneratedColumn('uuid')
-	id: string;
+	id?: string;
 
 	@ManyToOne(() => User, (user) => user.rentingPolicies)
 	@JoinColumn()
@@ -24,25 +23,19 @@ class RentingPolicy {
 	title:string;
 
 	@Column()
-	@Length(10, 100)
 	shortDescription: string;
 
 	@Column()
-	@Length(10, 1000)
 	legalDescription: string;
 
-	@Column()
-	@IsDate()
-	lastUpdated: Date;
-
 	@CreateDateColumn()
-	createdAt: Date;
+	createdAt?: Date;
 
 	@UpdateDateColumn()
-	updatedAt: Date;
+	updatedAt?: Date;
 
 	@DeleteDateColumn()
-	deletedAt: Date;
+	deletedAt?: Date;
 }
 
 export { RentingPolicy };

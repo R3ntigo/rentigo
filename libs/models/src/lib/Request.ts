@@ -10,7 +10,6 @@ import {
 	PrimaryGeneratedColumn,
 	UpdateDateColumn
 } from 'typeorm';
-import { IsNumber } from 'class-validator';
 import { Duration } from './Duration';
 
 import { Address } from './Address';
@@ -26,18 +25,17 @@ enum RequestStatus {
 @Entity()
 class Request {
 	@PrimaryGeneratedColumn('uuid')
-	id: string;
+	id?: string;
 
 	@ManyToOne(() => User, (user) => user.requests)
 	@JoinColumn()
-	user: User;
+	borrower: User;
 
 	@OneToOne(() => Product)
 	@JoinColumn()
 	product: Product;
 
 	@Column()
-	@IsNumber()
 	quantity: number;
 
 	@OneToOne(() => Address)
@@ -55,13 +53,13 @@ class Request {
 	status: RequestStatus;
 
 	@CreateDateColumn()
-	createdAt: Date;
+	createdAt?: Date;
 
 	@UpdateDateColumn()
-	updatedAt: Date;
+	updatedAt?: Date;
 
 	@DeleteDateColumn()
-	deletedAt: Date;
+	deletedAt?: Date;
 }
 
 export { Request, RequestStatus };
