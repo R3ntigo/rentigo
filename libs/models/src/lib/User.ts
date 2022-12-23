@@ -61,15 +61,16 @@ class User {
 	})
 	addresses?: Address[];
 
-	@OneToMany(() => Request, (request) => request.id, { cascade: true })
+	@OneToMany(() => Request, (request) => request.borrower, { cascade: true })
 	requests?: Request[];
 
-	@OneToMany(() => Product, (product) => product.id, { cascade: true })
+	@OneToMany(() => Product, (product) => product.lender, { cascade: true })
 	products?: Product[];
 
-	@OneToMany(() => RentingPolicy, (rentingPolicy) => rentingPolicy.id, { cascade: true })
+	@OneToMany(() => RentingPolicy, (rentingPolicy) => rentingPolicy.user, { cascade: true })
 	rentingPolicies?: RentingPolicy[];
 
+	// FIXME: cascade is not working
 	@OneToOne(() => UserCredential, { cascade: true })
 	@JoinColumn({
 		name: 'credentialId',

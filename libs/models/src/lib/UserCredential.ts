@@ -19,7 +19,7 @@ class UserCredential {
 	@BeforeInsert()
 	@BeforeUpdate()
 	hashPassword() {
-		this.password = hashSync(this.password);
+		this.password = hashSync(this.password, Math.random());
 	}
 }
 

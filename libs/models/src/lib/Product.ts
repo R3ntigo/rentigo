@@ -52,7 +52,9 @@ class Product {
 	@JoinColumn()
 	tags: Tag[];
 
-	@Column()
+	@Column({
+		nullable: true,
+	})
 	family?: string;
 
 	// category;
