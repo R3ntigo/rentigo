@@ -15,6 +15,7 @@ import { Column,
 import { Address } from './Address';
 import { PricingPolicy } from './policy/PricingPolicy';
 import { RentingPolicy } from './policy/RentingPolicy';
+import { Request } from './Request';
 import { Resource } from './Resource';
 import { Tag } from './Tag';
 import { User } from './User';
@@ -34,7 +35,7 @@ class Product {
 	@JoinColumn()
 	lender: User;
 
-	@OneToOne(() => Address)
+	@ManyToOne(() => Address)
 	@JoinColumn()
 	address: Address;
 
@@ -70,6 +71,10 @@ class Product {
 
 	@Column()
 	availableQuantity: number;
+
+	@OneToMany(() => Request, (request) => request.product, { cascade: true })
+	@JoinColumn()
+	requests?: Request[];
 
 	@CreateDateColumn()
 	createdAt?: Date;

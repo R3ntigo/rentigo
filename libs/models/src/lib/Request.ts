@@ -31,14 +31,14 @@ class Request {
 	@JoinColumn()
 	borrower: User;
 
-	@OneToOne(() => Product)
+	@ManyToOne(() => Product)
 	@JoinColumn()
 	product: Product;
 
 	@Column()
 	quantity: number;
 
-	@OneToOne(() => Address)
+	@ManyToOne(() => Address)
 	@JoinColumn()
 	address: Address;
 
