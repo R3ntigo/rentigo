@@ -10,12 +10,12 @@ export class JwtAuthGuard extends AuthGuard('jwt') implements CanActivate {
 	constructor() {
 		super();
 		this.logger = new Logger('JwtAuthGuard', { timestamp: true });
-	}  
+	}
 
 	canActivate(context: ExecutionContext) {
 		const request: Request = context.switchToHttp().getRequest();
-		this.logger.debug(`Request method: ${request.method}`);
 		if (!this.allowedMethods.includes(request.method)) {
+			this.logger.debug(`Request method: ${request.method} not allowed.`);
 			throw new MethodNotAllowedException();
 		}
 		return super.canActivate(context);

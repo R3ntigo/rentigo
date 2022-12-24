@@ -3,6 +3,7 @@ import { Column,
 	CreateDateColumn,
 	DeleteDateColumn,
 	Entity,
+	Index,
 	JoinColumn,
 	JoinTable,
 	ManyToMany,
@@ -10,7 +11,6 @@ import { Column,
 	OneToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn } from 'typeorm';
-import { IsArray, IsEmail, IsPhoneNumber, Max, Min } from 'class-validator';
 import { Gender } from '@rentigo/types';
 
 import { Address } from './Address';
@@ -18,35 +18,35 @@ import { Request } from './Request';
 import { Product } from './Product';
 import { RentingPolicy } from './policy';
 import { Resource } from './Resource';
+import { UserCredential } from './UserCredential';
 
 @Entity()
 class User {
 	@PrimaryGeneratedColumn('uuid')
-	id: string;
+	id?: string;
 
 	@Column()
-	@Min(3)
-	@Max(50)
 	firstName: string;
 
 	@Column()
-	@Min(3)
-	@Max(50)
 	lastName: string;
 
 	@Column()
-	@IsEmail()
+	@Index({ unique: true })
 	email: string;
 
-	@Column()
-	@IsPhoneNumber('BD')
+	@Column({
+		unique: true,
+	})
 	phone: string;
 
 	@OneToOne(() => Resource)
 	@JoinColumn()
 	photoUrl: Resource;
 
-	@Column()
+	@Column({
+		unique: true,
+	})
 	nid: string;
 
 	@Column({
@@ -59,26 +59,32 @@ class User {
 	@JoinTable({
 		name: 'user_address',
 	})
-	@IsArray()
-	address: Address[];
+	addresses?: Address[];
 
-	@OneToMany(() => Request, (request) => request.id, { cascade: true })
-	requests: Request[];
+	@OneToMany(() => Request, (request) => request.borrower, { cascade: true })
+	requests?: Request[];
 
-	@OneToMany(() => Product, (product) => product.id, { cascade: true })
-	products: Product[];
+	@OneToMany(() => Product, (product) => product.lender, { cascade: true })
+	products?: Product[];
 
-	@OneToMany(() => RentingPolicy, (rentingPolicy) => rentingPolicy.id, { cascade: true })
-	rentingPolicies: RentingPolicy[];
+	@OneToMany(() => RentingPolicy, (rentingPolicy) => rentingPolicy.user, { cascade: true })
+	rentingPolicies?: RentingPolicy[];
+
+	// FIXME: cascade is not working
+	@OneToOne(() => UserCredential, { cascade: true })
+	@JoinColumn({
+		name: 'credentialId',
+	})
+	credential?: UserCredential;
 
 	@CreateDateColumn()
-	createdAt: Date;
+	createdAt?: Date;
 
 	@UpdateDateColumn()
-	updatedAt: Date;
+	updatedAt?: Date;
 
 	@DeleteDateColumn()
-	deletedAt: Date;
+	deletedAt?: Date;
 }
 
 export { User };

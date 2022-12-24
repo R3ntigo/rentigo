@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from '@nestjs/typeorm';
@@ -9,13 +10,23 @@ import {
 	PricingPolicy,
 	RentingPolicy,
 	Tag,
-	Resource
+	Resource,
+	UserCredential
 } from '@rentigo/models';
-import { DataSource } from 'typeorm';
+import { DataSource, AdvancedConsoleLogger } from 'typeorm';
+
+// will not log queries that is longer than 500 characters
+class MyCustomLogger extends AdvancedConsoleLogger {
+	logQuery(query: string, parameters?: any[], queryRunner?: any) {
+		if (query.length < 500) super.logQuery(query, parameters, queryRunner);
+	}
+}
 
 @Injectable()
 class TypeOrmConfigService implements TypeOrmOptionsFactory {
 	constructor(private config: ConfigService) {}
+
+	readonly entities = [Address, Product, Request, User, PricingPolicy, RentingPolicy, Tag, Resource, UserCredential];
 
 	public createTypeOrmOptions(): TypeOrmModuleOptions {
 		return {
@@ -25,10 +36,11 @@ class TypeOrmConfigService implements TypeOrmOptionsFactory {
 			database: this.config.get('POSTGRES_DB_NAME'),
 			username: this.config.get('POSTGRES_DB_USER'),
 			password: this.config.get('POSTGRES_DB_PASSWORD'),
-			entities: [Address, Product, Request, User, PricingPolicy, RentingPolicy, Tag, Resource],
+			entities: this.entities,
 			migrationsTableName: 'typeorm_migrations',
 			synchronize: false,
 			logging: true,
+			logger: new MyCustomLogger(),
 		};
 	}
 
@@ -40,10 +52,11 @@ class TypeOrmConfigService implements TypeOrmOptionsFactory {
 			database: this.config.get('POSTGRES_DB_NAME'),
 			username: this.config.get('POSTGRES_DB_USER'),
 			password: this.config.get('POSTGRES_DB_PASSWORD'),
-			entities: [Address, Product, Request, User, PricingPolicy, RentingPolicy, Tag, Resource],
+			entities: this.entities,
 			migrations: ['apps/backend/migrations/*.{ts,js}'],
 			migrationsTableName: 'typeorm_migrations',
 			logging: true,
+			logger: new MyCustomLogger(),
 		});
 	}
 }

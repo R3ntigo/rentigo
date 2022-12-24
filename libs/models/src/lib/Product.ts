@@ -1,5 +1,4 @@
 /* eslint-disable import/no-cycle */
-import { IsArray, IsNumber, Length } from 'class-validator';
 import { Column,
 	CreateDateColumn,
 	DeleteDateColumn,
@@ -16,6 +15,7 @@ import { Column,
 import { Address } from './Address';
 import { PricingPolicy } from './policy/PricingPolicy';
 import { RentingPolicy } from './policy/RentingPolicy';
+import { Request } from './Request';
 import { Resource } from './Resource';
 import { Tag } from './Tag';
 import { User } from './User';
@@ -23,21 +23,19 @@ import { User } from './User';
 @Entity()
 class Product {
 	@PrimaryGeneratedColumn('uuid')
-	id: string;
+	id?: string;
 
 	@Column()
-	@Length(50, 500)
 	description: string;
 
 	@Column()
-	@Length(3, 50)
 	title: string;
 
 	@ManyToOne(() => User, (user) => user.products)
 	@JoinColumn()
 	lender: User;
 
-	@OneToOne(() => Address)
+	@ManyToOne(() => Address)
 	@JoinColumn()
 	address: Address;
 
@@ -45,20 +43,20 @@ class Product {
 	@JoinTable({
 		name: 'product_renting_policy',
 	})
-	@IsArray()
 	rentingPolicies: RentingPolicy[];
 
 	@OneToMany(() => PricingPolicy, (pricingPolicy) => pricingPolicy.product, { cascade: true })
 	@JoinColumn()
-	@IsArray()
 	pricingPolicies: PricingPolicy[];
 
 	@OneToMany(() => Tag, (tag) => tag.product, { cascade: true })
 	@JoinColumn()
 	tags: Tag[];
 
-	@Column()
-	family: string;
+	@Column({
+		nullable: true,
+	})
+	family?: string;
 
 	// category;
 
@@ -69,21 +67,23 @@ class Product {
 	imageUrls: Resource[];
 
 	@Column()
-	@IsNumber()
 	totalQuantity: number;
 
 	@Column()
-	@IsNumber()
 	availableQuantity: number;
 
+	@OneToMany(() => Request, (request) => request.product, { cascade: true })
+	@JoinColumn()
+	requests?: Request[];
+
 	@CreateDateColumn()
-	createdAt: Date;
+	createdAt?: Date;
 
 	@UpdateDateColumn()
-	updatedAt: Date;
+	updatedAt?: Date;
 
 	@DeleteDateColumn()
-	deletedAt: Date;
+	deletedAt?: Date;
 }
 
 export { Product };
