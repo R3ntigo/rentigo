@@ -224,7 +224,7 @@ class Factory {
 
 			const product = this.products[Math.floor(Math.random() * this.products.length)];
 
-			const quantity = Math.floor(Math.random() * product.availableQuantity);
+			const quantity = Math.floor(Math.random() * product.availableQuantity) + 1;
 			const status = this.requestStatuses[Math.floor(Math.random() * this.requestStatuses.length)];
 			const request: Request = {
 				borrower,
