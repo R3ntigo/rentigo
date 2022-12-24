@@ -141,5 +141,74 @@ const ListedProduct = () => {
 		</>
 	);
 };
+const demoProductGlobal: Product[] = [{
+	id: '1',
+	description: 'demo description',
+	title: 'demo',
+	lender: {
+		id: '1',
+		firstName: 'demo',
+		lastName: 'demo',
+		email: 'sakib@gmail.com',
+		phone: '01700000000',
+		nid: '1234567890',
+		gender: Gender.MALE,
+		address: [{
+			id: '1',
+			division: 'dhaka',
+			district: 'gazipur',
+			subDistrict: 'Ghatail',
+			zipCode: '1700',
+			details: 'demo details',
+			label: 'demo label'
+		}],
+		requests: [],
+		photoUrl: {
+			id: '1',
+			name: 'demo',
+			url: 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+			size: 1000,
+			mimeType: 'image/png',
+			createdAt: new Date(),
+			updatedAt: new Date(),
+			deletedAt: new Date()
+		},
+		rentingPolicies: [],
+		products: [],
+		createdAt: new Date(),
+		updatedAt: new Date(),
+		deletedAt: new Date()
 
-export { ListedProduct };
+	},
+	address: {
+		id: '1',
+		division: 'dhaka',
+		district: 'gazipur',
+		subDistrict: 'Ghatail',
+		zipCode: '1700',
+		details: 'demo details',
+		label: 'demo label'
+	},
+	rentingPolicies: [],
+	pricingPolicies: [],
+	tags: [],
+	family: 'demo',
+	imageUrls: [{
+		id: '1',
+		name: 'demo',
+		url: 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+		size: 1000,
+		mimeType: 'image/png',
+		createdAt: new Date(),
+		updatedAt: new Date(),
+		deletedAt: new Date()
+	}],
+	totalQuantity: 10,
+	availableQuantity: 10,
+	createdAt: new Date(),
+	updatedAt: new Date(),
+	deletedAt: new Date()
+
+}];
+
+export { ListedProduct, demoProductGlobal };
