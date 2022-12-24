@@ -1,15 +1,17 @@
-import { DataSource, Repository } from 'typeorm';
+import { DataSource, FindOptionsRelations } from 'typeorm';
 import { User } from '@rentigo/models';
 import { Injectable } from '@nestjs/common';
+import { Repository } from '../common/repository';
 
 @Injectable()
 class UserRepository extends Repository<User> {
 	constructor(dataSource: DataSource) {
-		super(User, dataSource.createEntityManager());
+		super(User, dataSource);
 	}
 
-	async findByEmail(email: string): Promise<User> {
-		return this.findOne({ where: { email } });
+	async findByEmail(email: string, relations: FindOptionsRelations<User>): Promise<User> {
+		const user = await this.findOne({ where: { email }, relations });
+		return user;
 	}
 }
 

@@ -1,7 +1,8 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { Strategy } from 'passport-local';
-import { User } from '@rentigo/types';
+import { SignInDto } from '@rentigo/dto';
+import { User } from '@rentigo/models';
 
 import { AuthService } from './auth.service';
 
@@ -12,7 +13,8 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 	}
 
 	async validate(username: string, password: string): Promise<User> {
-		const user = await this.authService.validateUser(username, password);
+		const signInDto:SignInDto = { username, password };
+		const user = await this.authService.validateUser(signInDto);
 		if (!user) {
 			throw new UnauthorizedException('Invalid credentials');
 		}

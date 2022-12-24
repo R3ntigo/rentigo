@@ -4,9 +4,10 @@
   "projects": {
     "backend": "apps/backend",
     "constants": "libs/constants",
+    "decorators": "libs/decorators",
+    "dto": "libs/dto",
     "frontend": "apps/frontend",
     "frontend-e2e": "apps/frontend-e2e",
-    "models": "libs/models",
-    "types": "libs/types"
+    "models": "libs/models"
   }
 }

@@ -11,7 +11,7 @@ import { Column,
 	OneToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn } from 'typeorm';
-import { Gender } from '@rentigo/types';
+import { Gender } from '@rentigo/constants';
 
 import { Address } from './Address';
 import { Request } from './Request';

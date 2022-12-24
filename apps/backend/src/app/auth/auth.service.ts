@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '@rentigo/types';
+import { SignInDto } from '@rentigo/dto';
+import { User } from '@rentigo/models';
 
 import { UsersService } from '../user/user.service';
 
@@ -11,17 +12,22 @@ export class AuthService {
 		private jwtService: JwtService
 	) {}
 
-	async validateUser(username: string, rawPassword: string): Promise<User> {
-		const user = await this.usersService.findOne(username);
-		if (user && user.password === rawPassword) {
-			const { password, ...result } = user;
-			return result;
-		}
-		return null;
+	async validateUser(signInDto: SignInDto): Promise<User> {
+		const user = await this.usersService.getValidatedUser(signInDto.username, signInDto.password);
+		return user;
 	}
 
 	login(user: User) {
-		const payload = { username: user.username, sub: user.id };
+		const payload = {
+			id: user.id,
+			firstName: user.firstName,
+			lastName: user.lastName,
+			email: user.email,
+			phone: user.phone,
+			photoUrl: user.photoUrl,
+			nid: user.nid,
+			gender: user.gender,
+		};
 		return {
 			accessToken: this.jwtService.sign(payload),
 		};

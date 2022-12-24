@@ -6,13 +6,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GlobalModule } from './global/global.module';
 import { MessagesModule } from './messages/messages.module';
+import { AddressModule } from './address/address.module';
 
 @Module({
 	imports: [
 		AuthModule,
 		UsersModule,
 		GlobalModule,
-		MessagesModule
+		MessagesModule,
+		AddressModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],

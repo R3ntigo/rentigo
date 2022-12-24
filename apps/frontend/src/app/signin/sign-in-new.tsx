@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { classValidatorResolver } from '@hookform/resolvers/class-validator';
 import axios, { AxiosError } from 'axios';
-import { SignInDto } from '@rentigo/types/dto';
+import { SignInDto } from '@rentigo/dto';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -49,8 +49,8 @@ const SignIn2 = () => {
 					<div className="m-8 relative space-y-4">
 						<div className="p-5 bg-white rounded-lg flex items-center justify-between space-x-8">
 							<div className="flex-1">
-								<label htmlFor="username" className="text-2xl">
-									Username
+								<label htmlFor="email" className="text-2xl">
+									Email
 									<input
 										type="text"
 										{...register('username')}

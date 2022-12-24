@@ -5,7 +5,7 @@ import { faker } from '@faker-js/faker';
 import {
 	Address, PricingPolicy, Product, RentingPolicy, Request, RequestStatus, Resource, Tag, User, UserCredential
 } from '@rentigo/models';
-import { Gender, TimeUnit } from '@rentigo/types';
+import { Gender, TimeUnit } from '@rentigo/constants';
 import ProgressBar from 'progress';
 
 class Factory {

@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '@rentigo/types';
+import { FindOptionsRelations } from 'typeorm';
+import { User } from '@rentigo/models';
+import { compareSync } from 'bcryptjs';
+
 import { StorageService } from '../storage/storage.service';
 import { UserRepository } from './user.repository';
 
@@ -9,24 +12,24 @@ export class UsersService {
 		private userRepository: UserRepository,
 		private storageService: StorageService
 	) {
-		storageService.listBuckets().then(console.log);
-		userRepository.findBy({ email: 'a@gmail.com' }).then(console.log);
+		this.storageService.listBuckets().then(console.log);
 	}
 
-	private readonly users: User[] = [
-		{
-			id: 1,
-			username: 'john',
-			password: 'changeme',
-		},
-		{
-			id: 2,
-			username: 'maria',
-			password: 'guess',
-		},
-	];
+	async findByEmail(email: string, relations: FindOptionsRelations<User> = {}): Promise<User> {
+		const user = await this.userRepository.findByEmail(email, relations);
+		return user;
+	}
 
-	async findOne(username: string): Promise<User> {
-		return this.users.find((user) => user.username === username);
+	async getValidatedUser(email: string, password: string): Promise<User> {
+		const user = await this.findByEmail(email, { credential: true });
+		if (!user) {
+			return null;
+		}
+
+		const isValid = compareSync(password, user.credential.password);
+		if (!isValid) {
+			return null;
+		}
+		return user;
 	}
 }

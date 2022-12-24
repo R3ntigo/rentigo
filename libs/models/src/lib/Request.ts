@@ -6,21 +6,15 @@ import {
 	Entity,
 	JoinColumn,
 	ManyToOne,
-	OneToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn
 } from 'typeorm';
+import { RequestStatus } from '@rentigo/constants';
 import { Duration } from './Duration';
 
 import { Address } from './Address';
 import { Product } from './Product';
 import { User } from './User';
-
-enum RequestStatus {
-	PENDING = 'PENDING',
-	APPROVED = 'APPROVED',
-	REJECTED = 'REJECTED',
-}
 
 @Entity()
 class Request {

@@ -1,4 +1,4 @@
-import { TimeUnit } from '@rentigo/types';
+import { TimeUnit } from '@rentigo/constants';
 import { IsNumber } from 'class-validator';
 import { Column } from 'typeorm';
 

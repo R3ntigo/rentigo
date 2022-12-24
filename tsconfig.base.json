@@ -10,7 +10,7 @@
     "importHelpers": true,
     "target": "ES2017",
     "module": "ESNext",
-		"esModuleInterop": true,
+    "esModuleInterop": true,
     "lib": [
       "es2017",
       "dom"
@@ -22,11 +22,14 @@
       "@rentigo/constants": [
         "libs/constants/src/index.ts"
       ],
+      "@rentigo/decorators": [
+        "libs/decorators/src/index.ts"
+      ],
+      "@rentigo/dto": [
+        "libs/dto/src/index.ts"
+      ],
       "@rentigo/models": [
         "libs/models/src/index.ts"
-      ],
-      "@rentigo/types": [
-        "libs/types/src/index.ts"
       ]
     }
   },

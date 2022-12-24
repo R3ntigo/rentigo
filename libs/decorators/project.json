@@ -1,6 +1,7 @@
 {
+  "name": "decorators",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/types/src",
+  "sourceRoot": "libs/decorators/src",
   "projectType": "library",
   "targets": {
     "lint": {
@@ -10,17 +11,17 @@
       ],
       "options": {
         "lintFilePatterns": [
-          "libs/types/**/*.ts"
+          "libs/decorators/**/*.ts"
         ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": [
-        "{workspaceRoot}/coverage/libs/types"
+        "{workspaceRoot}/coverage/{projectRoot}"
       ],
       "options": {
-        "jestConfig": "libs/types/jest.config.ts",
+        "jestConfig": "libs/decorators/jest.config.ts",
         "passWithNoTests": true
       }
     }

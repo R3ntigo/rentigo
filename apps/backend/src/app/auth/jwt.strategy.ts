@@ -2,7 +2,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { Request } from 'express';
-import { User } from '@rentigo/types';
+import { User } from '@rentigo/models';
 import { ConfigService } from '@nestjs/config';
 
 import { UsersService } from '../user/user.service';
@@ -22,10 +22,9 @@ class JwtStrategy extends PassportStrategy(Strategy) {
 		});
 	}
 
-	async validate(payload: User) {
-		const { username } = payload;
-		const user = await this.usersService.findOne(username);
-		return user;
+	// eslint-disable-next-line class-methods-use-this
+	validate(payload: User) {
+		return payload;
 	}
 }
 

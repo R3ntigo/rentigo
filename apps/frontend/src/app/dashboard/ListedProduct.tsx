@@ -9,7 +9,7 @@ import {
 	Tag,
 	Resource
 } from '@rentigo/models';
-import { Gender } from '@rentigo/types';
+import { Gender } from '@rentigo/dto';
 
 const ListedProduct = () => {
 	const totalNumberofProducts = 10; // this should be fetched from the backend
@@ -27,7 +27,7 @@ const ListedProduct = () => {
 			phone: '01700000000',
 			nid: '1234567890',
 			gender: Gender.MALE,
-			address: [{
+			addresses: [{
 				id: '1',
 				division: 'dhaka',
 				district: 'gazipur',
