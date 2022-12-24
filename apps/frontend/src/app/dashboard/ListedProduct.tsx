@@ -143,7 +143,11 @@ const demoProductGlobal: Product[] = [{
 		phone: '01700000000',
 		nid: '1234567890',
 		gender: Gender.MALE,
+<<<<<<< HEAD
 		addresses: [{
+=======
+		address: [{
+>>>>>>> 7aa3d6e (Request for rent debugging)
 			id: '1',
 			division: 'dhaka',
 			district: 'gazipur',
