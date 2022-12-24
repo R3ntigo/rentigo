@@ -7,6 +7,7 @@ import { AppService } from './app.service';
 import { GlobalModule } from './global/global.module';
 import { MessagesModule } from './messages/messages.module';
 import { AddressModule } from './address/address.module';
+import { RentingPolicyModule } from './renting-policy/renting-policy.module';
 
 @Module({
 	imports: [
@@ -15,6 +16,7 @@ import { AddressModule } from './address/address.module';
 		GlobalModule,
 		MessagesModule,
 		AddressModule,
+		RentingPolicyModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],

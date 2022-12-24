@@ -30,11 +30,11 @@ export class AddressService {
 
 	async update(updateAddressDto: UpdateAddressDto): Promise<Address> {
 		await this.addressRepository.update({ id: updateAddressDto.id }, updateAddressDto);
-		return this.addressRepository.findOneBy({ id: updateAddressDto.id });
+		return this.findOne(updateAddressDto.id);
 	}
 
 	async remove(user: User, id: string): Promise<Address> {
-		const address = await this.addressRepository.findOneBy({ id });
+		const address = await this.findOne(id);
 		await this.userRepository.createQueryBuilder()
 			.relation('addresses')
 			.of(user)

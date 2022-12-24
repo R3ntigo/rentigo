@@ -7,7 +7,7 @@ import {
 	Post,
 	Body,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { addHours } from 'date-fns';
 import { SignInDto } from '@rentigo/dto';
@@ -30,6 +30,7 @@ export class AuthController {
 		return true;
 	}
 
+	@ApiBody({ type: SignInDto })
 	@UseGuards(LocalAuthGuard)
 	@Post('sign-in')
 	signIn(@Req() req, @Res() res: Response) {

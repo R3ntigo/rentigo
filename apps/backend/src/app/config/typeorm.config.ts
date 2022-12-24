@@ -40,7 +40,7 @@ class TypeOrmConfigService implements TypeOrmOptionsFactory {
 			migrationsTableName: 'typeorm_migrations',
 			synchronize: false,
 			logging: true,
-			logger: new MyCustomLogger(),
+			logger: 'advanced-console',
 		};
 	}
 
