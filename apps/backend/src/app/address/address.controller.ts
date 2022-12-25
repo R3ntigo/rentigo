@@ -7,7 +7,7 @@ import { ReqUser } from '@rentigo/decorators';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { AddressService } from './address.service';
 
-@ApiTags('address')
+@ApiTags('Address')
 @Controller('address')
 @UseGuards(JwtAuthGuard)
 export class AddressController {

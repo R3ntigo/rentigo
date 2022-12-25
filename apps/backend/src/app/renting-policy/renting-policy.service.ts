@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateRentingPolicyDto, UpdateRentingPolicyDto } from '@rentigo/dto';
 import { RentingPolicy, User } from '@rentigo/models';
-import { FindOptionsRelations } from 'typeorm';
+import { FindOptionsRelations, In } from 'typeorm';
 import { UserRepository } from '../user/user.repository';
 import { RentingPolicyRepository } from './renting-policy.repository';
 
@@ -22,12 +22,16 @@ export class RentingPolicyService {
 		return this.rentingPolicyRepository.save(rentingPolicy);
 	}
 
-	findAll(): Promise<RentingPolicy[]> {
-		return this.rentingPolicyRepository.find();
-	}
-
 	findOne(id: string, relations: FindOptionsRelations<RentingPolicy> = {}): Promise<RentingPolicy> {
 		return this.rentingPolicyRepository.findOne({ where: { id }, relations });
+	}
+
+	findRange(ids: string[]): Promise<RentingPolicy[]> {
+		return this.rentingPolicyRepository.findBy({ id: In(ids) });
+	}
+
+	findAll(): Promise<RentingPolicy[]> {
+		return this.rentingPolicyRepository.find();
 	}
 
 	async update(updateRentingPolicyDto: UpdateRentingPolicyDto): Promise<RentingPolicy> {

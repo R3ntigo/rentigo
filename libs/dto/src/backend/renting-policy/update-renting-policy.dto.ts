@@ -6,6 +6,6 @@ import { CreateRentingPolicyDto } from './create-renting-policy.dto';
 export class UpdateRentingPolicyDto extends PartialType(CreateRentingPolicyDto) {
 	@ApiProperty()
 	@IsNotEmpty()
-	@IsUUID()
+	@IsUUID(4)
 	id: string;
 }

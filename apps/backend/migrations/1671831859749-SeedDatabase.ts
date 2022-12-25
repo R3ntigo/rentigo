@@ -2,10 +2,7 @@
 import { EntityManager, MigrationInterface, QueryRunner, Repository } from 'typeorm';
 import seedrandom from 'seedrandom';
 import { faker } from '@faker-js/faker';
-import {
-	Address, PricingPolicy, Product, RentingPolicy, Request, RequestStatus, Resource, Tag, User, UserCredential
-} from '@rentigo/models';
-import { Gender, TimeUnit } from '@rentigo/constants';
+import { Gender, RequestStatus, TimeUnit } from '@rentigo/constants';
 import ProgressBar from 'progress';
 
 class Factory {
@@ -13,25 +10,25 @@ class Factory {
 
 	readonly entityManager: EntityManager;
 
-	public genders: Gender[];
+	public genders;
 
-	public timeUnits: TimeUnit[];
+	public timeUnits;
 
-	public requestStatuses: RequestStatus[];
+	public requestStatuses;
 
-	public addresses: Address[];
+	public addresses;
 
-	public resources: Resource[];
+	public resources;
 
-	public users: User[];
+	public users;
 
-	public rentingPolicies: RentingPolicy[];
+	public rentingPolicies;
 
-	public products: Product[];
+	public products;
 
-	public requests: Request[];
+	public requests;
 
-	public batchSize: number;
+	public batchSize;
 
 	constructor(seed: number, entityManager: EntityManager) {
 		this.seed = seed;
@@ -63,10 +60,10 @@ class Factory {
 		this.requests = await this.generateRequests(noOfProducts * productToRequestRatio);
 	}
 
-	private async generateAddresses(n: number): Promise<Address[]> {
-		const addresses: Address[] = [];
+	private async generateAddresses(n: number) {
+		const addresses = [];
 		for (let i = 0; i < n; i += 1) {
-			const address: Address = {
+			const address = {
 				division: faker.address.state(),
 				district: faker.address.city(),
 				subDistrict: faker.address.city(),
@@ -77,15 +74,15 @@ class Factory {
 			addresses.push(address);
 		}
 
-		const addressRepository = this.entityManager.getRepository(Address);
+		const addressRepository = this.entityManager.getRepository('Address');
 		const savedAddresses = await this.startBatchInsertion(addressRepository, addresses);
 		return savedAddresses;
 	}
 
-	private async generateResources(n: number): Promise<Resource[]> {
-		const resources: Resource[] = [];
+	private async generateResources(n: number) {
+		const resources = [];
 		for (let i = 0; i < n; i += 1) {
-			const resource: Resource = {
+			const resource = {
 				name: `Resource ${i}`,
 				mimeType: 'image/jpeg',
 				size: 640 * 480,
@@ -94,13 +91,13 @@ class Factory {
 			resources.push(resource);
 		}
 
-		const resourceRepository = this.entityManager.getRepository(Resource);
+		const resourceRepository = this.entityManager.getRepository('Resource');
 		const savedResources = await this.startBatchInsertion(resourceRepository, resources);
 		return savedResources;
 	}
 
-	private async generateUsers(n: number, userToAddressRatio: number): Promise<User[]> {
-		const users: User[] = [];
+	private async generateUsers(n: number, userToAddressRatio: number) {
+		const users = [];
 
 		const orderOfN = Math.floor(Math.log10(n));
 
@@ -113,7 +110,7 @@ class Factory {
 			const gender = this.getRandomGender();
 			const addresses = this.addresses.slice(i * userToAddressRatio, (i + 1) * userToAddressRatio);
 			const photoUrl = this.resources[i];
-			const user: User = {
+			const user = {
 				firstName,
 				lastName,
 				email,
@@ -126,13 +123,13 @@ class Factory {
 			users.push(user);
 		}
 
-		const userRepository = this.entityManager.getRepository(User);
+		const userRepository = this.entityManager.getRepository('User');
 		const savedUsers = await this.startBatchInsertion(userRepository, users);
 
 		for (let i = 0; i < savedUsers.length; i += 1) {
 			const user = savedUsers[i];
 			const password = 'password';
-			const credential = new UserCredential(user.id, password);
+			const credential = { userId: user.id, password };
 			user.credential = credential;
 		}
 
@@ -140,12 +137,12 @@ class Factory {
 		return savedUsersWithCredentials;
 	}
 
-	private async generateRentingPolicies(userToRentingPolicyRatio: number): Promise<RentingPolicy[]> {
-		const policies: RentingPolicy[] = [];
+	private async generateRentingPolicies(userToRentingPolicyRatio: number) {
+		const policies = [];
 		for (let i = 0; i < this.users.length; i += 1) {
 			const noOfPolicies = Math.floor(Math.random() * userToRentingPolicyRatio + 1);
 			for (let j = 0; j < noOfPolicies; j += 1) {
-				const policy: RentingPolicy = {
+				const policy = {
 					title: `Policy ${i}-${j}`,
 					shortDescription: faker.lorem.paragraph(1),
 					legalDescription: faker.lorem.paragraphs(100),
@@ -155,15 +152,15 @@ class Factory {
 			}
 		}
 
-		const policyRepository = this.entityManager.getRepository(RentingPolicy);
+		const policyRepository = this.entityManager.getRepository('RentingPolicy');
 		const savedPolicies = await this.startBatchInsertion(policyRepository, policies);
 
 		return savedPolicies;
 	}
 
-	private async generateProducts(n: number, productToResourceRatio: number): Promise<Product[]> {
-		const products: Product[] = [];
-		const userRepository = this.entityManager.getRepository(User);
+	private async generateProducts(n: number, productToResourceRatio: number) {
+		const products = [];
+		const userRepository = this.entityManager.getRepository('User');
 
 		const bar = new ProgressBar('Generating products [:bar] :percent :etas', {
 			complete: '=',
@@ -184,7 +181,7 @@ class Factory {
 			});
 
 			const totalQuantity = Math.floor(Math.random() * 100);
-			const product: Product = {
+			const product = {
 				title: faker.commerce.productName(),
 				description: faker.lorem.paragraphs(10),
 				lender,
@@ -201,16 +198,16 @@ class Factory {
 			bar.tick();
 		}
 
-		const productRepository = this.entityManager.getRepository(Product);
+		const productRepository = this.entityManager.getRepository('Product');
 		const savedProducts = await this.startBatchInsertion(productRepository, products);
 
 		return savedProducts;
 	}
 
-	private async generateRequests(n: number): Promise<Request[]> {
-		const requests: Request[] = [];
+	private async generateRequests(n: number) {
+		const requests = [];
 
-		const productRepository = this.entityManager.getRepository(Product);
+		const productRepository = this.entityManager.getRepository('Product');
 
 		const bar = new ProgressBar('Generating requests [:bar] :percent :etas', {
 			complete: '=',
@@ -226,7 +223,7 @@ class Factory {
 
 			const quantity = Math.floor(Math.random() * product.availableQuantity) + 1;
 			const status = this.requestStatuses[Math.floor(Math.random() * this.requestStatuses.length)];
-			const request: Request = {
+			const request = {
 				borrower,
 				product,
 				quantity,
@@ -249,19 +246,19 @@ class Factory {
 			bar.tick();
 		}
 
-		const requestRepository = this.entityManager.getRepository(Request);
+		const requestRepository = this.entityManager.getRepository('Request');
 		const savedRequests = await this.startBatchInsertion(requestRepository, requests);
 
 		return savedRequests;
 	}
 
-	private getRandomGender(): Gender {
+	private getRandomGender() {
 		const gender = this.genders[Math.floor(Math.random() * this.genders.length)];
 		return gender;
 	}
 
-	private getRandomAddresses(n: number): Address[] {
-		const addresses: Address[] = [];
+	private getRandomAddresses(n: number) {
+		const addresses = [];
 		const randomIndexes = this.generateUniqueRandomNumbers(n, 0, this.addresses.length);
 		for (let i = 0; i < n; i += 1) {
 			const address = this.addresses[randomIndexes[i]];
@@ -270,8 +267,8 @@ class Factory {
 		return addresses;
 	}
 
-	private getRandomResources(n: number): Resource[] {
-		const resources: Resource[] = [];
+	private getRandomResources(n: number) {
+		const resources = [];
 		const randomIndexes = this.generateUniqueRandomNumbers(n, 0, this.resources.length);
 		for (let i = 0; i < n; i += 1) {
 			const resource = this.resources[randomIndexes[i]];
@@ -281,8 +278,8 @@ class Factory {
 	}
 
 	// eslint-disable-next-line class-methods-use-this
-	private getRandomTags(n: number): Tag[] {
-		const tags: Tag[] = [];
+	private getRandomTags(n: number) {
+		const tags = [];
 		for (let i = 0; i < n; i += 1) {
 			const tag = {
 				name: faker.commerce.productAdjective(),
@@ -292,10 +289,10 @@ class Factory {
 		return tags;
 	}
 
-	private getRandomPricingPolicies(n: number): PricingPolicy[] {
-		const policies: PricingPolicy[] = [];
+	private getRandomPricingPolicies(n: number) {
+		const policies = [];
 		for (let i = 0; i < n; i += 1) {
-			const policy: PricingPolicy = {
+			const policy = {
 				price: Math.floor(Math.random() * 9901) + 100,
 				duration: {
 					unit: this.timeUnits[Math.floor(Math.random() * this.timeUnits.length)],
