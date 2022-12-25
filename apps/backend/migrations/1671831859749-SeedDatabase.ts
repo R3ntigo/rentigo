@@ -1,6 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { EntityManager, MigrationInterface, QueryRunner, Repository } from 'typeorm';
 import seedrandom from 'seedrandom';
+import { hashSync } from 'bcryptjs';
 import { faker } from '@faker-js/faker';
 import { Gender, RequestStatus, TimeUnit } from '@rentigo/constants';
 import ProgressBar from 'progress';
@@ -129,7 +130,10 @@ class Factory {
 		for (let i = 0; i < savedUsers.length; i += 1) {
 			const user = savedUsers[i];
 			const password = 'password';
-			const credential = { userId: user.id, password };
+			const credential = {
+				userId: user.id,
+				password: hashSync(password, Math.random()),
+			};
 			user.credential = credential;
 		}
 
