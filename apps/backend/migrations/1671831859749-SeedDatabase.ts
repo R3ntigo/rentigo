@@ -296,7 +296,7 @@ class Factory {
 		const policies: PricingPolicy[] = [];
 		for (let i = 0; i < n; i += 1) {
 			const policy: PricingPolicy = {
-				price: Math.floor(Math.random() * 100),
+				price: Math.floor(Math.random() * 9901) + 100,
 				duration: {
 					unit: this.timeUnits[Math.floor(Math.random() * this.timeUnits.length)],
 					length: Math.floor(Math.random() * 20),
