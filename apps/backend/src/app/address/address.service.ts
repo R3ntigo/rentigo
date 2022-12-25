@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 
+import { Operations } from '@rentigo/constants';
 import { Address, User } from '@rentigo/models';
 import { CreateAddressDto, UpdateAddressDto } from '@rentigo/dto';
 
@@ -31,17 +32,38 @@ export class AddressService {
 		return this.addressRepository.findOneBy({ id });
 	}
 
-	async update(updateAddressDto: UpdateAddressDto): Promise<Address> {
+	async update(user: User, updateAddressDto: UpdateAddressDto): Promise<Address> {
+		const isPermitted = await this.hasPermissionTo(Operations.UPDATE, user, updateAddressDto.id);
+		if (!isPermitted) {
+			throw new ForbiddenException();
+		}
 		await this.addressRepository.update({ id: updateAddressDto.id }, updateAddressDto);
 		return this.findOne(updateAddressDto.id);
 	}
 
 	async remove(user: User, id: string): Promise<Address> {
+		const isPermitted = await this.hasPermissionTo(Operations.DELETE, user, id);
+		if (!isPermitted) {
+			throw new ForbiddenException();
+		}
 		const address = await this.findOne(id);
 		await this.userRepository.createQueryBuilder()
 			.relation('addresses')
 			.of(user)
 			.remove(address.id);
 		return address;
+	}
+
+	async hasPermissionTo(_: Operations, user: User, id: string) {
+		// check whether the user has the associated address
+		try {
+			const userWithAddress = await this.userRepository.findOne({
+				relations: { addresses: true },
+				where: { id: user.id, addresses: { id } }
+			});
+			return !!userWithAddress;
+		} catch (error) {
+			return false;
+		}
 	}
 }

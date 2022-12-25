@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { FindOptionsRelations, In } from 'typeorm';
 
 import { RentingPolicy, User } from '@rentigo/models';
 import { CreateRentingPolicyDto, UpdateRentingPolicyDto } from '@rentigo/dto';
 
-import { UserRepository } from '../user';
+import { Operations } from '@rentigo/constants';
 
 import { RentingPolicyRepository } from './renting-policy.repository';
 
@@ -12,7 +12,6 @@ import { RentingPolicyRepository } from './renting-policy.repository';
 export class RentingPolicyService {
 	constructor(
 		private readonly rentingPolicyRepository: RentingPolicyRepository,
-		private readonly userRepository: UserRepository,
 	) {}
 
 	create(user: User, createRentingPolicyDto: CreateRentingPolicyDto): Promise<RentingPolicy> {
@@ -37,8 +36,12 @@ export class RentingPolicyService {
 		return this.rentingPolicyRepository.find();
 	}
 
-	async update(updateRentingPolicyDto: UpdateRentingPolicyDto): Promise<RentingPolicy> {
-		const oldPolicy = await this.findOne(updateRentingPolicyDto.id, { user: true });
+	async update(user: User, updateRentingPolicyDto: UpdateRentingPolicyDto): Promise<RentingPolicy> {
+		const oldPolicy = await this.findOne(updateRentingPolicyDto.id);
+		if (oldPolicy.user.id !== user.id) {
+			throw new ForbiddenException();
+		}
+
 		const updatedOldPolicy = {
 			...oldPolicy,
 			...updateRentingPolicyDto,
@@ -55,11 +58,20 @@ export class RentingPolicyService {
 	}
 
 	async remove(user: User, id: string): Promise<RentingPolicy> {
-		await this.userRepository.createQueryBuilder()
-			.relation('rentingPolicies')
-			.of(user)
-			.remove(id);
 		const rentingPolicy = await this.findOne(id);
+		if (rentingPolicy.user.id !== user.id) {
+			throw new ForbiddenException();
+		}
+		await this.rentingPolicyRepository.softRemoveOneBy({ id });
 		return rentingPolicy;
+	}
+
+	async hasPermissionTo(_: Operations, user: User, id: string) {
+		try {
+			const userWithPolicy = await this.findOne(id);
+			return userWithPolicy.user.id === user.id;
+		} catch (e) {
+			return false;
+		}
 	}
 }

@@ -51,17 +51,18 @@ export class ProductController {
 	@UseInterceptors(FilesInterceptor('imageUrls', 100))
 	update(
 	@Body() updateProductDto: UpdateProductDto,
-		@UploadedFiles() files: Express.Multer.File[]
+		@UploadedFiles() files: Express.Multer.File[],
+		@ReqUser() user: User,
 	) {
 		const updateProductDtoWithImageUrls = {
 			...updateProductDto,
 			imageUrls: files
 		};
-		return this.productService.update(updateProductDtoWithImageUrls);
+		return this.productService.update(user, updateProductDtoWithImageUrls);
 	}
 
 	@Delete(':id')
-	remove(@Param('id') id: string) {
-		return this.productService.remove(id);
+	remove(@Param('id') id: string, @ReqUser() user: User) {
+		return this.productService.remove(user, id);
 	}
 }

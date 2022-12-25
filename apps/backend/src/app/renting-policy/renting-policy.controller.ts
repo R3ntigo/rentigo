@@ -31,8 +31,8 @@ export class RentingPolicyController {
 	}
 
 	@Patch()
-	update(@Body() updateRentingPolicyDto: UpdateRentingPolicyDto): Promise<RentingPolicy> {
-		return this.rentingPolicyService.update(updateRentingPolicyDto);
+	update(@Body() updateRentingPolicyDto: UpdateRentingPolicyDto, @ReqUser() user: User): Promise<RentingPolicy> {
+		return this.rentingPolicyService.update(user, updateRentingPolicyDto);
 	}
 
 	@Delete(':id')

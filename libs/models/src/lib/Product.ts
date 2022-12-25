@@ -49,16 +49,15 @@ class Product {
 	rentingPolicies: RentingPolicy[];
 
 	@OneToMany(() => PricingPolicy, (pricingPolicy) => pricingPolicy.product, {
-		cascade: true,
+		cascade: ['insert', 'update'],
 		eager: true,
 	})
 	@JoinColumn()
 	pricingPolicies: PricingPolicy[];
 
 	@OneToMany(() => Tag, (tag) => tag.product, {
-		cascade: true,
+		cascade: ['insert', 'update', 'remove'],
 		eager: true,
-		orphanedRowAction: 'delete',
 	})
 	@JoinColumn()
 	tags: Tag[];
@@ -71,7 +70,7 @@ class Product {
 	// category;
 
 	@ManyToMany(() => Resource, {
-		cascade: true,
+		cascade: ['insert', 'update'],
 		eager: true,
 	})
 	@JoinTable({
@@ -85,7 +84,7 @@ class Product {
 	@Column()
 	availableQuantity: number;
 
-	@OneToMany(() => Request, (request) => request.product, { cascade: true })
+	@OneToMany(() => Request, (request) => request.product)
 	@JoinColumn()
 	requests?: Request[];
 

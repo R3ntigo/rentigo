@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { AddressModule } from '../address';
 import { RentingPolicyModule } from '../renting-policy';
 import { ResourceModule } from '../resource';
-import { UsersModule } from '../user';
+import { UserModule } from '../user';
 
 import { ProductService } from './product.service';
 import { ProductController } from './product.controller';
@@ -14,7 +14,7 @@ import { ProductRepository } from './product.repository';
 		AddressModule,
 		RentingPolicyModule,
 		ResourceModule,
-		UsersModule,
+		UserModule,
 	],
 	controllers: [ProductController],
 	providers: [ProductService, ProductRepository]

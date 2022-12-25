@@ -2,7 +2,7 @@
 
 // import { UsersService } from './user.service';
 
-describe('UsersService', () => {
+describe('UserService', () => {
 	// let service: UsersService;
 
 	// beforeEach(async () => {

@@ -8,7 +8,7 @@ import { StorageService } from '../storage';
 import { UserRepository } from './user.repository';
 
 @Injectable()
-export class UsersService {
+export class UserService {
 	constructor(
 		private userRepository: UserRepository,
 		private storageService: StorageService

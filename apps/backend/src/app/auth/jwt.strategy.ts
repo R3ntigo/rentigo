@@ -5,13 +5,13 @@ import { Request } from 'express';
 import { User } from '@rentigo/models';
 import { ConfigService } from '@nestjs/config';
 
-import { UsersService } from '../user';
+import { UserService } from '../user';
 
 @Injectable()
 class JwtStrategy extends PassportStrategy(Strategy) {
 	constructor(
 		private configService: ConfigService,
-		private usersService: UsersService
+		private usersService: UserService
 	) {
 		super({
 			jwtFromRequest: ExtractJwt.fromExtractors([

@@ -3,7 +3,7 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 
-import { UsersModule } from '../user';
+import { UserModule } from '../user';
 
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
@@ -13,7 +13,7 @@ import { AuthController } from './auth.controller';
 
 @Module({
 	imports: [
-		UsersModule,
+		UserModule,
 		PassportModule,
 		JwtModule.registerAsync({
 			useFactory: async (configService: ConfigService) => ({

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
 import { AuthModule } from './auth';
-import { UsersModule } from './user';
+import { UserModule } from './user';
 import { GlobalModule } from './global';
 import { AddressModule } from './address';
 import { RentingPolicyModule } from './renting-policy';
@@ -15,7 +15,7 @@ import { AppService } from './app.service';
 @Module({
 	imports: [
 		AuthModule,
-		UsersModule,
+		UserModule,
 		GlobalModule,
 		MessagesModule,
 		AddressModule,

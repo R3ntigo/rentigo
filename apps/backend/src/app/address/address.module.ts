@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { UsersModule } from '../user';
+import { UserModule } from '../user';
 
 import { AddressService } from './address.service';
 import { AddressController } from './address.controller';
@@ -8,7 +8,7 @@ import { AddressRepository } from './address.repository';
 
 @Module({
 	imports: [
-		UsersModule
+		UserModule
 	],
 	controllers: [AddressController],
 	providers: [AddressService, AddressRepository],

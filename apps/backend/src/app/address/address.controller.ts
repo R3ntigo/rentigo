@@ -13,7 +13,9 @@ import { AddressService } from './address.service';
 @Controller('address')
 @UseGuards(JwtAuthGuard)
 export class AddressController {
-	constructor(private readonly addressService: AddressService) {}
+	constructor(
+		private readonly addressService: AddressService,
+	) {}
 
 	@UseGuards(JwtAuthGuard)
 	@Post()
@@ -32,12 +34,12 @@ export class AddressController {
 	}
 
 	@Patch()
-	update(@Body() updateAddressDto: UpdateAddressDto): Promise<Address> {
-		return this.addressService.update(updateAddressDto);
+	async update(@Body() updateAddressDto: UpdateAddressDto, @ReqUser() user: User): Promise<Address> {
+		return this.addressService.update(user, updateAddressDto);
 	}
 
 	@Delete(':id')
-	remove(@Param('id') id: string, @ReqUser() user: User): Promise<Address> {
+	async remove(@Param('id') id: string, @ReqUser() user: User): Promise<Address> {
 		return this.addressService.remove(user, id);
 	}
 }

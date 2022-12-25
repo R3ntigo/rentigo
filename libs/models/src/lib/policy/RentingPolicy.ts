@@ -15,7 +15,7 @@ class RentingPolicy {
 	@PrimaryGeneratedColumn('uuid')
 	id?: string;
 
-	@ManyToOne(() => User, (user) => user.rentingPolicies)
+	@ManyToOne(() => User, (user) => user.rentingPolicies, { eager: true })
 	@JoinColumn()
 	user: User;
 

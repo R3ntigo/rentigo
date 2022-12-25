@@ -8,7 +8,11 @@ class Repository<T> extends TypeormRepository<T> {
 	}
 
 	async removeOneBy(where: FindOptionsWhere<T>): Promise<T> {
-		return this.remove(await this.findOneBy(where));
+		return this.softRemove(await this.findOneBy(where));
+	}
+
+	async softRemoveOneBy(where: FindOptionsWhere<T>): Promise<T> {
+		return this.softRemove(await this.findOneBy(where));
 	}
 }
 
