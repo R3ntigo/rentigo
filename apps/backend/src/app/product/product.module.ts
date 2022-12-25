@@ -5,12 +5,14 @@ import { ProductRepository } from './product.repository';
 import { AddressModule } from '../address/address.module';
 import { RentingPolicyModule } from '../renting-policy/renting-policy.module';
 import { ResourceModule } from '../resource/resource.module';
+import { UsersModule } from '../user/user.module';
 
 @Module({
 	imports: [
 		AddressModule,
 		RentingPolicyModule,
-		ResourceModule
+		ResourceModule,
+		UsersModule,
 	],
 	controllers: [ProductController],
 	providers: [ProductService, ProductRepository]

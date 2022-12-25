@@ -7,11 +7,13 @@ import { AddressService } from '../address/address.service';
 import { ProductRepository } from './product.repository';
 import { RentingPolicyService } from '../renting-policy/renting-policy.service';
 import { ResourceService } from '../resource/resource.service';
+import { UserRepository } from '../user/user.repository';
 
 @Injectable()
 export class ProductService {
 	constructor(
 		private readonly productRepository: ProductRepository,
+		private readonly userRepository: UserRepository,
 		private readonly addressService: AddressService,
 		private readonly rentingPolicyService: RentingPolicyService,
 		private readonly resourceService: ResourceService,
@@ -41,7 +43,9 @@ export class ProductService {
 	}
 
 	async remove(id: string): Promise<Product> {
-		return this.productRepository.removeOneBy({ id });
+		const product = await this.findOne(id);
+		product.lender = null;
+		return this.productRepository.save(product);
 	}
 
 	private async dtoToEntity(dto: CreateProductDto): Promise<Product> {
