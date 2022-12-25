@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 
 import { Operations } from '@rentigo/constants';
 import { Address, User } from '@rentigo/models';
@@ -28,8 +28,12 @@ export class AddressService {
 		return this.addressRepository.find();
 	}
 
-	findOne(id: string): Promise<Address> {
-		return this.addressRepository.findOneBy({ id });
+	async findOne(id: string): Promise<Address> {
+		const address = await this.addressRepository.findOneBy({ id });
+		if (!address) {
+			throw new NotFoundException();
+		}
+		return address;
 	}
 
 	async update(user: User, updateAddressDto: UpdateAddressDto): Promise<Address> {

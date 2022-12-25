@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { FindOptionsRelations } from 'typeorm';
 
 import { Product, User } from '@rentigo/models';
@@ -32,7 +32,11 @@ export class ProductService {
 	}
 
 	async findOne(id: string, relations: FindOptionsRelations<Product> = {}): Promise<Product> {
-		return this.productRepository.findOne({ where: { id }, relations });
+		const product = this.productRepository.findOne({ where: { id }, relations });
+		if (!product) {
+			throw new NotFoundException();
+		}
+		return product;
 	}
 
 	async update(user: User, updateProductDto: UpdateProductDto): Promise<Product> {

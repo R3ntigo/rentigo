@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { FindOptionsRelations, In } from 'typeorm';
 
 import { RentingPolicy, User } from '@rentigo/models';
@@ -24,8 +24,13 @@ export class RentingPolicyService {
 		return this.rentingPolicyRepository.save(rentingPolicy);
 	}
 
-	findOne(id: string, relations: FindOptionsRelations<RentingPolicy> = {}): Promise<RentingPolicy> {
-		return this.rentingPolicyRepository.findOne({ where: { id }, relations });
+	async findOne(id: string, relations: FindOptionsRelations<RentingPolicy> = {}): Promise<RentingPolicy> {
+		const rentingPolicy = await this.rentingPolicyRepository.findOne({ where: { id }, relations });
+		if (!rentingPolicy) {
+			throw new NotFoundException();
+		}
+
+		return rentingPolicy;
 	}
 
 	findRange(ids: string[]): Promise<RentingPolicy[]> {

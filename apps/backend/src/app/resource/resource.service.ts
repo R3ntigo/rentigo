@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 
 import { Buckets } from '@rentigo/constants';
@@ -36,6 +36,9 @@ export class ResourceService {
 
 	async findOne(id: string) {
 		const resource = await this.resourceRepository.findOneBy({ id });
+		if (!resource) {
+			throw new NotFoundException();
+		}
 		return resource;
 	}
 
