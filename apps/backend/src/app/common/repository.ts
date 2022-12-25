@@ -1,4 +1,6 @@
-import { DataSource, Repository as TypeormRepository, EntityTarget, FindOptionsWhere } from 'typeorm';
+import {
+	DataSource, Repository as TypeormRepository, EntityTarget, FindOptionsWhere,
+} from 'typeorm';
 
 class Repository<T> extends TypeormRepository<T> {
 	constructor(model: EntityTarget<T>, dataSource: DataSource) {

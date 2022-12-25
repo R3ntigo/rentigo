@@ -8,7 +8,6 @@ import { Column,
 	ManyToMany,
 	ManyToOne,
 	OneToMany,
-	OneToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn } from 'typeorm';
 
@@ -31,11 +30,15 @@ class Product {
 	@Column()
 	title: string;
 
-	@ManyToOne(() => User, (user) => user.products)
+	@ManyToOne(() => User, (user) => user.products, {
+		eager: true,
+	})
 	@JoinColumn()
 	lender: User;
 
-	@ManyToOne(() => Address)
+	@ManyToOne(() => Address, {
+		eager: true,
+	})
 	@JoinColumn()
 	address: Address;
 
@@ -45,11 +48,18 @@ class Product {
 	})
 	rentingPolicies: RentingPolicy[];
 
-	@OneToMany(() => PricingPolicy, (pricingPolicy) => pricingPolicy.product, { cascade: true })
+	@OneToMany(() => PricingPolicy, (pricingPolicy) => pricingPolicy.product, {
+		cascade: true,
+		eager: true,
+	})
 	@JoinColumn()
 	pricingPolicies: PricingPolicy[];
 
-	@OneToMany(() => Tag, (tag) => tag.product, { cascade: true })
+	@OneToMany(() => Tag, (tag) => tag.product, {
+		cascade: true,
+		eager: true,
+		orphanedRowAction: 'delete',
+	})
 	@JoinColumn()
 	tags: Tag[];
 
@@ -60,9 +70,12 @@ class Product {
 
 	// category;
 
-	@ManyToMany(() => Resource, { cascade: true })
+	@ManyToMany(() => Resource, {
+		cascade: true,
+		eager: true,
+	})
 	@JoinTable({
-		name: 'product_image_urls'
+		name: 'product_image_urls',
 	})
 	imageUrls: Resource[];
 

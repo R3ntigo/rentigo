@@ -1,16 +1,27 @@
-/* eslint-disable import/no-cycle */
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+	Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn
+} from 'typeorm';
 
 @Entity()
 class Resource {
 	@PrimaryGeneratedColumn('uuid')
 	id?: string;
 
+	@Column({
+		nullable: true,
+	})
+	bucket?: string;
+
 	@Column()
 	name: string;
 
 	@Column()
 	url: string;
+
+	@Column({
+		nullable: true,
+	})
+	urlExpires?: Date;
 
 	@Column()
 	size: number;

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Client } from 'minio';
 import { ConfigService } from '@nestjs/config';
+import { addSeconds } from 'date-fns';
 
 @Injectable()
 class StorageService {
@@ -18,6 +19,26 @@ class StorageService {
 
 	listBuckets() {
 		return this.client.listBuckets();
+	}
+
+	getObject(bucket: string, object: string) {
+		return this.client.getObject(bucket, object);
+	}
+
+	putObjectFromBuffer(bucket: string, object: string, buffer: Buffer) {
+		return this.client.putObject(bucket, object, buffer);
+	}
+
+	async getObjectUrl(bucket: string, object: string, expires: number = 60 * 60 * 24 * 7) {
+		const url = await this.client.presignedGetObject(bucket, object, expires);
+		return {
+			url,
+			expires: addSeconds(new Date(), expires)
+		};
+	}
+
+	removeObject(bucket: string, object: string) {
+		return this.client.removeObject(bucket, object);
 	}
 }
 

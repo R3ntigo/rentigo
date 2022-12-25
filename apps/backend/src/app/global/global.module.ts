@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { TypeOrmConfigService } from '../config/typeorm.config';
+import { DbSubscriberModule } from '../db-subscriber/db-subscriber.module';
 import { StorageModule } from '../storage/storage.module';
 
 const configModule = ConfigModule.forRoot({
@@ -19,12 +20,14 @@ const typeOrmModule = TypeOrmModule.forRootAsync({
 	imports: [
 		configModule,
 		typeOrmModule,
-		StorageModule
+		StorageModule,
+		DbSubscriberModule,
 	],
 	exports: [
 		configModule,
 		typeOrmModule,
-		StorageModule
+		StorageModule,
+		DbSubscriberModule,
 	]
 })
 export class GlobalModule {}

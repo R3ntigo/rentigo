@@ -11,7 +11,10 @@ class Tag {
 	@Column()
 	name: string;
 
-	@ManyToOne(() => Product, (product) => product.tags)
+	@ManyToOne(() => Product, (product) => product.tags, {
+		onDelete: 'CASCADE',
+		orphanedRowAction: 'delete',
+	})
 	@JoinColumn()
 	product?: Product;
 }

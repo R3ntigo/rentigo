@@ -8,6 +8,8 @@ import { GlobalModule } from './global/global.module';
 import { MessagesModule } from './messages/messages.module';
 import { AddressModule } from './address/address.module';
 import { RentingPolicyModule } from './renting-policy/renting-policy.module';
+import { ProductModule } from './product/product.module';
+import { ResourceModule } from './resource/resource.module';
 
 @Module({
 	imports: [
@@ -17,6 +19,8 @@ import { RentingPolicyModule } from './renting-policy/renting-policy.module';
 		MessagesModule,
 		AddressModule,
 		RentingPolicyModule,
+		ProductModule,
+		ResourceModule
 	],
 	controllers: [AppController],
 	providers: [AppService],
