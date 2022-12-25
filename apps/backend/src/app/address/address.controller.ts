@@ -1,10 +1,12 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+
 import { Address, User } from '@rentigo/models';
 import { CreateAddressDto, UpdateAddressDto } from '@rentigo/dto';
 import { ReqUser } from '@rentigo/decorators';
 
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth';
+
 import { AddressService } from './address.service';
 
 @ApiTags('Address')

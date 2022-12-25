@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { FindOptionsRelations } from 'typeorm';
-import { User } from '@rentigo/models';
 import { compareSync } from 'bcryptjs';
 
-import { StorageService } from '../storage/storage.service';
+import { User } from '@rentigo/models';
+
+import { StorageService } from '../storage';
 import { UserRepository } from './user.repository';
 
 @Injectable()

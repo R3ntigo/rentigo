@@ -2,7 +2,7 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DataSource } from 'typeorm';
 
-import { GlobalModule } from '../global/global.module';
+import { GlobalModule } from '../global';
 import { TypeOrmConfigService } from './typeorm.config';
 
 async function bootstrap():Promise<DataSource> {

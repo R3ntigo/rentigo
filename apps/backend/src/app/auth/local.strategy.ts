@@ -1,8 +1,9 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { Strategy } from 'passport-local';
-import { SignInDto } from '@rentigo/dto';
+
 import { User } from '@rentigo/models';
+import { SignInDto } from '@rentigo/dto';
 
 import { AuthService } from './auth.service';
 

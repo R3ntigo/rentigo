@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
-import { StorageModule } from '../storage/storage.module';
+
+import { StorageModule } from '../storage';
+
 import { ResourceRepository } from './resource.repository';
 import { ResourceService } from './resource.service';
 

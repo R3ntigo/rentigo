@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
+
 import { Buckets } from '@rentigo/constants';
 import { Resource } from '@rentigo/models';
-import { StorageService } from '../storage/storage.service';
+
+import { StorageService } from '../storage';
 import { ResourceRepository } from './resource.repository';
 
 @Injectable()

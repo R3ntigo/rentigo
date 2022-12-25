@@ -5,7 +5,7 @@ import { Request } from 'express';
 import { User } from '@rentigo/models';
 import { ConfigService } from '@nestjs/config';
 
-import { UsersService } from '../user/user.service';
+import { UsersService } from '../user';
 
 @Injectable()
 class JwtStrategy extends PassportStrategy(Strategy) {

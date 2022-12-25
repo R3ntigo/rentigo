@@ -3,11 +3,13 @@ import {
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { ApiConsumes, ApiTags } from '@nestjs/swagger';
+
 import { ReqUser } from '@rentigo/decorators';
 import { CreateProductDto, UpdateProductDto } from '@rentigo/dto';
 import { User } from '@rentigo/models';
 
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth';
+
 import { ProductService } from './product.service';
 
 @ApiTags('Product')

@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import { FindOptionsRelations } from 'typeorm';
+
 import { Product, User } from '@rentigo/models';
 import { CreateProductDto, UpdateProductDto } from '@rentigo/dto';
 
-import { FindOptionsRelations } from 'typeorm';
-import { AddressService } from '../address/address.service';
+import { AddressService } from '../address';
+import { RentingPolicyService } from '../renting-policy';
+import { ResourceService } from '../resource';
+import { UserRepository } from '../user';
+
 import { ProductRepository } from './product.repository';
-import { RentingPolicyService } from '../renting-policy/renting-policy.service';
-import { ResourceService } from '../resource/resource.service';
-import { UserRepository } from '../user/user.repository';
 
 @Injectable()
 export class ProductService {

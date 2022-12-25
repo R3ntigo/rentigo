@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
+
 import { RentingPolicy } from '@rentigo/models';
-import { Repository } from '../common/repository';
+
+import { Repository } from '../common';
 
 @Injectable()
 export class RentingPolicyRepository extends Repository<RentingPolicy> {

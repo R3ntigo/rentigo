@@ -6,7 +6,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 
 import { AppService } from './app.service';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { JwtAuthGuard } from './auth';
 
 @ApiTags('app')
 @Controller()

@@ -5,11 +5,11 @@ import {
 	Controller,
 	Get,
 	Post,
-	Body,
 } from '@nestjs/common';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { addHours } from 'date-fns';
+
 import { SignInDto } from '@rentigo/dto';
 
 import { LocalAuthGuard } from './local-auth.guard';

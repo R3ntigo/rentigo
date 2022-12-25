@@ -1,9 +1,11 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+
 import { ReqUser } from '@rentigo/decorators';
 import { CreateRentingPolicyDto, UpdateRentingPolicyDto } from '@rentigo/dto';
 import { RentingPolicy, User } from '@rentigo/models';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+
+import { JwtAuthGuard } from '../auth';
 
 import { RentingPolicyService } from './renting-policy.service';
 

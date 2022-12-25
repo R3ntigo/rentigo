@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { CreateRentingPolicyDto, UpdateRentingPolicyDto } from '@rentigo/dto';
-import { RentingPolicy, User } from '@rentigo/models';
 import { FindOptionsRelations, In } from 'typeorm';
-import { UserRepository } from '../user/user.repository';
+
+import { RentingPolicy, User } from '@rentigo/models';
+import { CreateRentingPolicyDto, UpdateRentingPolicyDto } from '@rentigo/dto';
+
+import { UserRepository } from '../user';
+
 import { RentingPolicyRepository } from './renting-policy.repository';
 
 @Injectable()

@@ -1,7 +1,9 @@
 import { DataSource, FindOptionsRelations } from 'typeorm';
-import { User } from '@rentigo/models';
 import { Injectable } from '@nestjs/common';
-import { Repository } from '../common/repository';
+
+import { User } from '@rentigo/models';
+
+import { Repository } from '../common';
 
 @Injectable()
 class UserRepository extends Repository<User> {

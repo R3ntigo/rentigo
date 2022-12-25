@@ -16,7 +16,7 @@ import {
 import { DataSource, AdvancedConsoleLogger } from 'typeorm';
 
 // will not log queries that is longer than 500 characters
-class MyCustomLogger extends AdvancedConsoleLogger {
+class CustomMigrationLogger extends AdvancedConsoleLogger {
 	logQuery(query: string, parameters?: any[], queryRunner?: any) {
 		if (query.length < 500) super.logQuery(query, parameters, queryRunner);
 	}
@@ -56,7 +56,7 @@ class TypeOrmConfigService implements TypeOrmOptionsFactory {
 			migrations: ['apps/backend/migrations/*.{ts,js}'],
 			migrationsTableName: 'typeorm_migrations',
 			logging: true,
-			logger: new MyCustomLogger(),
+			logger: new CustomMigrationLogger(),
 		});
 	}
 }

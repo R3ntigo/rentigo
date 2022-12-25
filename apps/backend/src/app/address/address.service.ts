@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
+
 import { Address, User } from '@rentigo/models';
 import { CreateAddressDto, UpdateAddressDto } from '@rentigo/dto';
+
+import { UserRepository } from '../user';
+
 import { AddressRepository } from './address.repository';
-import { UserRepository } from '../user/user.repository';
 
 @Injectable()
 export class AddressService {
