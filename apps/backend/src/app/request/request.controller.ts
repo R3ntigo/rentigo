@@ -13,7 +13,7 @@ import { RequestService } from './request.service';
 @Controller('request')
 @UseGuards(JwtAuthGuard)
 export class RequestController {
-	constructor(private readonly requestService: RequestService){}
+	constructor(private readonly requestService: RequestService) {}
 
 	@Post()
 	Create(@Body() createRequestDto: CreateRequestDto, @ReqUser() user: User): Promise<Request> {
@@ -26,17 +26,17 @@ export class RequestController {
 	}
 
 	@Get(':id')
-	findOne(@Param('id') id: string): Promise<RentingPolicy> {
+	findOne(@Param('id') id: string): Promise<Request> {
 		return this.requestService.findOne(id);
 	}
 
 	@Patch()
-	update(@Body() updateRentingPolicyDto: UpdateRentingPolicyDto, @ReqUser() user: User): Promise<RentingPolicy> {
+	update(@Body() updateRentingPolicyDto: UpdateRequestDto, @ReqUser() user: User): Promise<Request> {
 		return this.requestService.update(user, updateRentingPolicyDto);
 	}
 
 	@Delete(':id')
-	remove(@Param('id') id: string, @ReqUser() user: User): Promise<RentingPolicy> {
+	remove(@Param('id') id: string, @ReqUser() user: User): Promise<Request> {
 		return this.requestService.remove(user, id);
 	}
 }
