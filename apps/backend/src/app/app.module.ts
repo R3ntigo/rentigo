@@ -11,6 +11,9 @@ import { ResourceModule } from './resource';
 import { MessagesModule } from './messages/messages.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { RequestService } from './request/request.service';
+import { RequestController } from './request/request.controller';
+import { RequestModule } from './request/request.module';
 
 @Module({
 	imports: [
@@ -21,9 +24,10 @@ import { AppService } from './app.service';
 		AddressModule,
 		RentingPolicyModule,
 		ProductModule,
-		ResourceModule
+		ResourceModule,
+		RequestModule
 	],
-	controllers: [AppController],
-	providers: [AppService],
+	controllers: [AppController, RequestController],
+	providers: [AppService, RequestService],
 })
 export class AppModule {}
