@@ -17,5 +17,5 @@
 		"**/*.ts",
 		"src/app/config/typeorm-migrations.config.ts",
 		"./migrations/*.ts"
-	]
+, "../../libs/dto/src/backend/review/create-review.dto.ts"	]
 }
