@@ -5,7 +5,7 @@ import { ArrayMinSize, IsNotEmpty, IsUUID } from 'class-validator';
 import { CreatePricingPolicyDto } from '../pricing-policy';
 import { CreateProductDto } from './create-product.dto';
 
-export class UpdateProductDto extends PartialType(CreateProductDto) {
+export class UpdateProductDto {
 	@ApiProperty()
 	@IsNotEmpty()
 	@IsUUID(4)
