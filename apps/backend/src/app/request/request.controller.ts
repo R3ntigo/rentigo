@@ -16,7 +16,7 @@ export class RequestController {
 	constructor(private readonly requestService: RequestService){}
 
 	@Post()
-	Create(@Body() createRequestDto: CreateRequestDto, @ReqUser user: User): Promise<Request> {
+	Create(@Body() createRequestDto: CreateRequestDto, @ReqUser() user: User): Promise<Request> {
 		return this.requestService.create(user, createRequestDto);
 	}
 

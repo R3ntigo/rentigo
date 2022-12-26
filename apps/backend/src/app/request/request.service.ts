@@ -6,8 +6,5 @@ import { CreateRequestDto, UpdateRequestDto } from '@rentigo/dto';
 
 import { Operations } from '@rentigo/constants';
 
-import { RentingPolicyRepository } from './renting-policy.repository';
-
-
 @Injectable()
 export class RequestService {}
