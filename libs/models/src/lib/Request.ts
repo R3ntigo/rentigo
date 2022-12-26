@@ -21,7 +21,9 @@ class Request {
 	@PrimaryGeneratedColumn('uuid')
 	id?: string;
 
-	@ManyToOne(() => User, (user) => user.requests)
+	@ManyToOne(() => User, (user) => user.requests, {
+		eager: true,
+	})
 	@JoinColumn()
 	borrower: User;
 
