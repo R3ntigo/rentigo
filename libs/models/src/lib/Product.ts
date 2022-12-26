@@ -18,6 +18,7 @@ import { Request } from './Request';
 import { Resource } from './Resource';
 import { Tag } from './Tag';
 import { User } from './User';
+import { Review } from './Review';
 
 @Entity()
 class Product {
@@ -54,6 +55,12 @@ class Product {
 	})
 	@JoinColumn()
 	pricingPolicies: PricingPolicy[];
+
+	@ManyToMany(() => Review)
+	@JoinTable({
+		name: 'product_reviews',
+	})
+	reviews: Review[];
 
 	@OneToMany(() => Tag, (tag) => tag.product, {
 		cascade: ['insert', 'update', 'remove'],

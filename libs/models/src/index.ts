@@ -7,3 +7,4 @@ export * from './lib/Duration';
 export * from './lib/Tag';
 export * from './lib/Resource';
 export * from './lib/UserCredential';
+export * from './lib/Review';
