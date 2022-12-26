@@ -6,7 +6,7 @@ import { Request } from '@rentigo/models';
 import { Repository } from '../common';
 
 @Injectable()
-export class RentingPolicyRepository extends Repository<Request> {
+export class RequestRepository extends Repository<Request> {
 	constructor(dataSource: DataSource) {
 		super(Request, dataSource);
 	}
