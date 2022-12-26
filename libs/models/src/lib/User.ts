@@ -19,6 +19,7 @@ import { Product } from './Product';
 import { RentingPolicy } from './policy';
 import { Resource } from './Resource';
 import { UserCredential } from './UserCredential';
+import { Review } from './Review';
 
 @Entity()
 class User {
@@ -66,6 +67,16 @@ class User {
 
 	@OneToMany(() => Product, (product) => product.lender, { cascade: true })
 	products?: Product[];
+
+	@ManyToMany(() => Review)
+	@JoinTable({
+		name: 'user_received_reviews',
+	})
+	receivedReviews: Review[];
+
+	@OneToMany(() => Review, (review) => review.reviewer)
+	@JoinColumn()
+	providedReviews: Review[];
 
 	@OneToMany(() => RentingPolicy, (rentingPolicy) => rentingPolicy.user, { cascade: true })
 	rentingPolicies?: RentingPolicy[];
