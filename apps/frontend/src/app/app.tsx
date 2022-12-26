@@ -14,35 +14,23 @@ import { RequestforRent } from './dashboard/RequestforRent';
 enableFreezeUI();
 
 const App = () => (
-	<>
-		{/* <nav>
-		<nav>
-			<Link to="/">Home</Link>
-			<Link to="/upload">Product Upload</Link>
-			<Link to="/show">Product Show</Link>
-			<Link to="/sign-in">Sign In</Link>
-			<SignOutButton />
-			<Link to="/register">Register</Link>
-		</nav>
-		</nav> */}
-		<div className="flex w-full">
-			<SideBar />
-			<div className="grow h-full">
-				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="/sign-in" element={<SignIn2 />} />
-					<Route path="/show" element={<ProductShowWithAuth />} />
-					<Route path="/upload" element={<ProductUploadWithAuth />} />
-					<Route path="/uploadinsecured" element={<ProductUpload />} />
-					<Route path="/rent/:id" element={<ProductRentReq />} />
-					<Route path="/testNavbar" element={<SideBar />} />
-					<Route path="/dashboard" element={<Dashboard />} />
-					<Route path="/listed-product" element={<ListedProduct />} />
-					<Route path="/rent-req-dash" element={<RequestforRent />} />
-				</Routes>
-			</div>
+	<div className="flex w-full">
+		<SideBar />
+		<div className="grow h-full">
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/sign-in" element={<SignIn2 />} />
+				<Route path="/show" element={<ProductShowWithAuth />} />
+				<Route path="/upload" element={<ProductUploadWithAuth />} />
+				<Route path="/uploadinsecured" element={<ProductUpload />} />
+				<Route path="/rent/:id" element={<ProductRentReq />} />
+				<Route path="/testNavbar" element={<SideBar />} />
+				<Route path="/dashboard" element={<Dashboard />} />
+				<Route path="/listed-product" element={<ListedProduct />} />
+				<Route path="/rent-req-dash" element={<RequestforRent />} />
+			</Routes>
 		</div>
-	</>
+	</div>
 );
 
 export { App };

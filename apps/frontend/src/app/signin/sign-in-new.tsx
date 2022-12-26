@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { classValidatorResolver } from '@hookform/resolvers/class-validator';
+// import { classValidatorResolver } from '@hookform/resolvers/class-validator';
 import axios, { AxiosError } from 'axios';
 import { SignInDto } from '@rentigo/dto';
 import { useState } from 'react';
@@ -12,7 +12,7 @@ const SignIn2 = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm<SignInDto>({
-		resolver: classValidatorResolver(SignInDto),
+		// resolver: classValidatorResolver(SignInDto),
 	});
 
 	const [errorResponseMessage, setErrorResponseMessage] = useState('');

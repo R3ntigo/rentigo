@@ -1,14 +1,4 @@
-import {
-	Address,
-	Product,
-	Request,
-	User,
-	PricingPolicy,
-	RentingPolicy,
-	Duration,
-	Tag,
-	Resource
-} from '@rentigo/models';
+import { Product } from '@rentigo/models';
 import { Gender } from '@rentigo/constants';
 import { ProductTile } from './ProductTile';
 
