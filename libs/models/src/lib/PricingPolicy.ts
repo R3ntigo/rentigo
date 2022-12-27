@@ -1,11 +1,10 @@
 /* eslint-disable import/no-cycle */
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Duration } from '../Duration';
-import { Product } from '../Product';
+import { Duration, Product } from './internal';
 
 @Entity()
-class PricingPolicy {
+export class PricingPolicy {
 	@PrimaryGeneratedColumn('uuid')
 	id?: string;
 
@@ -19,5 +18,3 @@ class PricingPolicy {
 	@JoinColumn()
 	product?: Product;
 }
-
-export { PricingPolicy };

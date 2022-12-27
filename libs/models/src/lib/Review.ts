@@ -10,10 +10,10 @@ import {
 	UpdateDateColumn
 } from 'typeorm';
 
-import { User } from './User';
+import { User } from './internal';
 
 @Entity()
-class Review {
+export class Review {
 	@PrimaryGeneratedColumn('uuid')
 	id?: string;
 
@@ -36,5 +36,3 @@ class Review {
 	@DeleteDateColumn()
 	deletedAt?: Date;
 }
-
-export { Review };

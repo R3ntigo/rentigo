@@ -2,7 +2,7 @@ import { TimeUnit } from '@rentigo/constants';
 import { IsNumber } from 'class-validator';
 import { Column } from 'typeorm';
 
-class Duration {
+export class Duration {
 	@Column({
 		type: 'enum',
 		enum: TimeUnit,
@@ -13,5 +13,3 @@ class Duration {
 	@IsNumber()
 	length: number;
 }
-
-export { Duration };

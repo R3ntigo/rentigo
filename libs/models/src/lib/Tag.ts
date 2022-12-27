@@ -1,10 +1,10 @@
 /* eslint-disable import/no-cycle */
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Product } from './Product';
+import { Product } from './internal';
 
 @Entity()
-class Tag {
+export class Tag {
 	@PrimaryGeneratedColumn('uuid')
 	id?: string;
 
@@ -18,5 +18,3 @@ class Tag {
 	@JoinColumn()
 	product?: Product;
 }
-
-export { Tag };

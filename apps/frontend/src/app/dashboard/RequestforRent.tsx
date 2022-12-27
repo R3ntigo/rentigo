@@ -1,5 +1,5 @@
-import { Product, Request, RequestStatus } from '@rentigo/models';
-import { TimeUnit } from '@rentigo/constants';
+import { Product, Request } from '@rentigo/models';
+import { TimeUnit, RequestStatus } from '@rentigo/constants';
 import { RequestTile } from './ProductTile';
 import { demoProductGlobal } from './ListedProduct';
 
