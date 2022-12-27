@@ -8,7 +8,7 @@ import { Review, User } from '@rentigo/models';
 import { JwtAuthGuard } from '../auth';
 import { ReviewService } from './review.service';
 
-@ApiTags('Renting Policy')
+@ApiTags('Review')
 @Controller('review')
 @UseGuards(JwtAuthGuard)
 export class ReviewController {
