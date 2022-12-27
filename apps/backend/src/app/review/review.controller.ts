@@ -1,33 +1,41 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
+import { ReqUser } from '@rentigo/decorators';
 import { CreateReviewDto, UpdateReviewDto } from '@rentigo/dto';
+import { Review, User } from '@rentigo/models';
+
+import { JwtAuthGuard } from '../auth';
 import { ReviewService } from './review.service';
 
+@ApiTags('Renting Policy')
 @Controller('review')
+@UseGuards(JwtAuthGuard)
 export class ReviewController {
 	constructor(private readonly reviewService: ReviewService) {}
 
 	@Post()
-	create(@Body() createReviewDto: CreateReviewDto) {
-		return this.reviewService.create(createReviewDto);
+	create(@Body() createReviewDto: CreateReviewDto, @ReqUser() user:User): Promise<Review> {
+		return this.reviewService.create(user, createReviewDto);
 	}
 
 	@Get()
-	findAll() {
+	findAll(): Promise<Review[]> {
 		return this.reviewService.findAll();
 	}
 
 	@Get(':id')
-	findOne(@Param('id') id: string) {
-		return this.reviewService.findOne(+id);
+	findOne(@Param('id') id: string): Promise<Review> {
+		return this.reviewService.findOne(id);
 	}
 
-	@Patch(':id')
-	update(@Param('id') id: string, @Body() updateReviewDto: UpdateReviewDto) {
-		return this.reviewService.update(+id, updateReviewDto);
+	@Patch()
+	update(@Body() updateReviewDto: UpdateReviewDto, @ReqUser() user: User): Promise<Review> {
+		return this.reviewService.update(user, updateReviewDto);
 	}
 
 	@Delete(':id')
-	remove(@Param('id') id: string) {
-		return this.reviewService.remove(+id);
+	remove(@Param('id') id: string, @ReqUser() user: User): Promise<Review> {
+		return this.reviewService.remove(user, id);
 	}
 }
