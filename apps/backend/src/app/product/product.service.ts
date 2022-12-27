@@ -87,6 +87,7 @@ export class ProductService {
 			totalQuantity: dto.totalQuantity,
 			availableQuantity: dto.totalQuantity,
 			lender: null,
+			reviews: null,
 		};
 		return product;
 	}

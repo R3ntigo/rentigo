@@ -12,6 +12,7 @@ import { MessagesModule } from './messages/messages.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RequestModule } from './request/request.module';
+import { ReviewModule } from './review/review.module';
 
 @Module({
 	imports: [
@@ -23,7 +24,8 @@ import { RequestModule } from './request/request.module';
 		RentingPolicyModule,
 		ProductModule,
 		ResourceModule,
-		RequestModule
+		RequestModule,
+		ReviewModule
 	],
 	controllers: [AppController],
 	providers: [AppService],

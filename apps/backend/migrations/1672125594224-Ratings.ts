@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class Ratings1672090082352 implements MigrationInterface {
-    name = 'Ratings1672090082352'
+export class Ratings1672125594224 implements MigrationInterface {
+    name = 'Ratings1672125594224'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`CREATE TABLE "review" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP, "reviewerId" uuid, CONSTRAINT "PK_2e4299a343a81574217255c00ca" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "review" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "reviewText" character varying NOT NULL, "rating" integer NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "deletedAt" TIMESTAMP, "reviewerId" uuid, CONSTRAINT "PK_2e4299a343a81574217255c00ca" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "user_received_reviews" ("userId" uuid NOT NULL, "reviewId" uuid NOT NULL, CONSTRAINT "PK_d48ef9085ca91c2eb9f19c19784" PRIMARY KEY ("userId", "reviewId"))`);
         await queryRunner.query(`CREATE INDEX "IDX_66b8d38bf0cb2aa4e4f76b165d" ON "user_received_reviews" ("userId") `);
         await queryRunner.query(`CREATE INDEX "IDX_63adc5c1ea9d2c80259f5b278a" ON "user_received_reviews" ("reviewId") `);
