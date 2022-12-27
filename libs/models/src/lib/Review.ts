@@ -21,6 +21,12 @@ class Review {
 	@JoinColumn()
 	reviewer: User;
 
+	@Column()
+	reviewText:string;
+
+	@Column()
+	rating:number;
+
 	@CreateDateColumn()
 	createdAt?: Date;
 
