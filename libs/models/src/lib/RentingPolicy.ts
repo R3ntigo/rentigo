@@ -8,10 +8,10 @@ import { Column,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn } from 'typeorm';
 
-import { User } from '../User';
+import { User } from './internal';
 
 @Entity()
-class RentingPolicy {
+export class RentingPolicy {
 	@PrimaryGeneratedColumn('uuid')
 	id?: string;
 
@@ -37,5 +37,3 @@ class RentingPolicy {
 	@DeleteDateColumn()
 	deletedAt?: Date;
 }
-
-export { RentingPolicy };

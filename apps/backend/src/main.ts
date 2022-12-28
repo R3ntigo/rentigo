@@ -1,6 +1,7 @@
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import cookieParser from 'cookie-parser';
+import 'multer';
 
 import { AppModule } from './app/app.module';
 import { openAPI } from './app/config/swagger.config';

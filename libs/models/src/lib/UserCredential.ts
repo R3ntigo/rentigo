@@ -2,7 +2,7 @@ import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryColumn } from 'typeo
 import { hashSync } from 'bcryptjs';
 
 @Entity()
-class UserCredential {
+export class UserCredential {
 	@PrimaryColumn({
 		type: 'uuid',
 	})
@@ -22,5 +22,3 @@ class UserCredential {
 		this.password = hashSync(this.password, Math.random());
 	}
 }
-
-export { UserCredential };

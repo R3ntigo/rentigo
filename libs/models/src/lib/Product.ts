@@ -11,17 +11,10 @@ import { Column,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn } from 'typeorm';
 
-import { Address } from './Address';
-import { PricingPolicy } from './policy/PricingPolicy';
-import { RentingPolicy } from './policy/RentingPolicy';
-import { Request } from './Request';
-import { Resource } from './Resource';
-import { Tag } from './Tag';
-import { User } from './User';
-import { Review } from './Review';
+import { Address, PricingPolicy, RentingPolicy, Request, Resource, Tag, User, Review } from './internal';
 
 @Entity()
-class Product {
+export class Product {
 	@PrimaryGeneratedColumn('uuid')
 	id?: string;
 
@@ -104,5 +97,3 @@ class Product {
 	@DeleteDateColumn()
 	deletedAt?: Date;
 }
-
-export { Product };

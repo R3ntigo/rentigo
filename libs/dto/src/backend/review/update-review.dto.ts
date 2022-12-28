@@ -1,11 +1,20 @@
-import { PartialType } from '@nestjs/mapped-types';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsUUID } from 'class-validator';
-import { CreateReviewDto } from './create-review.dto';
+import { IsNotEmpty, IsUUID, Max, MaxLength, Min } from 'class-validator';
 
-export class UpdateReviewDto extends PartialType(CreateReviewDto) {
-    @ApiProperty()
+export class UpdateReviewDto {
+	@ApiProperty()
 	@IsNotEmpty()
 	@IsUUID(4)
 	id: string;
+
+	@ApiProperty()
+	@IsNotEmpty()
+	@MaxLength(400)
+	reviewText?:string;
+
+	@ApiProperty()
+	@IsNotEmpty()
+	@Min(0)
+	@Max(5)
+	rating?:number;
 }

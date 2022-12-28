@@ -13,16 +13,10 @@ import { Column,
 	UpdateDateColumn } from 'typeorm';
 import { Gender } from '@rentigo/constants';
 
-import { Address } from './Address';
-import { Request } from './Request';
-import { Product } from './Product';
-import { RentingPolicy } from './policy';
-import { Resource } from './Resource';
-import { UserCredential } from './UserCredential';
-import { Review } from './Review';
+import { Address, Request, Product, RentingPolicy, Resource, UserCredential, Review } from './internal';
 
 @Entity()
-class User {
+export class User {
 	@PrimaryGeneratedColumn('uuid')
 	id?: string;
 
@@ -97,5 +91,3 @@ class User {
 	@DeleteDateColumn()
 	deletedAt?: Date;
 }
-
-export { User };

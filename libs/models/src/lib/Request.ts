@@ -10,14 +10,11 @@ import {
 	UpdateDateColumn
 } from 'typeorm';
 import { RequestStatus } from '@rentigo/constants';
-import { Duration } from './Duration';
 
-import { Address } from './Address';
-import { Product } from './Product';
-import { User } from './User';
+import { Duration, Address, Product, User } from './internal';
 
 @Entity()
-class Request {
+export class Request {
 	@PrimaryGeneratedColumn('uuid')
 	id?: string;
 
@@ -57,5 +54,3 @@ class Request {
 	@DeleteDateColumn()
 	deletedAt?: Date;
 }
-
-export { Request, RequestStatus };

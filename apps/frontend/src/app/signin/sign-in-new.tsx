@@ -1,9 +1,11 @@
 import { useForm } from 'react-hook-form';
-// import { classValidatorResolver } from '@hookform/resolvers/class-validator';
-import axios, { AxiosError } from 'axios';
-import { SignInDto } from '@rentigo/dto';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios, { AxiosError } from 'axios';
+
+import { classValidatorResolver } from '@hookform/resolvers/class-validator';
+
+import { SignInDto } from '@rentigo/dto';
 
 const SignIn2 = () => {
 	const navigate = useNavigate();
@@ -12,7 +14,7 @@ const SignIn2 = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm<SignInDto>({
-		// resolver: classValidatorResolver(SignInDto),
+		resolver: classValidatorResolver(SignInDto),
 	});
 
 	const [errorResponseMessage, setErrorResponseMessage] = useState('');
@@ -20,7 +22,7 @@ const SignIn2 = () => {
 	const onSubmit = async (data: SignInDto) => {
 		setErrorResponseMessage('');
 		try {
-			await axios.post('/api/sign-in', data);
+			await axios.post('/api/auth/sign-in', data);
 			navigate(-1);
 		} catch (error) {
 			const axiosError = error as AxiosError;

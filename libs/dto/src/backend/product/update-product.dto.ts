@@ -1,9 +1,6 @@
-import { PartialType } from '@nestjs/mapped-types';
 import { ApiProperty } from '@nestjs/swagger';
-import { Transform } from 'class-transformer';
 import { ArrayMinSize, IsNotEmpty, IsUUID } from 'class-validator';
 import { CreatePricingPolicyDto } from '../pricing-policy';
-import { CreateProductDto } from './create-product.dto';
 
 export class UpdateProductDto {
 	@ApiProperty()
@@ -61,7 +58,7 @@ export class UpdateProductDto {
 		type: 'file',
 		isArray: true,
 	})
-	imageUrls: Express.Multer.File[];
+	imageUrls: any[];
 
 	@ApiProperty({
 		example: 10,

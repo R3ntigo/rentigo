@@ -1,7 +1,6 @@
-import 'multer';
+import { ApiProperty } from '@nestjs/swagger';
 import { ArrayMinSize, IsNotEmpty, IsUUID } from 'class-validator';
 import { Transform } from 'class-transformer';
-import { ApiProperty } from '@nestjs/swagger';
 
 import { CreatePricingPolicyDto } from '../pricing-policy';
 
@@ -59,7 +58,7 @@ export class CreateProductDto {
 		type: 'file',
 		isArray: true
 	})
-	imageUrls: Express.Multer.File[];
+	imageUrls: any[];
 
 	@ApiProperty({
 		example: 10,

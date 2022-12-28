@@ -10,6 +10,7 @@ const ListedProduct = () => {
 		id: '1',
 		description: 'demo description',
 		title: 'demo',
+		reviews: [],
 		lender: {
 			id: '1',
 			firstName: 'demo',
@@ -28,6 +29,8 @@ const ListedProduct = () => {
 				label: 'demo label'
 			}],
 			requests: [],
+			providedReviews: [],
+			receivedReviews: [],
 			photoUrl: {
 				id: '1',
 				name: 'demo',
@@ -135,6 +138,7 @@ const demoProductGlobal: Product[] = [{
 	id: '1',
 	description: 'demo description',
 	title: 'demo',
+	reviews: [],
 	lender: {
 		id: '1',
 		firstName: 'demo',
@@ -153,6 +157,8 @@ const demoProductGlobal: Product[] = [{
 			label: 'demo label'
 		}],
 		requests: [],
+		providedReviews: [],
+		receivedReviews: [],
 		photoUrl: {
 			id: '1',
 			name: 'demo',
@@ -167,8 +173,7 @@ const demoProductGlobal: Product[] = [{
 		products: [],
 		createdAt: new Date(),
 		updatedAt: new Date(),
-		deletedAt: new Date()
-
+		deletedAt: new Date(),
 	},
 	address: {
 		id: '1',

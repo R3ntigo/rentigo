@@ -3,7 +3,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-class Resource {
+export class Resource {
 	@PrimaryGeneratedColumn('uuid')
 	id?: string;
 
@@ -38,5 +38,3 @@ class Resource {
 	@DeleteDateColumn()
 	deletedAt?: Date;
 }
-
-export { Resource };
