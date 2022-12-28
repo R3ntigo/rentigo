@@ -66,13 +66,13 @@ const RequestTile = (props: { request: Request }) => {
 					<p className="font-semibold">
 						Requestor:
 						{' '}
-						{request.user.firstName}
+						{request.borrower.firstName}
 					</p>
 					{' '}
 					<p className="font-semibold">
 						date:
 						{' '}
-						{request.updatedAt.toString()}
+						{request.updatedAt?.getDate()}
 					</p>
 					{' '}
 				</div>
