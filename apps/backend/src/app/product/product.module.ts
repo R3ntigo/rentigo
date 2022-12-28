@@ -17,6 +17,7 @@ import { ProductRepository } from './product.repository';
 		UserModule,
 	],
 	controllers: [ProductController],
-	providers: [ProductService, ProductRepository]
+	providers: [ProductService, ProductRepository],
+	exports: [ProductService]
 })
 export class ProductModule {}

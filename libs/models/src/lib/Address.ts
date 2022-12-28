@@ -2,7 +2,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-class Address {
+export class Address {
 	@PrimaryGeneratedColumn('uuid')
 	id?: string;
 
@@ -23,5 +23,3 @@ class Address {
 	@Column()
 	label: string;
 }
-
-export { Address };

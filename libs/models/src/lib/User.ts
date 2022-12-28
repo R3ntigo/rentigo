@@ -13,15 +13,10 @@ import { Column,
 	UpdateDateColumn } from 'typeorm';
 import { Gender } from '@rentigo/constants';
 
-import { Address } from './Address';
-import { Request } from './Request';
-import { Product } from './Product';
-import { RentingPolicy } from './policy';
-import { Resource } from './Resource';
-import { UserCredential } from './UserCredential';
+import { Address, Request, Product, RentingPolicy, Resource, UserCredential, Review } from './internal';
 
 @Entity()
-class User {
+export class User {
 	@PrimaryGeneratedColumn('uuid')
 	id?: string;
 
@@ -67,6 +62,16 @@ class User {
 	@OneToMany(() => Product, (product) => product.lender, { cascade: true })
 	products?: Product[];
 
+	@ManyToMany(() => Review)
+	@JoinTable({
+		name: 'user_received_reviews',
+	})
+	receivedReviews: Review[];
+
+	@OneToMany(() => Review, (review) => review.reviewer)
+	@JoinColumn()
+	providedReviews: Review[];
+
 	@OneToMany(() => RentingPolicy, (rentingPolicy) => rentingPolicy.user, { cascade: true })
 	rentingPolicies?: RentingPolicy[];
 
@@ -86,5 +91,3 @@ class User {
 	@DeleteDateColumn()
 	deletedAt?: Date;
 }
-
-export { User };

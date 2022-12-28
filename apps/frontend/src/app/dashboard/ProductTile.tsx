@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Product, Request, RequestStatus } from '@rentigo/models';
+import { Product, Request } from '@rentigo/models';
+import { RequestStatus } from '@rentigo/constants';
 
 const ProductTile = (props: { product: Product }) => {
 	const hello = 'hello';

@@ -1,32 +1,31 @@
 /* eslint-disable import/no-cycle */
-import { Column,
+import {
+	Column,
 	CreateDateColumn,
 	DeleteDateColumn,
 	Entity,
 	JoinColumn,
 	ManyToOne,
 	PrimaryGeneratedColumn,
-	UpdateDateColumn } from 'typeorm';
+	UpdateDateColumn
+} from 'typeorm';
 
-import { User } from '../User';
+import { User } from './internal';
 
 @Entity()
-class RentingPolicy {
+export class Review {
 	@PrimaryGeneratedColumn('uuid')
 	id?: string;
 
-	@ManyToOne(() => User, (user) => user.rentingPolicies, { eager: true })
+	@ManyToOne(() => User, (user) => user.providedReviews)
 	@JoinColumn()
-	user: User;
+	reviewer: User;
 
 	@Column()
-	title:string;
+	reviewText:string;
 
 	@Column()
-	shortDescription: string;
-
-	@Column()
-	legalDescription: string;
+	rating:number;
 
 	@CreateDateColumn()
 	createdAt?: Date;
@@ -37,5 +36,3 @@ class RentingPolicy {
 	@DeleteDateColumn()
 	deletedAt?: Date;
 }
-
-export { RentingPolicy };

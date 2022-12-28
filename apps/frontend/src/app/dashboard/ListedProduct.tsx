@@ -1,15 +1,5 @@
-import { useEffect, useState } from 'react';
-import {
-	Address,
-	Product,
-	Request,
-	User,
-	PricingPolicy,
-	RentingPolicy,
-	Duration,
-	Tag,
-	Resource
-} from '@rentigo/models';
+import { useState } from 'react';
+import { Product } from '@rentigo/models';
 import { Gender } from '@rentigo/constants';
 import { ProductTile } from './ProductTile';
 
@@ -20,75 +10,6 @@ const ListedProduct = () => {
 
 	const [demoProduct, setProducts] = useState<Product[]>([]);
 
-	// const demoProduct: Product[] = [{
-	// 	id: '1',
-	// 	description: 'demo description',
-	// 	title: 'demo',
-	// 	lender: {
-	// 		id: '1',
-	// 		firstName: 'demo',
-	// 		lastName: 'demo',
-	// 		email: 'sakib@gmail.com',
-	// 		phone: '01700000000',
-	// 		nid: '1234567890',
-	// 		gender: Gender.MALE,
-	// 		addresses: [{
-	// 			id: '1',
-	// 			division: 'dhaka',
-	// 			district: 'gazipur',
-	// 			subDistrict: 'Ghatail',
-	// 			zipCode: '1700',
-	// 			details: 'demo details',
-	// 			label: 'demo label'
-	// 		}],
-	// 		requests: [],
-	// 		photoUrl: {
-	// 			id: '1',
-	// 			name: 'demo',
-	// 			url: 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
-	// 			size: 1000,
-	// 			mimeType: 'image/png',
-	// 			createdAt: new Date(),
-	// 			updatedAt: new Date(),
-	// 			deletedAt: new Date()
-	// 		},
-	// 		rentingPolicies: [],
-	// 		products: [],
-	// 		createdAt: new Date(),
-	// 		updatedAt: new Date(),
-	// 		deletedAt: new Date()
-
-	// 	},
-	// 	address: {
-	// 		id: '1',
-	// 		division: 'dhaka',
-	// 		district: 'gazipur',
-	// 		subDistrict: 'Ghatail',
-	// 		zipCode: '1700',
-	// 		details: 'demo details',
-	// 		label: 'demo label'
-	// 	},
-	// 	rentingPolicies: [],
-	// 	pricingPolicies: [],
-	// 	tags: [],
-	// 	family: 'demo',
-	// 	imageUrls: [{
-	// 		id: '1',
-	// 		name: 'demo',
-	// 		url: 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
-	// 		size: 1000,
-	// 		mimeType: 'image/png',
-	// 		createdAt: new Date(),
-	// 		updatedAt: new Date(),
-	// 		deletedAt: new Date()
-	// 	}],
-	// 	totalQuantity: 10,
-	// 	availableQuantity: 10,
-	// 	createdAt: new Date(),
-	// 	updatedAt: new Date(),
-	// 	deletedAt: new Date()
-
-	// }];
 	const getProducts = async () => {
 		const res = await fetch('http://localhost:3333/api/product');
 		const data = await res.json();
@@ -149,6 +70,7 @@ const demoProductGlobal: Product[] = [{
 	id: '1',
 	description: 'demo description',
 	title: 'demo',
+	reviews: [],
 	lender: {
 		id: '1',
 		firstName: 'demo',
@@ -167,6 +89,8 @@ const demoProductGlobal: Product[] = [{
 			label: 'demo label'
 		}],
 		requests: [],
+		providedReviews: [],
+		receivedReviews: [],
 		photoUrl: {
 			id: '1',
 			name: 'demo',
@@ -181,8 +105,7 @@ const demoProductGlobal: Product[] = [{
 		products: [],
 		createdAt: new Date(),
 		updatedAt: new Date(),
-		deletedAt: new Date()
-
+		deletedAt: new Date(),
 	},
 	address: {
 		id: '1',

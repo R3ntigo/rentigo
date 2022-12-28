@@ -8,7 +8,7 @@ const useAuth = () => {
 	useEffect(() => {
 		(async () => {
 			try {
-				const response = await axios.get(`/api/authorized`);
+				const response = await axios.get(`/api/auth/authorized`);
 				if (response.data !== true) {
 					navigate(`/sign-in`);
 				}
