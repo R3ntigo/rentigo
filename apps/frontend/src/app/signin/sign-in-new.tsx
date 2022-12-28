@@ -22,7 +22,7 @@ const SignIn2 = () => {
 	const onSubmit = async (data: SignInDto) => {
 		setErrorResponseMessage('');
 		try {
-			await axios.post('/api/sign-in', data);
+			await axios.post('/api/auth/sign-in', data);
 			navigate(-1);
 		} catch (error) {
 			const axiosError = error as AxiosError;
