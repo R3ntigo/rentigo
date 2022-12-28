@@ -503,6 +503,9 @@ const ProductUpload = () => {
 					Quantity
 					<input type="number" onChange={(e) => setQuantity(e.target.value)} />
 					<input type="submit" value="Submit" onClick={handleSubmit} />
+					<br />
+					<br />
+					<br />
 
 				</div>
 			</div>

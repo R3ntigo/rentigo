@@ -7,7 +7,7 @@ import { ProductShowWithAuth } from './product-show/ProductShow';
 import { enableFreezeUI } from './util/freezeui/freezeui';
 import { SideBar } from './navbar/Navbar';
 import { Dashboard } from './dashboard/Dashboard';
-import { SignIn2 } from './signin/sign-in-new';
+// import { SignIn2 } from './signin/sign-in-new';
 import { ListedProduct } from './dashboard/ListedProduct';
 import { RequestforRent } from './dashboard/RequestforRent';
 
@@ -30,7 +30,7 @@ const App = () => (
 			<div className="grow h-full">
 				<Routes>
 					<Route path="/" element={<Home />} />
-					<Route path="/sign-in" element={<SignIn2 />} />
+					{/* <Route path="/sign-in" element={<SignIn2 />} /> */}
 					<Route path="/show" element={<ProductShowWithAuth />} />
 					<Route path="/upload" element={<ProductUploadWithAuth />} />
 					<Route path="/uploadinsecured" element={<ProductUpload />} />

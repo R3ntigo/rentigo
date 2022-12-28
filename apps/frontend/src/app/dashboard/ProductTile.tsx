@@ -20,6 +20,8 @@ const ProductTile = (props: { product: Product }) => {
 					{' '}
 					<p className="font-semibold">
 						create date:
+						{' '}
+						{product.createdAt?.getDate()}
 					</p>
 					{' '}
 					<p className="font-semibold">
@@ -28,7 +30,13 @@ const ProductTile = (props: { product: Product }) => {
 				</div>
 				<div className="grid justify-items-end">
 					<div>
-						<img className="w-24 h-24" src="/sarah-dayan.jpg" alt="" width="384" height="512" />
+						<img
+							className="w-24 h-24"
+							src={`../img/${product.imageUrls[0]}.jpg`}
+							alt=""
+							width="384"
+							height="512"
+						/>
 					</div>
 				</div>
 
