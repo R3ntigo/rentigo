@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { FindOptionsRelations } from 'typeorm';
 import { compareSync } from 'bcryptjs';
 
-import { Address, User } from '@rentigo/models';
+import { Address, User, RentingPolicy, PricingPolicy } from '@rentigo/models';
 
 import { StorageService } from '../storage';
 import { UserRepository } from './user.repository';
@@ -41,6 +41,19 @@ export class UserService {
 
 	// eslint-disable-next-line class-methods-use-this
 	async getAllAddresses(user:User): Promise<Address[]> {
-		return user.addresses;
+		const currUser = await this.findOne(user.id, { addresses: true });
+		return currUser.addresses;
 	}
+
+	// eslint-disable-next-line class-methods-use-this
+	async getRentingPolicy(user:User): Promise<RentingPolicy[]> {
+		const currUser = await this.findOne(user.id, { rentingPolicies: true });
+		return currUser.rentingPolicies;
+	}
+
+	// eslint-disable-next-line class-methods-use-this
+	// async getPricingPolicy(user:User): Promise<PricingPolicy[]> {
+	// 	const currUser = await this.findOne(user.id, { pricingPolicies: true });
+	// 	return currUser.pricingPolicies;
+	// }
 }

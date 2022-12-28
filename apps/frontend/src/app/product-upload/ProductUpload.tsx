@@ -8,6 +8,8 @@ import { IoIosRemoveCircle	} from 'react-icons/io';
 import { ImCross } from 'react-icons/im';
 import { MdSystemUpdateAlt, MdOutlineRemoveCircle } from 'react-icons/md';
 import { BsPlusSquareFill } from 'react-icons/bs';
+import { Address, RentingPolicy, Duration } from '@rentigo/models';
+import { TimeUnit } from '@rentigo/constants';
 import { withAuth } from '../auth/withAuth';
 
 const ProductUpload = () => {
@@ -25,15 +27,13 @@ const ProductUpload = () => {
 		coordinates?: string;
 		upazilla?: string[];
 	}
-	interface Property {
-		propertyName: string;
-		propertyValue: string;
-		propertyID: number;
+	interface Tags {
+		tag: string;
+		tagID: number;
 	}
-	const fistProperty : Property[] = [{
-		propertyName: '',
-		propertyValue: '',
-		propertyID: 0,
+	const fistProperty : Tags[] = [{
+		tag: '',
+		tagID: 0,
 	}];
 	interface PricingScheme {
 		price: string;
@@ -64,6 +64,9 @@ const ProductUpload = () => {
 	const [images, setImages] = useState([]);
 	const [formFields2, setFormFields2] = useState(firstPricingScheme);
 	const [quantity, setQuantity] = useState('');
+	const [userAddress, setUserAddresses] = useState([] as Options[]);
+	const [rentingPolicies, setRentingPolicies] = useState([] as Options[]);
+	const [timeUnitOptions, setTimeUnitOptions] = useState([] as Options[]);
 	const maxNumber = 10;
 
 	const onChange = (
@@ -110,6 +113,9 @@ const ProductUpload = () => {
 	}
 	useEffect(() => {
 		getDivisionOptions();
+		getUserAddresses();
+		getUserRentingPolicy();
+		getDurationOptions();
 	}, []);
 	async function getDistrictOptions(value: string) {
 		const { data } = await axios.get(
@@ -174,10 +180,13 @@ const ProductUpload = () => {
 		}
 	}
 	const addFields = () => {
-		setFormFields([...formFields, { propertyName: '', propertyValue: '', propertyID: formFields.length }]);
+		setFormFields([...formFields, { tag: '', tagID: formFields.length }]);
 	};
 	const removeFields = (index: number) => {
 		const values = [...formFields];
+		if (values.length === 1) {
+			return;
+		}
 		values.splice(index, 1);
 		setFormFields(values);
 	};
@@ -195,6 +204,44 @@ const ProductUpload = () => {
 	//   setProductPicUpload(e.target.files);
 	//   console.log(`productpic${productPicUpload}`);
 	// };
+	async function getUserAddresses() {
+		const { data } = await axios.get(
+			`/api/users/addresses`
+		);
+		console.log(data);
+
+		const addresses = data.map((address: Address) => ({
+			// eslint-disable-next-line no-underscore-dangle
+			value: address.id,
+			label: `${address.division}, ${address.district}, ${address.details}`
+		}));
+		setUserAddresses(addresses);
+		console.log(addresses);
+		return addresses;
+	}
+	async function getUserRentingPolicy() {
+		const { data } = await axios.get(
+			`/api/users/rentingPolicy`
+		);
+		console.log(data);
+
+		const urentingPolicies = data.map((rentingPolicy: RentingPolicy) => ({
+			// eslint-disable-next-line no-underscore-dangle
+			value: rentingPolicy.id,
+			label: `${rentingPolicy.title}, ${rentingPolicy.shortDescription}`
+		}));
+		setRentingPolicies(urentingPolicies);
+		console.log(rentingPolicies);
+		return rentingPolicies;
+	}
+	async function getDurationOptions() {
+		// use TimeUnit enum to populate select options
+		const temp: Options[] = [];
+		Object.keys(TimeUnit).forEach((key) => {
+			temp.push({ value: key, label: key });
+		});
+		setTimeUnitOptions(temp);
+	}
 	return (
 		<>
 			<div className="absolute top-6 left-14 text-center">
@@ -333,11 +380,12 @@ const ProductUpload = () => {
 
 						</label>
 					</span>
-					Division
+
+					Choose an address
 					<Select
-						id="locationDivision"
+						id="address"
 						className=""
-						options={divisionOptions}
+						options={userAddress}
 						defaultValue={{
 							value: '',
 							label: 'Select an option',
@@ -348,70 +396,41 @@ const ProductUpload = () => {
 								getDistrictOptions(e.value);
 							}
 						}}
-						name="subjects"
+						name="address"
 					/>
-
-					District
+					Choose a Renting Policy
 					<Select
-						options={districtOptions}
+						id="rentingPolicy"
+						className=""
+						options={rentingPolicies}
 						defaultValue={{
 							value: '',
 							label: 'Select an option',
 						}}
 						onChange={(e) => {
 							if (e != null) {
-								setProductDistrict(e.value);
+								setProductDivision(e.value);
+								getDistrictOptions(e.value);
 							}
 						}}
-						name="subjects"
-					/>
-
-					Upazilla
-					<Select
-						options={upazillaOptions}
-						defaultValue={{
-							value: '',
-							label: 'Select an option',
-						}}
-						onFocus={() => {
-							getUpazillaOptions2(productDivision);
-						}}
-						onChange={(e) => {
-							if (e) {
-								// console.log(productDistrict);
-								// getUpazillaOptions(productDistrict);
-								setProductUpazilla(e.value);
-							}
-						}}
-						name="subjects"
+						name="rentingPolicy"
 					/>
 					<div>
+						Add Tags
 						{
 							formFields.map((element) => (
-								<div key={element.propertyID} className="">
-									<div className="grid grid-cols-2 gap-1">
+								<div key={element.tagID} className="">
+									<div className="">
 										<input
 											type="text"
-											placeholder="Property Name"
+											placeholder="Add one Tag per box"
 											className="shadow appearance-none
 										border rounded w-full py-2 px-3 text-[#db2777]
 											leading-tight focus:outline-[#10b981]"
 											// eslint-disable-next-line no-return-assign
 											onChange={
 												// eslint-disable-next-line no-return-assign
-												(e) => formFields[element.propertyID].propertyName = e.target.value
-											}
-										/>
-
-										<input
-											type="text"
-											placeholder="Property Value"
-											className="shadow appearance-none
-										border rounded w-full py-2 px-3 text-[#10b981]
-											leading-tight focus:outline-[#db2777]"
-											// eslint-disable-next-line no-return-assign
-											onChange={
-												(e) => formFields[element.propertyID].propertyValue = e.target.value
+												(e) => formFields[element.tagID].tag = e.target.value
 											}
 										/>
 									</div>
@@ -427,7 +446,7 @@ const ProductUpload = () => {
 										</div>
 										<div className="flex items-center align-middle justify-center">
 											<div className="">
-												<button type="button" onClick={() => removeFields(element.propertyID)}>
+												<button type="button" onClick={() => removeFields(element.tagID)}>
 													<MdOutlineRemoveCircle size="29" />
 												</button>
 											</div>
@@ -438,23 +457,6 @@ const ProductUpload = () => {
 							))
 						}
 					</div>
-					<label htmlFor="productPolicy">
-						Product Policy
-						<h6 className="font-normal">
-							Policy is used to make your products safe. Say how you want the renters to use and
-							care of your products.
-							You can also mention the rules and regulations of the use of your products.
-							These policies will also be used to give you an
-							edge in taking legal actions if some rare incidents occurs
-						</h6>
-						<textarea
-							id="productDescription"
-							className="shadow appearance-none
-									border rounded w-full py-2 px-3 h-16 text-[#db2777]
-										leading-tight focus:outline-[#10b981]"
-							onChange={(e) => setPolicy(e.target.value)}
-						/>
-					</label>
 					<div>
 						{
 							formFields2.map((element) => (
@@ -463,33 +465,43 @@ const ProductUpload = () => {
 									<input
 										type="number"
 										placeholder="Charge"
+										className="shadow appearance-none
+										border rounded w-full py-2 px-3 text-[#db2777]
+											leading-tight focus:outline-[#10b981]"
 										onChange={(e) => {
 											formFields2[element.pricingSchemeID].price = e.target.value;
 										}}
 									/>
-									for usage
-									<select onChange={(e) => {
-										if (e.target.value === 'perday') {
-											formFields2[element.pricingSchemeID].perday = true;
-										} else if (e.target.value === 'exceeds') {
-											formFields2[element.pricingSchemeID].exceeds = true;
-											formFields2[element.pricingSchemeID].perday = false;
-										}
-									}}
-									>
-										<option value="default">-- select a value --</option>
-										<option value="perday">per day</option>
-										<option value="exceeds">exceeds</option>
-									</select>
-									if exceeds
+
+									for
 									<input
 										placeholder="Exceeding days"
 										type="number"
+										className="shadow appearance-none
+										border rounded w-full py-2 px-3 text-[#db2777]
+											leading-tight focus:outline-[#10b981]"
 										onChange={(e) => {
 											if (formFields2[element.pricingSchemeID].exceeds) {
 												formFields2[element.pricingSchemeID].exceedsDays = e.target.value;
 											}
 										}}
+									/>
+									TIME UNIT
+									<Select
+										id="timeUnit"
+										className=""
+										options={timeUnitOptions}
+										defaultValue={{
+											value: '',
+											label: 'Select an option',
+										}}
+										onChange={(e) => {
+											if (e != null) {
+												setProductDivision(e.value);
+												getDistrictOptions(e.value);
+											}
+										}}
+										name="rentingPolicy"
 									/>
 									<button type="button" onClick={addFields2}> Add Fields </button>
 									<button type="button" onClick={() => removeFields2(element.pricingSchemeID)}>
