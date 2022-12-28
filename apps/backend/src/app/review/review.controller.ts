@@ -14,11 +14,6 @@ import { ReviewService } from './review.service';
 export class ReviewController {
 	constructor(private readonly reviewService: ReviewService) {}
 
-	@Post()
-	create(@Body() createReviewDto: CreateReviewDto, @ReqUser() user:User): Promise<Review> {
-		return this.reviewService.create(user, createReviewDto);
-	}
-
 	@Get()
 	findAll(): Promise<Review[]> {
 		return this.reviewService.findAll();
@@ -27,11 +22,6 @@ export class ReviewController {
 	@Get(':id')
 	findOne(@Param('id') id: string): Promise<Review> {
 		return this.reviewService.findOne(id);
-	}
-
-	@Patch()
-	update(@Body() updateReviewDto: UpdateReviewDto, @ReqUser() user: User): Promise<Review> {
-		return this.reviewService.update(user, updateReviewDto);
 	}
 
 	@Delete(':id')
