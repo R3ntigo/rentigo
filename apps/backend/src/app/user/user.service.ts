@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { FindOptionsRelations } from 'typeorm';
 import { compareSync } from 'bcryptjs';
 
-import { User } from '@rentigo/models';
+import { User, Review } from '@rentigo/models';
 
 import { StorageService } from '../storage';
 import { UserRepository } from './user.repository';
@@ -37,5 +37,18 @@ export class UserService {
 			return null;
 		}
 		return user;
+	}
+
+	async addReview(id: string, review: Review) {
+		const user = await this.findOne(id);
+		this.userRepository.createQueryBuilder()
+			.relation('receivedReviews')
+			.of(user)
+			.add(review);
+	}
+
+	async findAllReviews(id: string) {
+		const userWithReviews = await this.findOne(id, { receivedReviews: true });
+		return userWithReviews.receivedReviews;
 	}
 }
