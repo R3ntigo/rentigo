@@ -25,7 +25,7 @@
 					"apps/frontend/src/styles.css"
 				],
 				"scripts": [],
-				"webpackConfig": "@nrwl/react/plugins/webpack"
+				"webpackConfig": "apps/frontend/webpack.config.js"
 			},
 			"configurations": {
 				"development": {

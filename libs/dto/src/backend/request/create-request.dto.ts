@@ -1,4 +1,3 @@
-import 'multer';
 import { IsUUID, Min } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Duration } from '@rentigo/models';
