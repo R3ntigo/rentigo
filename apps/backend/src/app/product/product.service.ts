@@ -1,7 +1,7 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { FindOptionsRelations } from 'typeorm';
 
-import { Product, User } from '@rentigo/models';
+import { Product, Review, User } from '@rentigo/models';
 import { CreateProductDto, UpdateProductDto } from '@rentigo/dto';
 
 import { Operations } from '@rentigo/constants';
@@ -57,6 +57,19 @@ export class ProductService {
 			throw new ForbiddenException();
 		}
 		return this.productRepository.softRemoveOneBy({ id });
+	}
+
+	async addReview(id: string, review: Review) {
+		const product = await this.findOne(id);
+		this.productRepository.createQueryBuilder()
+			.relation('reviews')
+			.of(product)
+			.add(review);
+	}
+
+	async findAllReviews(id: string) {
+		const productWithReviews = await this.findOne(id, { reviews: true });
+		return productWithReviews.reviews;
 	}
 
 	async hasPermissionTo(_: Operations, user: User, id: string) {
