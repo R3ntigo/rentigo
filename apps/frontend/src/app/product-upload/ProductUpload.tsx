@@ -57,7 +57,7 @@ const ProductUpload = () => {
 	const [productDivision, setProductDivision] = useState('');
 	const [districtOptions, setDistrictOptions] = useState([] as Options[]);
 	const [upazillaOptions, setUpazillaOptions] = useState([] as Options[]);
-	const [productDistrict, setProductDistrict] = useState('');
+	const [addressKey, setAddress] = useState('');
 	const [productUpazilla, setProductUpazilla] = useState('');
 	const [formFields, setFormFields] = useState(fistProperty);
 	const [policy, setPolicy] = useState('');
@@ -81,11 +81,9 @@ const ProductUpload = () => {
 		// const userID = decodeduser.id;
 		// console.log("lol" + restaurantID);
 		const newProduct = {
-			productName,
-			productDescription,
-			productDivision,
-			productDistrict,
-			productUpazilla,
+			title: productName,
+			description: productDescription,
+			address: addressKey,
 			formFields,
 			formFields2,
 			policy,
@@ -152,33 +150,33 @@ const ProductUpload = () => {
 	// 	}
 	// }
 
-	async function getUpazillaOptions2(value: string) {
-		// console.log(value);
-		const { data } = await axios.get(
-			`https://bdapis.com/api/v1.1/division/${value}`
-		);
-		// console.log(data);
-		let tempStringArray: string[] = [];
-		const temp2: Options[] = [];
-		if (data.status.message === 'ok') {
-			// console.log(data.data);
-			data.data.forEach((e: District) => {
-				// console.log(productDistrict);
-				// console.log(e.district);
-				// console.log(e.upazilla);
-				if (e.district.toUpperCase === productDistrict.toUpperCase) {
-					// console.log(e.upazilla);
-					tempStringArray = e.upazilla as string[];
-				}
-			});
-			// console.log(tempStringArray);
-			tempStringArray.forEach((e) => {
-				temp2.push({ value: e, label: e });
-			});
-			setUpazillaOptions(temp2);
-			// console.log(temp2);
-		}
-	}
+	// async function getUpazillaOptions2(value: string) {
+	// 	// console.log(value);
+	// 	const { data } = await axios.get(
+	// 		`https://bdapis.com/api/v1.1/division/${value}`
+	// 	);
+	// 	// console.log(data);
+	// 	let tempStringArray: string[] = [];
+	// 	const temp2: Options[] = [];
+	// 	if (data.status.message === 'ok') {
+	// 		// console.log(data.data);
+	// 		data.data.forEach((e: District) => {
+	// 			// console.log(productDistrict);
+	// 			// console.log(e.district);
+	// 			// console.log(e.upazilla);
+	// 			if (e.district.toUpperCase === productDistrict.toUpperCase) {
+	// 				// console.log(e.upazilla);
+	// 				tempStringArray = e.upazilla as string[];
+	// 			}
+	// 		});
+	// 		// console.log(tempStringArray);
+	// 		tempStringArray.forEach((e) => {
+	// 			temp2.push({ value: e, label: e });
+	// 		});
+	// 		setUpazillaOptions(temp2);
+	// 		// console.log(temp2);
+	// 	}
+	// }
 	const addFields = () => {
 		setFormFields([...formFields, { tag: '', tagID: formFields.length }]);
 	};
@@ -392,8 +390,7 @@ const ProductUpload = () => {
 						}}
 						onChange={(e) => {
 							if (e != null) {
-								setProductDivision(e.value);
-								getDistrictOptions(e.value);
+								setAddress(e.value);
 							}
 						}}
 						name="address"
@@ -409,13 +406,13 @@ const ProductUpload = () => {
 						}}
 						onChange={(e) => {
 							if (e != null) {
-								setProductDivision(e.value);
+								setAddress(e.value);
 								getDistrictOptions(e.value);
 							}
 						}}
 						name="rentingPolicy"
 					/>
-					<div>
+					<div className="border-dashed border-2 border-[#0bdaf5] rounded-2xl p-2 ">
 						Add Tags
 						{
 							formFields.map((element) => (
@@ -457,7 +454,8 @@ const ProductUpload = () => {
 							))
 						}
 					</div>
-					<div>
+					<br />
+					<div className="border-dashed border-2 border-[#f59e0b] rounded-2xl p-2 ">
 						{
 							formFields2.map((element) => (
 								<div key={element.pricingSchemeID}>
@@ -503,17 +501,37 @@ const ProductUpload = () => {
 										}}
 										name="rentingPolicy"
 									/>
-									<button type="button" onClick={addFields2}> Add Fields </button>
-									<button type="button" onClick={() => removeFields2(element.pricingSchemeID)}>
-										Remove Fields
-									</button>
+									<div className="grid grid-cols-2 gap-1">
+										<div className="flex items-center align-middle justify-center">
+											<div className="">
+												<button type="button" onClick={addFields2}>
+													{' '}
+													<BsPlusSquareFill size="24" />
+													{' '}
+												</button>
+											</div>
+										</div>
+										<div className="flex items-center align-middle justify-center">
+											<div className="">
+												<button type="button" onClick={() => removeFields2(element.pricingSchemeID)}>
+													<MdOutlineRemoveCircle size="29" />
+												</button>
+											</div>
+										</div>
+									</div>
 								</div>
 
 							))
 						}
 					</div>
 					Quantity
-					<input type="number" onChange={(e) => setQuantity(e.target.value)} />
+					<input
+						className="shadow appearance-none
+										border rounded w-full py-2 px-3 text-[#db2777]
+											leading-tight focus:outline-[#10b981]"
+						type="number"
+						onChange={(e) => setQuantity(e.target.value)}
+					/>
 					<input type="submit" value="Submit" onClick={handleSubmit} />
 					<br />
 					<br />
