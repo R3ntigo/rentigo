@@ -7,9 +7,6 @@ import { ReviewController } from './review.controller';
 import { ReviewRepository } from './review.repository';
 
 @Module({
-	imports: [
-		UserModule
-	],
 	controllers: [ReviewController],
 	providers: [ReviewService, ReviewRepository],
 	exports: [ReviewService, ReviewRepository]
