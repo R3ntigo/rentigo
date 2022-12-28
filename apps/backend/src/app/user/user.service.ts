@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { FindOptionsRelations } from 'typeorm';
 import { compareSync } from 'bcryptjs';
 
-import { User } from '@rentigo/models';
+import { Address, User } from '@rentigo/models';
 
 import { StorageService } from '../storage';
 import { UserRepository } from './user.repository';
@@ -37,5 +37,10 @@ export class UserService {
 			return null;
 		}
 		return user;
+	}
+
+	// eslint-disable-next-line class-methods-use-this
+	async getAllAddresses(user:User): Promise<Address[]> {
+		return user.addresses;
 	}
 }
