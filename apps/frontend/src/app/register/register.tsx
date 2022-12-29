@@ -5,11 +5,10 @@ import { Contact } from './contact';
 
 const Register = () => (
 	<>
-		<h1>Register</h1>
-		{/* <NIDPhoto /> */}
-		<ConfirmNID />
+		<NIDPhoto />
+		{/* <ConfirmNID />
 		<Portrait />
-		<Contact />
+		<Contact /> */}
 	</>
 );
 

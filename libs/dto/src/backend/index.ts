@@ -5,3 +5,4 @@ export * from './pricing-policy';
 export * from './request';
 export * from './review';
 export * from './product';
+export * from './user';

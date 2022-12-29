@@ -66,11 +66,11 @@ export class User {
 	@JoinTable({
 		name: 'user_received_reviews',
 	})
-	receivedReviews: Review[];
+	receivedReviews?: Review[];
 
 	@OneToMany(() => Review, (review) => review.reviewer)
 	@JoinColumn()
-	providedReviews: Review[];
+	providedReviews?: Review[];
 
 	@OneToMany(() => RentingPolicy, (rentingPolicy) => rentingPolicy.user, { cascade: true })
 	rentingPolicies?: RentingPolicy[];
