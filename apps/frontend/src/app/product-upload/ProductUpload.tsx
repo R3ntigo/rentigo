@@ -124,15 +124,13 @@ const ProductUpload = () => {
 		);
 		formData.append(
 			'pricingPolicies',
-			JSON.stringify(
-				formFields2.map((field) => ({
-					price: Number(field.price),
-					duration: {
-						unit: field.timeUnit,
-						length: Number(field.exceedsDays),
-					},
-				}))
-			)
+			formFields2.map((field) => (JSON.stringify({
+				price: Number(field.price),
+				duration: {
+					unit: field.timeUnit,
+					length: Number(field.exceedsDays),
+				},
+			}))).join(',')
 		);
 		formData.append(
 			'tags',
@@ -144,9 +142,14 @@ const ProductUpload = () => {
 		});
 		axios.post('/api/product', formData).then((res) => {
 			console.log(res);
-			console.log(res.data);
+			// alert the user that the product has been added
+			if (res.status === 201) {
+				alert('Product added successfully');
+			}
+			else {
+				alert('Product could not be added');
+			}
 		});
-		console.log(images);
 	};
 	async function getDivisionOptions() {
 		const { data } = await axios.get(
