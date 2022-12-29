@@ -1,16 +1,16 @@
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
-import { Product } from '@rentigo/models';
+import { Product, PricingPolicy } from '@rentigo/models';
 import { withAuth } from '../auth/withAuth';
 
 const ProductShow = () => {
 	const { id } = useParams();
-	const [initialProductState, setInitialProductState] = useState([]);
+	const [demoProduct, setInitialProductState] = useState({} as Product);
 
 	useEffect(() => {
 		fetchProduct();
-		console.log(initialProductState);
+		console.log(demoProduct);
 	}, []);
 	async function fetchProduct() {
 		const response = await fetch(`/api/product/${id}`);
@@ -19,70 +19,6 @@ const ProductShow = () => {
 		setInitialProductState(data);
 	}
 	// fetchProduct();
-	interface Property {
-		propertyName: string;
-		propertyValue: string;
-		propertyID: number;
-	}
-
-	interface PricingScheme {
-		price: string;
-		perday: boolean;
-		exceeds: boolean;
-		exceedsDays: string;
-		pricingSchemeID: number;
-
-	}
-	interface Product {
-		productName : string,
-		productDescription : string,
-		productDivision : string,
-		productDistrict : string,
-		productUpazilla : string,
-		formFields : Property[],
-		formFields2 : PricingScheme[],
-		policy : string,
-		images : ImageListType[],
-		quantity : string
-	}
-	const demoProduct : Product = {
-		productName: 'demo',
-		productDescription: 'demo description',
-		productDivision: 'dhaka',
-		productDistrict: 'gazipur',
-		productUpazilla: 'Ghatail',
-		formFields: [
-			{
-				propertyName: 'demo property 1',
-				propertyValue: 'demo vlue 1',
-				propertyID: 0
-			},
-			{
-				propertyName: 'prop 2',
-				propertyValue: 'value 2',
-				propertyID: 1
-			}
-		],
-		formFields2: [
-			{
-				price: '12',
-				perday: false,
-				exceeds: true,
-				exceedsDays: '12',
-				pricingSchemeID: 0
-			},
-			{
-				price: '21',
-				perday: true,
-				exceeds: false,
-				exceedsDays: '',
-				pricingSchemeID: 1
-			}
-		],
-		policy: 'hello do not do any harm',
-		images: [],
-		quantity: '12'
-	};
 
 	// const demoProduct : Product = {
 
@@ -99,12 +35,12 @@ const ProductShow = () => {
 
 			<div className="mx-auto p-6 rounded justify-center">
 				<h2 className="text-sm title-font text-gray-500 tracking-widest">Owner Name</h2>
-				<h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{ }</h1>
+				<h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{demoProduct.lender.firstName}</h1>
 				<br />
 				<div className="max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-accent1">
 					<div className="ml-6 pt-1">
 						<h4 className="text-xl text-gray-900 leading-tight">Product Description</h4>
-						<p className="text-base text-gray-600 leading-normal">{demoProduct.productDescription}</p>
+						<p className="text-base text-gray-600 leading-normal">{demoProduct.description}</p>
 					</div>
 				</div>
 				<br />
@@ -114,17 +50,17 @@ const ProductShow = () => {
 						<h3>
 							Division:
 							{' '}
-							{demoProduct.productDivision}
+							{demoProduct.address.division}
 						</h3>
 						<h3>
 							District:
 							{' '}
-							{demoProduct.productDistrict}
+							{demoProduct.address.district}
 						</h3>
 						<h3>
-							Upazilla:
+							Details:
 							{' '}
-							{demoProduct.productUpazilla}
+							{demoProduct.address.details}
 						</h3>
 					</div>
 				</div>
@@ -133,7 +69,7 @@ const ProductShow = () => {
 					<div className="ml-6 pt-1">
 						<h4 className="text-xl text-gray-900 leading-tight">Available Quantity</h4>
 						<p className="text-base text-gray-600 leading-normal">
-							{demoProduct.quantity}
+							{demoProduct.availableQuantity}
 							{' '}
 							pcs
 							{' '}
@@ -143,15 +79,15 @@ const ProductShow = () => {
 				<br />
 
 				<br />
-				<div className="flex-col
+				{/* <div className="flex-col
 				space-y-3 max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-green-300 "
 				>
 					<h4 className="text-xl text-gray-900">Features</h4>
-					{demoProduct.formFields.map((property) => {
-						if (property.propertyID % 3 == 0) {
+					{demoProduct.pricingPolicies.map((property:PricingPolicy) => {
+						if (demoProduct.pricingPolicies.indexOf(property) % 3 == 0) {
 							return (
 								<div
-									key={property.propertyID}
+									key={property.id}
 									className="flex-row border-2 border-solid rounded-xl
 									hover:border-dotted border-indigo-500/100 p-2"
 								>
@@ -206,18 +142,18 @@ const ProductShow = () => {
 							</div>
 						);
 					})}
-				</div>
+				</div> */}
 				<br />
 				<br />
 				<div className="flex-col
 				space-y-3 max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-accent1 "
 				>
 					<h4 className="text-xl text-gray-900">Pricing Options</h4>
-					{demoProduct.formFields2.map((pricingScheme) => {
-						if (pricingScheme.pricingSchemeID % 3 == 0) {
+					{demoProduct.pricingPolicies.map((pricingScheme:PricingPolicy) => {
+						if (demoProduct.pricingPolicies.indexOf(pricingScheme) % 3 == 0) {
 							return (
 								<div
-									key={pricingScheme.pricingSchemeID}
+									key={pricingScheme.id}
 									className="flex-row border-2 border-solid rounded-xl
 									hover:border-dotted border-indigo-500/100 p-2"
 								>
@@ -230,17 +166,17 @@ const ProductShow = () => {
 											for
 											{' '}
 											{' '}
-											{pricingScheme.perday
-												? 'each day' : `if exceeds ${pricingScheme.exceedsDays}` }
+											{pricingScheme.duration.length}
+											{pricingScheme.duration.unit}
 										</h3>
 									</div>
 								</div>
 
 							);
-						} if (pricingScheme.pricingSchemeID % 3 == 1) {
+						} if (demoProduct.pricingPolicies.indexOf(pricingScheme) % 3 == 1) {
 							return (
 								<div
-									key={pricingScheme.pricingSchemeID}
+									key={pricingScheme.id}
 									className="flex-row border-2 border-solid rounded-xl
 									hover:border-dotted border-yellow-500 p-2"
 								>
@@ -253,8 +189,8 @@ const ProductShow = () => {
 											for
 											{' '}
 											{' '}
-											{pricingScheme.perday
-												? 'each day' : `if exceeds ${pricingScheme.exceedsDays}` }
+											{pricingScheme.duration.length}
+											{pricingScheme.duration.unit}
 										</h3>
 									</div>
 								</div>
@@ -264,7 +200,7 @@ const ProductShow = () => {
 
 						return (
 							<div
-								key={pricingScheme.pricingSchemeID}
+								key={pricingScheme.id}
 								className="flex-row border-2 border-solid rounded-xl
 										hover:border-dotted border-purple-500 p-2"
 							>
@@ -277,9 +213,9 @@ const ProductShow = () => {
 										for
 										{' '}
 										{' '}
-										{pricingScheme.perday ? 'each day' : `if exceeds ${pricingScheme.exceedsDays}` }
+										{pricingScheme.duration.length}
+										{pricingScheme.duration.unit}
 									</h3>
-
 								</div>
 							</div>
 						);
@@ -287,14 +223,6 @@ const ProductShow = () => {
 				</div>
 				<br />
 				<br />
-				<div className="max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-primary">
-					<div className="ml-6 pt-1">
-						<h4 className="text-xl text-gray-900 leading-tight">Policy</h4>
-						<p className="text-base text-gray-600 leading-normal">
-							{demoProduct.policy}
-						</p>
-					</div>
-				</div>
 				<br />
 				<div className="self-center">
 					<button
