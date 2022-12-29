@@ -5,5 +5,5 @@ export class SearchDto {
 	@ApiProperty()
 	@IsNotEmpty()
 	@MaxLength(100)
-	searchText:string;
+	searchText: string;
 }

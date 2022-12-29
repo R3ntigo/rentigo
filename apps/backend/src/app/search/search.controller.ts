@@ -1,8 +1,8 @@
-import { Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-// import { SearchDto } from '@rentigo/dto';
-// import { Search } from '@rentigo/models';
+import { SearchDto } from '@rentigo/dto';
+import { Product } from '@rentigo/models';
 
 import { SearchService } from './search.service';
 
@@ -14,8 +14,8 @@ import { JwtAuthGuard } from '../auth';
 export class SearchController {
 	constructor(private readonly searchService: SearchService) {}
 
-	// @Post()
-	// Search(): Promise<Search> {
-	// 	return this.searchService.search();
-	// }
+	@Post()
+	Search(@Body() searchDto: SearchDto): Promise<Product[]> {
+		return this.searchService.search(searchDto);
+	}
 }
