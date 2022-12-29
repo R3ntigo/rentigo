@@ -145,8 +145,7 @@ const ProductUpload = () => {
 			// alert the user that the product has been added
 			if (res.status === 201) {
 				alert('Product added successfully');
-			}
-			else {
+			} else {
 				alert('Product could not be added');
 			}
 		});

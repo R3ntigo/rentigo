@@ -1,15 +1,24 @@
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ImageUploading, { ImageListType } from 'react-images-uploading';
+import { Product } from '@rentigo/models';
 import { withAuth } from '../auth/withAuth';
 
 const ProductShow = () => {
 	const { id } = useParams();
 	const [initialProductState, setInitialProductState] = useState([]);
 
-	// useEffect(() => {
-	// 	fetch(`/post/${id}`).then((res) => res.json()).then((jsonResponse) => setInitialProductState(jsonResponse));
-	// }, []);
+	useEffect(() => {
+		fetchProduct();
+		console.log(initialProductState);
+	}, []);
+	async function fetchProduct() {
+		const response = await fetch(`/api/product/${id}`);
+		const data = await response.json();
+		console.log(data);
+		setInitialProductState(data);
+	}
+	// fetchProduct();
 	interface Property {
 		propertyName: string;
 		propertyValue: string;
@@ -90,7 +99,7 @@ const ProductShow = () => {
 
 			<div className="mx-auto p-6 rounded justify-center">
 				<h2 className="text-sm title-font text-gray-500 tracking-widest">Owner Name</h2>
-				<h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{demoProduct.productName}</h1>
+				<h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{ }</h1>
 				<br />
 				<div className="max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-accent1">
 					<div className="ml-6 pt-1">
