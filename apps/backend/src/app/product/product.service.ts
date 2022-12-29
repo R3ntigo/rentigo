@@ -22,6 +22,7 @@ export class ProductService {
 	) {}
 
 	async create(user: User, createProductDto: CreateProductDto): Promise<Product> {
+		console.log('createProductDto', createProductDto);
 		const product = await this.dtoToEntity(createProductDto);
 		product.lender = user;
 		return this.productRepository.save(product);

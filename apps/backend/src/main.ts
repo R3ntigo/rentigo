@@ -1,6 +1,7 @@
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import cookieParser from 'cookie-parser';
+import { json, urlencoded } from 'express';
 import 'multer';
 
 import { AppModule } from './app/app.module';
@@ -11,6 +12,8 @@ async function bootstrap() {
 
 	const globalPrefix = 'api';
 	app.setGlobalPrefix(globalPrefix);
+	app.use(json({ limit: '50mb' }));
+	app.use(urlencoded({ extended: true, limit: '50mb' }));
 
 	app.useGlobalPipes(new ValidationPipe({ transform: true }));
 	app.use(cookieParser());
