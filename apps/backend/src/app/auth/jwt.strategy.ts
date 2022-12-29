@@ -5,13 +5,11 @@ import { Request } from 'express';
 import { User } from '@rentigo/models';
 import { ConfigService } from '@nestjs/config';
 
-import { UserService } from '../user';
 
 @Injectable()
-class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtStrategy extends PassportStrategy(Strategy) {
 	constructor(
-		private configService: ConfigService,
-		private usersService: UserService
+		private configService: ConfigService
 	) {
 		super({
 			jwtFromRequest: ExtractJwt.fromExtractors([
@@ -26,6 +24,6 @@ class JwtStrategy extends PassportStrategy(Strategy) {
 	validate(payload: User) {
 		return payload;
 	}
+
 }
 
-export { JwtStrategy };

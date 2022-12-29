@@ -1,4 +1,4 @@
-import { Controller, Get, Patch, Param, Body, Post } from '@nestjs/common';
+import { Controller, Get, Patch, Param, Body, Post, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ReqUser } from '@rentigo/decorators';
 
@@ -6,10 +6,12 @@ import { CreateReviewDto, UpdateReviewDto } from '@rentigo/dto';
 import { Review, User } from '@rentigo/models';
 
 import { UserService } from './user.service';
-import { ReviewService } from '../review';
+import { ReviewService } from '../review/review.service';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @ApiTags('users')
 @Controller('users')
+@UseGuards(JwtAuthGuard)
 export class UserController {
 	constructor(
 		private userService: UserService,
@@ -36,5 +38,18 @@ export class UserController {
 	@Get('reviews/:id')
 	getReviews(@Param('id') id: string) {
 		return this.userService.findAllReviews(id);
+	}
+
+	// create a controller to get all the addresses of a user
+	@Get('addresses')
+	getAllAddresses(@ReqUser() user: User) {
+		console.log('user', user);
+		return this.userService.getAllAddresses(user);
+	}
+
+	@Get('rentingPolicy')
+	getRentingPolicy(@ReqUser() user: User) {
+		console.log('user', user);
+		return this.userService.getRentingPolicy(user);
 	}
 }

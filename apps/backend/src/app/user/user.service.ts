@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { FindOptionsRelations } from 'typeorm';
 import { compareSync } from 'bcryptjs';
 
-import { User, Review } from '@rentigo/models';
+import { Address, User, RentingPolicy, Review } from '@rentigo/models';
 
 import { StorageService } from '../storage';
 import { UserRepository } from './user.repository';
@@ -50,5 +50,15 @@ export class UserService {
 	async findAllReviews(id: string) {
 		const userWithReviews = await this.findOne(id, { receivedReviews: true });
 		return userWithReviews.receivedReviews;
+	}
+
+	async getAllAddresses(user:User): Promise<Address[]> {
+		const currUser = await this.findOne(user.id, { addresses: true });
+		return currUser.addresses;
+	}
+
+	async getRentingPolicy(user:User): Promise<RentingPolicy[]> {
+		const currUser = await this.findOne(user.id, { rentingPolicies: true });
+		return currUser.rentingPolicies;
 	}
 }
