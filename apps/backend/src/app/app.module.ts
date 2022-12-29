@@ -11,8 +11,8 @@ import { ResourceModule } from './resource';
 import { MessagesModule } from './messages/messages.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { RequestModule } from './request/request.module';
-import { ReviewModule } from './review/review.module';
+import { RequestModule } from './request';
+import { ReviewModule } from './review';
 
 @Module({
 	imports: [
