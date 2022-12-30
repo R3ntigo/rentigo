@@ -11,12 +11,12 @@ interface Photo {
 	blob?: Blob | null;
 }
 
-interface Refs {
+interface CameraRef {
 	takePicture: () => Promise<Photo>;
 }
 
 // eslint-disable-next-line react/display-name
-const Camera = forwardRef((props: CameraProps, ref: ForwardedRef<Refs>) => {
+const Camera = forwardRef((props: CameraProps, ref: ForwardedRef<CameraRef>) => {
 	const { constraints, width, height } = props;
 
 	const videoRef = useRef<HTMLVideoElement>(null);
@@ -76,4 +76,4 @@ Camera.defaultProps = {
 	},
 };
 
-export { Camera, Photo };
+export { Camera, Photo, CameraRef };

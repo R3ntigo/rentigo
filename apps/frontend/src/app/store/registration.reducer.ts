@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Registration } from '@rentigo/models';
 
 export const registrationSlice = createSlice({
 	name: 'registration',
-	initialState: null,
+	initialState: {} as Registration,
 	reducers: {
 		setRegistration(state, action) {
 			return action.payload;

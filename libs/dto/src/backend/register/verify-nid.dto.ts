@@ -1,6 +1,6 @@
+import { TextResult } from 'dynamsoft-javascript-barcode';
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { TextResult } from 'dynamsoft-javascript-barcode';
 
 export class VerifyNidDto {
 	@ApiProperty({

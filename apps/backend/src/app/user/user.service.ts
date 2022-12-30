@@ -16,6 +16,10 @@ export class UserService {
 		this.storageService.listBuckets().then(console.log);
 	}
 
+	async save(user: User): Promise<User> {
+		return this.userRepository.save(user);
+	}
+
 	async findOne(id: string, relations: FindOptionsRelations<User> = {}): Promise<User> {
 		const user = await this.userRepository.findOne({ where: { id }, relations });
 		return user;

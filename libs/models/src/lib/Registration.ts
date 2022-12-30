@@ -1,11 +1,10 @@
-import { Gender } from '@rentigo/constants';
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, Index, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Resource } from './Resource';
 
 @Entity()
 export class Registration {
 	@PrimaryGeneratedColumn('uuid')
-	id?: number;
+	id?: string;
 
 	@Column()
 	@Index({ unique: true })
