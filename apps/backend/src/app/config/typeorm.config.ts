@@ -13,7 +13,8 @@ import {
 	Resource,
 	UserCredential,
 	Review,
-	Search
+	Search,
+	Registration
 } from '@rentigo/models';
 import { DataSource, AdvancedConsoleLogger } from 'typeorm';
 
@@ -29,7 +30,7 @@ class TypeOrmConfigService implements TypeOrmOptionsFactory {
 	constructor(private config: ConfigService) {}
 
 	readonly entities = [Address, Product, Request, User, PricingPolicy,
-		RentingPolicy, Tag, Resource, UserCredential, Review, Search];
+		RentingPolicy, Tag, Resource, UserCredential, Review, Search, Registration];
 
 	public createTypeOrmOptions(): TypeOrmModuleOptions {
 		return {

@@ -14,7 +14,7 @@ export class RegisterController {
 
 	}
 
-	@Post()
+	@Post('verify-nid')
 	@ApiConsumes('multipart/form-data')
 	@UseInterceptors(FilesInterceptor('imageUrls', 100))
 	async verifyNid(

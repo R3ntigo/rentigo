@@ -1,3 +1,4 @@
+import { Gender } from '@rentigo/constants';
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, Index, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Resource } from './Resource';
 
@@ -19,17 +20,14 @@ export class Registration {
 	@Column()
 	dob: Date;
 
-	@Column()
-	gender: string;
-
 	@ManyToMany(() => Resource, {
 		cascade: ['insert', 'update'],
 		eager: true,
 	})
 	@JoinTable({
-		name: 'photo_image_urls',
+		name: 'registration_image_urls',
 	})
-	photoUrl: Resource;
+	photoUrl?: Resource;
 
 	@Column()
 	status: string;

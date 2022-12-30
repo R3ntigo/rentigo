@@ -2,8 +2,14 @@ import axios from 'axios';
 import React, { useEffect, useRef } from 'react';
 import { BarcodeScanner, EnumBarcodeFormat } from 'dynamsoft-javascript-barcode';
 import { toast } from 'react-toastify';
+import { Registration } from '@rentigo/models';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setRegistration } from '../store/registration.reducer';
 
 const NIDPhoto = () => {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const [frontPhoto, setFrontPhoto] = React.useState<File>();
 	const [backPhoto, setBackPhoto] = React.useState<File>();
 	const [isFrontPhotoTaken, setIsFrontPhotoTaken] = React.useState<boolean>(false);
@@ -102,7 +108,12 @@ const NIDPhoto = () => {
 							}
 						);
 
-						console.log(response);
+						const registration = response.data as Registration;
+						console.log(registration);
+						// save the registration to the context
+						dispatch(setRegistration(registration));
+						// navigate to registration.status
+						navigate(`/register/${registration.status}`);
 					}}
 				>
 					Next
