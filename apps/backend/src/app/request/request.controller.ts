@@ -30,6 +30,12 @@ export class RequestController {
 		return this.requestService.findOne(id);
 	}
 
+	// get by pagination
+	@Get('page/:page')
+	findByPage(@Param('page') page: number): Promise<Request[]> {
+		return this.requestService.findByPage(page);
+	}
+
 	@Patch()
 	update(@Body() updateRentingPolicyDto: UpdateRequestDto, @ReqUser() user: User): Promise<Request> {
 		return this.requestService.update(user, updateRentingPolicyDto);

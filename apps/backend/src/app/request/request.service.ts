@@ -55,6 +55,11 @@ export class RequestService {
 		return this.requestRepository.softRemoveOneBy({ id });
 	}
 
+	async findByPage(page: number): Promise<Request[]> {
+		const skip = (page - 1) * 10;
+		return this.requestRepository.find({ skip, take: 10 });
+	}
+
 	async hasPermissionTo(_: Operations, user: User, id: string) {
 		try {
 			const userWithProduct = await this.requestRepository.findOne({

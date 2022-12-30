@@ -22,6 +22,7 @@ export class ProductService {
 	) {}
 
 	async create(user: User, createProductDto: CreateProductDto): Promise<Product> {
+		console.log('createProductDto', createProductDto);
 		const product = await this.dtoToEntity(createProductDto);
 		product.lender = user;
 		return this.productRepository.save(product);
@@ -32,7 +33,7 @@ export class ProductService {
 	}
 
 	async findOne(id: string, relations: FindOptionsRelations<Product> = {}): Promise<Product> {
-		const product = this.productRepository.findOne({ where: { id }, relations });
+		const product = this.productRepository.findOne({ where: { id }, relations: { ...relations, rentingPolicies:true } });
 		if (!product) {
 			throw new NotFoundException();
 		}

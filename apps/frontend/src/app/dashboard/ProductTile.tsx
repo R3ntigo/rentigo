@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Product, Request } from '@rentigo/models';
 import { RequestStatus } from '@rentigo/constants';
 
 const ProductTile = (props: { product: Product }) => {
 	const hello = 'hello';
+
 	const { product } = props;
 	return (
 		<a href="/sign-in">
@@ -49,21 +50,20 @@ const ProductTile = (props: { product: Product }) => {
 const RequestTile = (props: { request: Request }) => {
 	const hello = 'hello';
 	const { request } = props;
-	// const statusColoring = (status: RequestStatus) => {
-	// 	console.log(status);
-	// 	switch (status) {
-	// 	// case RequestStatus.PENDING:
-	// 	// 	return 'text-yellow-200';
-	// 	// case RequestStatus.APPROVED:
-	// 	// 	return 'text-green-200';
-	// 	// case RequestStatus.REJECTED:
-	// 	// 	return 'text-red-200';
-	// 	default:
-	// 		return 'text-gray-200';
-	// 	}
-	// };
+	const [demoProduct, setInitialProductState] = useState<Product>();
+	async function fetchProduct() {
+		const response = await fetch(`/api/product/${request.product.id}`);
+		const data = await response.json();
+		console.log(data);
+		setInitialProductState(data);
+	}
+	useEffect(() => {
+		fetchProduct();
+	}, []);
+	// if (!demoProduct) return (<div>Loading...</div>);
+	// if (!request) return (<div>loading</div>);
 	return (
-		<a href="/sign-in">
+		<a href={`/rent-req-detail/${request.id}`}>
 			<div className="p-4 bg-slate-100 rounded-lg grid grid-cols-2 gap-2 ">
 
 				<div>
@@ -81,13 +81,19 @@ const RequestTile = (props: { request: Request }) => {
 					<p className="font-semibold">
 						date:
 						{' '}
-						{request.updatedAt?.getDate()}
+						{request.createdAt?.toLocaleString()}
 					</p>
 					{' '}
+					<p className="font-semibold">
+						status:
+						{' '}
+						{request.status === RequestStatus.PENDING ? 'pending' : 'approved'}
+					</p>
+
 				</div>
 				<div className="grid justify-items-end">
 					<div>
-						<img className="w-24 h-24" src="/sarah-dayan.jpg" alt="" width="384" height="512" />
+						<img className="w-24 h-24" src="jj" alt="" width="384" height="512" />
 					</div>
 				</div>
 

@@ -1,8 +1,9 @@
+/* eslint-disable react/jsx-key */
 /* eslint-disable no-return-assign */
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
-import ImageUploading, { ImageListType } from 'react-images-uploading';
+import ImageUploading, { ImageListType, ImageType } from 'react-images-uploading';
 import { FaUpload } from 'react-icons/fa';
 import { IoIosRemoveCircle	} from 'react-icons/io';
 import { ImCross } from 'react-icons/im';
@@ -41,6 +42,7 @@ const ProductUpload = () => {
 		exceeds: boolean;
 		exceedsDays: string;
 		pricingSchemeID: number;
+		timeUnit: string;
 
 	}
 	const firstPricingScheme : PricingScheme[] = [{
@@ -49,6 +51,15 @@ const ProductUpload = () => {
 		exceeds: false,
 		exceedsDays: '',
 		pricingSchemeID: 0,
+		timeUnit: TimeUnit.DAY
+	}];
+	interface RentingPolicyTransfer {
+		id: number;
+		rentingPolicyID: string;
+	}
+	const firstRentingPolicy : RentingPolicyTransfer[] = [{
+		id: 0,
+		rentingPolicyID: '',
 	}];
 
 	const [productName, setProductName] = useState('');
@@ -61,8 +72,9 @@ const ProductUpload = () => {
 	const [productUpazilla, setProductUpazilla] = useState('');
 	const [formFields, setFormFields] = useState(fistProperty);
 	const [policy, setPolicy] = useState('');
-	const [images, setImages] = useState([]);
+	const [images, setImages] = useState([] as any[]);
 	const [formFields2, setFormFields2] = useState(firstPricingScheme);
+	const [formFields3, setFormFields3] = useState(firstRentingPolicy);
 	const [quantity, setQuantity] = useState('');
 	const [userAddress, setUserAddresses] = useState([] as Options[]);
 	const [rentingPolicies, setRentingPolicies] = useState([] as Options[]);
@@ -80,17 +92,63 @@ const ProductUpload = () => {
 	const handleSubmit = async () => {
 		// const userID = decodeduser.id;
 		// console.log("lol" + restaurantID);
-		const newProduct = {
-			title: productName,
-			description: productDescription,
-			address: addressKey,
-			formFields,
-			formFields2,
-			policy,
-			images,
-			quantity
-		};
+		// const newProduct = {
+		// 	title: productName,
+		// 	description: productDescription,
+		// 	address: addressKey,
+		// 	rentingPolicies: formFields3.map((field) => field.rentingPolicyID),
+		// 	pricingPolicies: formFields2.map((field) => ({
+		// 		price: field.price,
+		// 		duration: {
+		// 			unit: field.timeUnit,
+		// 			length: field.exceedsDays
+		// 		}
+		// 	})),
+		// 	tags: formFields.map((field) => field.tag),
+		// 	imageUrls: images,
+		// 	totalQuantity: quantity
+		// };
 		// console.log(newProduct);
+		// axios.post('/api/product', newProduct).then((res) => {
+		// 	console.log(res);
+		// 	console.log(res.data);
+		// });
+		// send a multipart form data post request using axios
+		const formData = new FormData();
+		formData.append('title', productName);
+		formData.append('description', productDescription);
+		formData.append('address', addressKey);
+		formData.append(
+			'rentingPolicies',
+			formFields3.map((field) => field.rentingPolicyID).join(',')
+		);
+		formData.append(
+			'pricingPolicies',
+			formFields2.map((field) => (JSON.stringify({
+				price: Number(field.price),
+				duration: {
+					unit: field.timeUnit,
+					length: Number(field.exceedsDays),
+				},
+			}))).join(',')
+		);
+		formData.append(
+			'tags',
+			formFields.map((field) => field.tag).join(',')
+		);
+		formData.append('totalQuantity', quantity);
+		images.forEach((image) => {
+			formData.append('imageUrls', image.file);
+		});
+		axios.post('/api/product', formData).then((res) => {
+			console.log(res);
+			// alert the user that the product has been added
+			if (res.status === 201) {
+				alert('Product added successfully');
+			} else {
+				alert('Product could not be added');
+			}
+		});
 	};
 	async function getDivisionOptions() {
 		const { data } = await axios.get(
@@ -190,12 +248,31 @@ const ProductUpload = () => {
 	};
 	const addFields2 = () => {
 		setFormFields2([...formFields2,
-			{ price: '', perday: true, exceeds: false, exceedsDays: '', pricingSchemeID: formFields2.length }]);
+			{ 	price: '',
+				perday: true,
+				exceeds: false,
+				exceedsDays: '',
+				pricingSchemeID: formFields2.length,
+				timeUnit: TimeUnit.DAY }]);
 	};
 	const removeFields2 = (index: number) => {
 		const values = [...formFields2];
+		if (values.length === 1) {
+			return;
+		}
 		values.splice(index, 1);
 		setFormFields2(values);
+	};
+	const addFields3 = () => {
+		setFormFields3([...formFields3, { rentingPolicyID: '', id: formFields3.length }]);
+	};
+	const removeFields3 = (index: number) => {
+		const values = [...formFields3];
+		if (values.length === 1) {
+			return;
+		}
+		values.splice(index, 1);
+		setFormFields3(values);
 	};
 	// const fileHandler = (e: any) => {
 	//   console.log(e.target.files);
@@ -395,23 +472,51 @@ const ProductUpload = () => {
 						}}
 						name="address"
 					/>
-					Choose a Renting Policy
-					<Select
-						id="rentingPolicy"
-						className=""
-						options={rentingPolicies}
-						defaultValue={{
-							value: '',
-							label: 'Select an option',
-						}}
-						onChange={(e) => {
-							if (e != null) {
-								setAddress(e.value);
-								getDistrictOptions(e.value);
-							}
-						}}
-						name="rentingPolicy"
-					/>
+					<br />
+					<div className="border-dashed border-2 border-[#c60bf5] rounded-2xl p-2 ">
+						Choose a Renting Policy
+						{
+							formFields3.map((item) => (
+								<div key={item.id}>
+									<Select
+										id="rentingPolicy"
+										className=""
+										options={rentingPolicies}
+										defaultValue={{
+											value: '',
+											label: 'Select an option',
+										}}
+										onChange={(e) => {
+											if (e != null) {
+												formFields3[item.id].rentingPolicyID = e.value;
+											}
+										}}
+										name="rentingPolicy"
+									/>
+									<div className="grid grid-cols-2 gap-1">
+										<div className="flex items-center align-middle justify-center">
+											<div className="">
+												<button type="button" onClick={addFields3}>
+													{' '}
+													<BsPlusSquareFill size="24" />
+													{' '}
+												</button>
+											</div>
+										</div>
+										<div className="flex items-center align-middle justify-center">
+											<div className="">
+												<button type="button" onClick={() => removeFields3(item.id)}>
+													<MdOutlineRemoveCircle size="29" />
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							))
+						}
+					</div>
+					<br />
 					<div className="border-dashed border-2 border-[#0bdaf5] rounded-2xl p-2 ">
 						Add Tags
 						{
@@ -479,9 +584,7 @@ const ProductUpload = () => {
 										border rounded w-full py-2 px-3 text-[#db2777]
 											leading-tight focus:outline-[#10b981]"
 										onChange={(e) => {
-											if (formFields2[element.pricingSchemeID].exceeds) {
-												formFields2[element.pricingSchemeID].exceedsDays = e.target.value;
-											}
+											formFields2[element.pricingSchemeID].exceedsDays = e.target.value;
 										}}
 									/>
 									TIME UNIT
@@ -495,8 +598,7 @@ const ProductUpload = () => {
 										}}
 										onChange={(e) => {
 											if (e != null) {
-												setProductDivision(e.value);
-												getDistrictOptions(e.value);
+												formFields2[element.pricingSchemeID].timeUnit = e.value;
 											}
 										}}
 										name="rentingPolicy"
@@ -513,7 +615,10 @@ const ProductUpload = () => {
 										</div>
 										<div className="flex items-center align-middle justify-center">
 											<div className="">
-												<button type="button" onClick={() => removeFields2(element.pricingSchemeID)}>
+												<button
+													type="button"
+													onClick={() => removeFields2(element.pricingSchemeID)}
+												>
 													<MdOutlineRemoveCircle size="29" />
 												</button>
 											</div>

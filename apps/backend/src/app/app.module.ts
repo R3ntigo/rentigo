@@ -13,6 +13,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RequestModule } from './request';
 import { ReviewModule } from './review';
+import { SearchModule } from './search/search.module';
 import { RegisterModule } from './register/register.module';
 
 @Module({
@@ -27,7 +28,8 @@ import { RegisterModule } from './register/register.module';
 		ResourceModule,
 		RequestModule,
 		ReviewModule,
-		RegisterModule
+		SearchModule,
+		RegisterModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],

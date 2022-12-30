@@ -14,6 +14,7 @@ import { Column,
 import { Gender } from '@rentigo/constants';
 
 import { Address, Request, Product, RentingPolicy, Resource, UserCredential, Review } from './internal';
+import { Search } from './Search';
 
 @Entity()
 export class User {
@@ -71,6 +72,10 @@ export class User {
 	@OneToMany(() => Review, (review) => review.reviewer)
 	@JoinColumn()
 	providedReviews?: Review[];
+
+	@OneToMany(() => Search, (search) => search)
+	@JoinColumn()
+	searchHistory: Search[];
 
 	@OneToMany(() => RentingPolicy, (rentingPolicy) => rentingPolicy.user, { cascade: true })
 	rentingPolicies?: RentingPolicy[];

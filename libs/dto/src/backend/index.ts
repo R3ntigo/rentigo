@@ -7,3 +7,4 @@ export * from './review';
 export * from './product';
 export * from './user';
 export * from './register';
+export * from './search';

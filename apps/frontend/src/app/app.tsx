@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
-import { ProductRentReq } from './product-rent-req/ProductRentReq';
+import { ProductRentReqWithAuth } from './product-rent-req/ProductRentReq';
 import { Home } from './home/home';
 import { ProductUploadWithAuth, ProductUpload } from './product-upload/ProductUpload';
 import { ProductShowWithAuth } from './product-show/ProductShow';
@@ -9,8 +9,9 @@ import { SideBar } from './navbar/Navbar';
 import { Dashboard } from './dashboard/Dashboard';
 import { SignIn2 } from './signin/sign-in-new';
 import { ListedProduct } from './dashboard/ListedProduct';
-import { RequestforRent } from './dashboard/RequestforRent';
 import { Register } from './register/register';
+import { RequestforRentWithAuth } from './dashboard/RequestforRent';
+import { RequestDetailWithAuth } from './dashboard/RequestDetailPage';
 
 enableFreezeUI();
 
@@ -21,15 +22,16 @@ const App = () => (
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/sign-in" element={<SignIn2 />} />
-				<Route path="/show" element={<ProductShowWithAuth />} />
+				<Route path="/show/:id" element={<ProductShowWithAuth />} />
 				<Route path="/upload" element={<ProductUploadWithAuth />} />
 				<Route path="/uploadinsecured" element={<ProductUpload />} />
-				<Route path="/rent/:id" element={<ProductRentReq />} />
+				<Route path="/rent/:id" element={<ProductRentReqWithAuth />} />
 				<Route path="/testNavbar" element={<SideBar />} />
 				<Route path="/dashboard" element={<Dashboard />} />
 				<Route path="/listed-product" element={<ListedProduct />} />
-				<Route path="/rent-req-dash" element={<RequestforRent />} />
 				<Route path="/register" element={<Register />} />
+				<Route path="/rent-req-dash" element={<RequestforRentWithAuth />} />
+				<Route path="/rent-req-detail/:id" element={<RequestDetailWithAuth />} />
 			</Routes>
 		</div>
 	</div>

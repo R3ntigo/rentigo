@@ -2,157 +2,94 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ImageListType } from 'react-images-uploading';
 import { BsCaretDown, BsCaretUp } from 'react-icons/bs';
+import { Product, PricingPolicy, RentingPolicy, Request } from '@rentigo/models';
+import Select from 'react-select';
+import { TimeUnit } from '@rentigo/constants';
+import axios from 'axios';
+import { withAuth } from '../auth/withAuth';
 
 const ProductRentReq = () => {
-	const [initialProductState, setInitialProductState] = useState([]);
-
+	interface Options {
+		value: string;
+		label: string;
+	}
+	const [demoProduct, setInitialProductState] = useState<Product>();
+	const [quantity2, setQuantity] = useState('1');
+	const [timeUnitOptions, setTimeUnitOptions] = useState([] as Options[]);
+	// const [rentReq, setRentReq] = useState<Request>();
 	const { id } = useParams();
-	// useEffect(() => {
-	// 	fetch(`/rentReq/${id}`).then((res) => res.json()).then((jsonResponse) => setInitialProductState(jsonResponse));
-	// }, []);
-
-	interface RentReq {
-		rentTakerID: string; // get from token
-		rentTakerName: string; // get from token
-		productID: string; // get from url
-		quantity: number;
-		rentReqtDate: string;
-		numOfReqDays: number;
-		projectedTotal: number; // get from backend
-	}
-
-	const [rentReq, setRentReq] = useState<RentReq>({
-		rentTakerID: '', // get from token
-		rentTakerName: '',
-		productID: '',
-		quantity: 0,
-		rentReqtDate: Date(),
-		numOfReqDays: 0,
-		projectedTotal: 0,
-	});
-
-	interface Property {
-		propertyName: string;
-		propertyValue: string;
-		propertyID: number;
-	}
-
-	interface PricingScheme {
-		price: string;
-		perday: boolean;
-		exceeds: boolean;
-		exceedsDays: string;
-		pricingSchemeID: number;
-
-	}
-	interface Product {
-		productName : string,
-		productDescription : string,
-		productDivision : string,
-		productDistrict : string,
-		productUpazilla : string,
-		formFields : Property[],
-		formFields2 : PricingScheme[],
-		policy : string,
-		images : ImageListType[],
-		quantity : string
-	}
-	const demoProduct : Product = {
-		productName: 'demo',
-		productDescription: 'demo description',
-		productDivision: 'dhaka',
-		productDistrict: 'gazipur',
-		productUpazilla: 'Ghatail',
-		formFields: [
-			{
-				propertyName: 'demo property 1',
-				propertyValue: 'demo vlue 1',
-				propertyID: 0
-			},
-			{
-				propertyName: 'prop 2',
-				propertyValue: 'value 2',
-				propertyID: 1
-			}
-		],
-		formFields2: [
-			{
-				price: '12',
-				perday: false,
-				exceeds: true,
-				exceedsDays: '12',
-				pricingSchemeID: 0
-			},
-			{
-				price: '21',
-				perday: true,
-				exceeds: false,
-				exceedsDays: '',
-				pricingSchemeID: 1
-			},
-			{
-				price: '10',
-				perday: false,
-				exceeds: true,
-				exceedsDays: '18',
-				pricingSchemeID: 2
-			}
-		],
-		policy: 'hello do not do any harm',
-		images: [],
-		quantity: '12'
-	};
 	useEffect(() => {
+		fetchProduct();
+		getDurationOptions();
+		console.log(demoProduct);
+	}, []);
+	async function getDurationOptions() {
+		// use TimeUnit enum to populate select options
+		const temp: Options[] = [];
+		Object.keys(TimeUnit).forEach((key) => {
+			temp.push({ value: key, label: key });
+		});
+		setTimeUnitOptions(temp);
+	}
+	async function fetchProduct() {
+		const response = await fetch(`/api/product/${id}`);
+		const data = await response.json();
+		console.log(data);
+		setInitialProductState(data);
+	}
+	if (!demoProduct) return (<div>Loading...</div>);
+	const rentReq = {
+		product: id,
+		quantity: parseInt(quantity2, 10),
+		address: demoProduct.address.id,
+		duration: {
+			unit: 'ee',
+			length: 2
+		}
 
-	}, [rentReq]);
+	};
+	const handleSubmit = () => {
+		console.log(rentReq);
+
+		axios.post('/api/request', rentReq).then((res) => {
+			console.log(res);
+			if (res.status === 201) {
+				alert('Request sent successfully');
+			} else {
+				alert('Request failed');
+			}
+		});
+	};
+
 	const decreaseQuantity = () => {
+		// get integer value of quantity
 		let { quantity } = rentReq;
 		if (quantity > 0) {
 			quantity -= 1;
 		}
-		setRentReq({ ...rentReq, quantity });
+		rentReq.quantity = quantity;
+		setQuantity(quantity.toString());
 	};
 
 	const increaseQuantity = () => {
 		let { quantity } = rentReq;
-		if (quantity < parseInt(demoProduct.quantity, 10)) {
+		console.log(quantity);
+		if (quantity < demoProduct.availableQuantity) {
 			quantity += 1;
-			setRentReq({ ...rentReq, quantity });
+			rentReq.quantity = quantity;
+			setQuantity(quantity.toString());
 		}
 	};
 
-	const calculatePaisa = () => {
-		const total : number[] = [0];
-		let exceedsTotal : number;
-		exceedsTotal = 0;
-		let currentExceedday : number;
-		currentExceedday = 0;
-		demoProduct.formFields2.forEach((element) => {
-			if (element.exceeds) {
-				if (rentReq.numOfReqDays > parseInt(element.exceedsDays, 10)
-				&& currentExceedday < rentReq.numOfReqDays) {
-					exceedsTotal = rentReq.numOfReqDays * parseInt(element.price, 10);
-					currentExceedday = parseInt(element.exceedsDays, 10);
-				}
-			} else {
-				total.push(rentReq.numOfReqDays * parseInt(element.price, 10));
-				console.log(total);
-			}
-		});
-		const x = total[total.length - 1];
-		if (exceedsTotal) {
-			return exceedsTotal;
-		}
-		if (x) {
-			return x;
-		}
-		return 0;
-	};
-
+	const calculatePaisa = () => -4;
 	return (
 		<>
 			<div className="absolute top-6 w-full text-center">
-				<h1 className="text-2xl font-semibold">Rent req for product X</h1>
+				<h1 className="text-2xl font-semibold">
+					Rent req for
+					{' '}
+					{demoProduct.title}
+				</h1>
 			</div>
 			<div className="h-24 md:p-8  grid grid-cols-3">
 				<div
@@ -168,9 +105,9 @@ const ProductRentReq = () => {
 			bg-accent1 mix-blend-multiply filter blur-xl opacity-70 "
 				/>
 			</div>
-			<div className="p-7 space-y-4">
+			<div className="p-7 space-y-4 grid place-items-center">
 				<img
-					src="E:\dp1\production-Rentingo\rentigo\apps\frontend\src\app\product-show\ll.jpg"
+					src={`${demoProduct.imageUrls[0].url}`}
 					alt="ecommerce"
 					className="lg:w-1/2 object-cover object-center rounded border border-gray-200"
 				/>
@@ -182,19 +119,19 @@ const ProductRentReq = () => {
 							The location you will be going to pick up the product
 						</h2>
 						<div className="bg-white
-							h-10 flex items-center rounded-2xl border-2 border-rose-500 border-dashed"
+							 flex items-center rounded-2xl border-2 border-rose-500 border-dashed"
 						>
 							<div className="p-3 font-semibold font">
-								{demoProduct.productUpazilla}
+								{demoProduct.address.details}
 								,
 								{' '}
 								{' '}
 								,
-								{demoProduct.productDistrict}
+								{demoProduct.address.district}
 								{' '}
 								{' '}
 								,
-								{demoProduct.productDivision}
+								{demoProduct.address.division}
 							</div>
 						</div>
 					</div>
@@ -215,13 +152,10 @@ const ProductRentReq = () => {
 								className="shadow appearance-none bg-white
 									border rounded-2xl w-20 py-2 px-3 text-[#db2777]
 										leading-tight focus:outline-[#10b981] text-center"
-								value={rentReq.quantity}
+								value={quantity2}
 								onChange={
 									(e) => {
-										setRentReq({
-											...rentReq,
-											quantity: parseInt(e.target.value, 10)
-										});
+										setQuantity(e.target.value);
 										console.log(rentReq);
 									}
 								}
@@ -248,36 +182,56 @@ const ProductRentReq = () => {
 									border rounded w-full py-2 px-3 text-[#db2777]
 										leading-tight focus:outline-[#10b981]"
 							onChange={(e) => {
-								setRentReq({
-									...rentReq,
-									numOfReqDays: parseInt(e.target.value, 10)
-								});
+								rentReq.duration.length = parseInt(e.target.value, 10);
 							}}
 						/>
+						<br />
+						TIME UNIT
+						<Select
+							id="timeUnit"
+							className=""
+							options={timeUnitOptions}
+							defaultValue={{
+								value: '',
+								label: 'Select an option',
+							}}
+							onChange={(e) => {
+								if (e != null) {
+									rentReq.duration.unit = e.value;
+								}
+							}}
+							name="rentingDurationUnit"
+						/>
 					</div>
-					<div>
-						<h2>Recap the policies</h2>
-						<p>
-							{demoProduct.policy}
-						</p>
-					</div>
+					<br />
 
-					<div>
+					{/* <div>
 						<button type="button" onClick={calculatePaisa}> Calculate Fare </button>
 					</div>
 
-					<div><h1>{calculatePaisa()}</h1></div>
+					<div><h1>{calculatePaisa()}</h1></div> */}
 
 					<div>
-						<button type="button">
-							Send request to Sakib
+						<button
+							type="button"
+							onClick={handleSubmit}
+							className="bg-transparent hover:bg-[#f59e0b] text-[#f59e0b] font-semibold
+						hover:text-white py-2 px-4 border border-[#f59e0b] hover:border-transparent rounded"
+						>
+							Send request to
+							{' '}
+							{demoProduct.lender.firstName}
 						</button>
 					</div>
 
 				</div>
+				<br />
+				<br />
+				<br />
 			</div>
 		</>
 	);
 };
+const ProductRentReqWithAuth = withAuth(ProductRentReq);
 
-export { ProductRentReq };
+export { ProductRentReq, ProductRentReqWithAuth };
