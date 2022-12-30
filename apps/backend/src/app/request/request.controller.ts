@@ -30,6 +30,16 @@ export class RequestController {
 		return this.requestService.findOne(id);
 	}
 
+	@Get('accept/:id')
+	accept(@Param('id') id: string, @ReqUser() user: User): Promise<Request> {
+		return this.requestService.accept(user, id);
+	}
+
+	@Get('reject/:id')
+	reject(@Param('id') id: string, @ReqUser() user: User): Promise<Request> {
+		return this.requestService.reject(user, id);
+	}
+
 	// get by pagination
 	@Get('page/:page')
 	findByPage(@Param('page') page: number): Promise<Request[]> {
