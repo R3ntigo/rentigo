@@ -33,7 +33,7 @@ export class ProductService {
 	}
 
 	async findOne(id: string, relations: FindOptionsRelations<Product> = {}): Promise<Product> {
-		const product = this.productRepository.findOne({ where: { id }, relations });
+		const product = this.productRepository.findOne({ where: { id }, relations: { ...relations, rentingPolicies:true } });
 		if (!product) {
 			throw new NotFoundException();
 		}

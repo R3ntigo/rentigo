@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
-import { ProductRentReq } from './product-rent-req/ProductRentReq';
+import { ProductRentReq, ProductRentReqWithAuth } from './product-rent-req/ProductRentReq';
 import { Home } from './home/home';
 import { ProductUploadWithAuth, ProductUpload } from './product-upload/ProductUpload';
 import { ProductShowWithAuth } from './product-show/ProductShow';
@@ -23,7 +23,7 @@ const App = () => (
 				<Route path="/show/:id" element={<ProductShowWithAuth />} />
 				<Route path="/upload" element={<ProductUploadWithAuth />} />
 				<Route path="/uploadinsecured" element={<ProductUpload />} />
-				<Route path="/rent/:id" element={<ProductRentReq />} />
+				<Route path="/rent/:id" element={<ProductRentReqWithAuth />} />
 				<Route path="/testNavbar" element={<SideBar />} />
 				<Route path="/dashboard" element={<Dashboard />} />
 				<Route path="/listed-product" element={<ListedProduct />} />
