@@ -23,7 +23,7 @@ const ProductTile = (props: { product: Product }) => {
 					<p className="font-semibold">
 						create date:
 						{' '}
-						{product.createdAt?.getDate()}
+						{product.createdAt?.toLocaleString()}
 					</p>
 					{' '}
 					<p className="font-semibold">
@@ -34,7 +34,7 @@ const ProductTile = (props: { product: Product }) => {
 					<div>
 						<img
 							className="w-24 h-24"
-							src={`../img/${product.imageUrls[0]}.jpg`}
+							src={`../img/${product.imageUrls[0].url}.jpg`}
 							alt=""
 							width="384"
 							height="512"

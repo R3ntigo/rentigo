@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Request } from '@rentigo/models';
 import { withAuth } from '../auth/withAuth';
+import { ProductTile } from './ProductTile';
 
 const RequestDetail = () => {
 	const hello = 'hello';
@@ -48,12 +49,50 @@ const RequestDetail = () => {
 						{' '}
 						<p>
 							<span className="font-semibold ">Borrower: </span>
-							{demoRequest.borrower.firstName}
-							{' '}
-							{demoRequest.borrower.lastName}
+							<p className="text-2xl">
+								{demoRequest.borrower.firstName}
+								{' '}
+								{demoRequest.borrower.lastName}
+							</p>
 						</p>
 					</div>
 
+				</div>
+				<br />
+				<div className="border-2 rounded-2xl border-[#2cf784] bg-slate-200">
+					<div className="p-4">
+						{' '}
+						<p>
+							<span className="font-semibold ">Requested at: </span>
+							<p className="text-2xl">
+								{demoRequest.createdAt?.toLocaleString()}
+							</p>
+						</p>
+					</div>
+
+				</div>
+				<br />
+				<div className="border-2 rounded-2xl border-[#56f79c] bg-slate-200">
+					<ProductTile product={demoRequest.product} />
+				</div>
+				<br />
+				<div className="border-2 rounded-2xl border-[#2cf784] bg-slate-200">
+					<div className="p-4">
+						{' '}
+						<p>
+							<span className="font-semibold ">Durations: </span>
+							<span>
+								<p className="text-xl">
+									For
+								</p>
+								{' '}
+								<p className="text-2xl">{demoRequest.duration.length}</p>
+								{' '}
+								<p className="text-2xl">{demoRequest.duration.unit}</p>
+								{' '}
+							</span>
+						</p>
+					</div>
 				</div>
 			</div>
 		</>
