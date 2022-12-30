@@ -1,8 +1,9 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ImageListType } from 'react-images-uploading';
 import { BsCaretDown, BsCaretUp } from 'react-icons/bs';
 import { Product, PricingPolicy, RentingPolicy, Request } from '@rentigo/models';
+import { toast } from 'react-toastify';
 import Select from 'react-select';
 import { TimeUnit } from '@rentigo/constants';
 import axios from 'axios';
@@ -13,6 +14,7 @@ const ProductRentReq = () => {
 		value: string;
 		label: string;
 	}
+	const navigate = useNavigate();
 	const [demoProduct, setInitialProductState] = useState<Product>();
 	const [quantity2, setQuantity] = useState('1');
 	const [timeUnitOptions, setTimeUnitOptions] = useState([] as Options[]);
@@ -54,9 +56,11 @@ const ProductRentReq = () => {
 		axios.post('/api/request', rentReq).then((res) => {
 			console.log(res);
 			if (res.status === 201) {
-				alert('Request sent successfully');
+				toast.success('Request sent successfully');
+				// eslint-disable-next-line react-hooks/rules-of-hooks
+				navigate('/');
 			} else {
-				alert('Request failed');
+				toast.error('Request failed');
 			}
 		});
 	};

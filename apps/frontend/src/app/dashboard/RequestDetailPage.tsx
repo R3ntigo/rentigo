@@ -19,15 +19,13 @@ const RequestDetail = () => {
 	// function to patch request status
 	async function patchRequestStatus(i: number) {
 		if (i == 1) {
-			const response = await axios.patch(`/api/request/${id}`, {
-				status: RequestStatus.APPROVED
-			});
+			const response = await axios.get(`/api/request/accept/${id}`);
+			window.location.href = '/rent-req-dash';
 		} else {
-			const response = await axios.patch(`/api/request/${id}`, {
-				status: RequestStatus.REJECTED
-			});
+			const response = await axios.patch(`/api/request/reject/${id}`);
+			window.location.href = '/rent-req-dash';
 		}
-		window.location.reload();
+		window.location.href = '/rent-req-dash';
 	}
 	useEffect(() => {
 		fetchRequest();

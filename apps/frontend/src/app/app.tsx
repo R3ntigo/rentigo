@@ -20,6 +20,7 @@ import { VerifyEmail } from './register/verify-emai';
 import { ConfirmPassword } from './register/verify-password';
 import { AddNewAddress } from './product-upload/addressUpload';
 import { SignOutWithAuth } from './signin/sign-out';
+import { Home, HomeWithAuth } from './home/home';
 
 enableFreezeUI();
 
@@ -29,7 +30,7 @@ const App = () => (
 			<SideBar />
 			<div className="grow h-full">
 				<Routes>
-					<Route path="/" element={<DashboardWithAuth />} />
+					<Route path="/" element={<HomeWithAuth />} />
 					<Route path="/sign-in" element={<SignIn2 />} />
 					<Route path="/sign-out" element={<SignOutWithAuth />} />
 					<Route path="/show/:id" element={<ProductShowWithAuth />} />

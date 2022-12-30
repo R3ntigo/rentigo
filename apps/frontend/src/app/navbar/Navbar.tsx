@@ -18,7 +18,7 @@ const SideBar = () => {
 				<SideBarIcon icon={<BsPlus size="28" />} text="Upload" />
 				<SideBarIcon icon={<FaFire size="28" />} text="show" />
 				<SideBarIcon icon={<RiLoginCircleFill size="28" />} text="sign in" />
-				<SideBarIcon icon={<BsGearFill size="28" />} text="Settings" />
+				<SideBarIcon icon={<BsGearFill size="28" />} text="register" />
 			</div>
 		</div>
 	);
@@ -42,9 +42,11 @@ const SideBarIcon = ({ icon, text }: SideBarIconProps) => {
 		case 'Upload':
 			return window.location.href = '/upload';
 		case 'show':
-			return window.location.href = '/show';
+			return window.location.href = '/dashboard';
 		case 'sign in':
-			return window.location.href = '/sign-in2';
+			return window.location.href = '/sign-out';
+		case 'register':
+			return window.location.href = '/register';
 		default:
 			return '/';
 		}

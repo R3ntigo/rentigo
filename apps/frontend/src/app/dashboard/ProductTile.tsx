@@ -7,14 +7,10 @@ const ProductTile = (props: { product: Product }) => {
 
 	const { product } = props;
 	return (
-		<a href="/sign-in">
+		<a href={`/show/${product.id}`}>
 			<div className="p-4 bg-slate-100 rounded-lg grid grid-cols-2 gap-2 rounded-lg border-yellow-400 ">
 
 				<div>
-					<p className="font-bold">
-						#
-						{product.id}
-					</p>
 					{' '}
 					<p className="font-semibold">
 						{product.title}
@@ -31,7 +27,7 @@ const ProductTile = (props: { product: Product }) => {
 					<div>
 						<img
 							className="w-24 h-24"
-							src={`../img/${product.imageUrls[0].url}.jpg`}
+							src={`${product.imageUrls[0].url}`}
 							alt=""
 							width="384"
 							height="512"
@@ -90,7 +86,7 @@ const RequestTile = (props: { request: Request }) => {
 				</div>
 				<div className="grid justify-items-end">
 					<div>
-						<img className="w-24 h-24" src="jj" alt="" width="384" height="512" />
+						<img className="w-24 h-24" src={request.product.imageUrls[0].url} alt="" width="384" height="512" />
 					</div>
 				</div>
 

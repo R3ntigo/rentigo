@@ -46,7 +46,7 @@ const ProductShow = () => {
 				<div className="max-w-sm flex p-4 bg-slate-100 rounded-lg shadow-lg shadow-accent1">
 					<div className=" pt-1">
 						<h4 className="text-xl text-gray-900 leading-tight font-semibold">Product Description</h4>
-						<p className="text-base text-gray-600 leading-normal">{demoProduct.description}</p>
+						<p className="text-base text-gray-600 leading-normal">{`${demoProduct.description.substring(0, 100)}...`}</p>
 					</div>
 				</div>
 				<br />
