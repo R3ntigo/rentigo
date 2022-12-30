@@ -10,6 +10,7 @@ import { Dashboard } from './dashboard/Dashboard';
 import { SignIn2 } from './signin/sign-in-new';
 import { ListedProduct } from './dashboard/ListedProduct';
 import { RequestforRentWithAuth } from './dashboard/RequestforRent';
+import { RequestDetailWithAuth } from './dashboard/RequestDetailPage';
 
 enableFreezeUI();
 
@@ -28,6 +29,7 @@ const App = () => (
 				<Route path="/dashboard" element={<Dashboard />} />
 				<Route path="/listed-product" element={<ListedProduct />} />
 				<Route path="/rent-req-dash" element={<RequestforRentWithAuth />} />
+				<Route path="/rent-req-detail/:id" element={<RequestDetailWithAuth />} />
 			</Routes>
 		</div>
 	</div>

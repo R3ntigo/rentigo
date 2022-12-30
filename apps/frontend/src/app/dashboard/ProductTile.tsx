@@ -63,7 +63,7 @@ const RequestTile = (props: { request: Request }) => {
 	// if (!demoProduct) return (<div>Loading...</div>);
 	// if (!request) return (<div>loading</div>);
 	return (
-		<a href="/sign-in">
+		<a href={`/rent-req-detail/${request.id}`}>
 			<div className="p-4 bg-slate-100 rounded-lg grid grid-cols-2 gap-2 ">
 
 				<div>
