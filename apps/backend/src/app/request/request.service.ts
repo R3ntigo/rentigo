@@ -29,7 +29,7 @@ export class RequestService {
 	}
 
 	async findOne(id: string, relations: FindOptionsRelations<Request> = {}): Promise<Request> {
-		const request = this.requestRepository.findOne({ where: { id }, relations });
+		const request = this.requestRepository.findOne({ where: { id }, relations: { ...relations, product: true, borrower: true } });
 		if (!request) {
 			throw new NotFoundException();
 		}
