@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Request } from '@rentigo/models';
+import { RequestStatus } from '@rentigo/constants';
 import { withAuth } from '../auth/withAuth';
 import { ProductTile } from './ProductTile';
 
@@ -94,6 +95,47 @@ const RequestDetail = () => {
 						</p>
 					</div>
 				</div>
+				<br />
+				<div className="border-2 rounded-2xl border-[#d9f72c] bg-slate-200">
+					<div className="p-4">
+						{' '}
+						<p>
+							<span className="font-semibold ">Status: </span>
+							<span>
+								<p className="text-xl">
+									{demoRequest.status}
+								</p>
+							</span>
+						</p>
+					</div>
+				</div>
+				<br />
+				<div className="border-2 rounded-2xl border-[#f7d72c] bg-slate-200">
+					{demoRequest.status == RequestStatus.PENDING && (
+						<div className="p-4">
+							{' '}
+							<p>
+								<span className="font-semibold ">Actions: </span>
+                                <br />
+								<span>
+									<p className="text-xl">
+										<button className="bg-[#2cf736] hover:bg-[#f7d72c] text-black font-bold py-2 px-4 rounded-full">
+											Approve
+										</button>
+                                        {' '}
+                                        {' '}
+										<button className="bg-[#f73a2c] hover:bg-[#f7d72c] text-black font-bold py-2 px-4 rounded-full">
+											Reject
+										</button>
+									</p>
+								</span>
+							</p>
+						</div>
+					)}
+
+				</div>
+                <br />
+                <br />
 			</div>
 		</>
 	);
