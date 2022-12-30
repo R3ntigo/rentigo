@@ -75,7 +75,7 @@ export class User {
 
 	@OneToMany(() => Search, (search) => search)
 	@JoinColumn()
-	searchHistory: Search[];
+	searchHistory?: Search[];
 
 	@OneToMany(() => RentingPolicy, (rentingPolicy) => rentingPolicy.user, { cascade: true })
 	rentingPolicies?: RentingPolicy[];

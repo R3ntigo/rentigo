@@ -24,7 +24,9 @@ export class Request {
 	@JoinColumn()
 	borrower: User;
 
-	@ManyToOne(() => Product)
+	@ManyToOne(() => Product, {
+		eager: true,
+	})
 	@JoinColumn()
 	product: Product;
 

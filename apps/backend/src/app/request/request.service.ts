@@ -36,6 +36,30 @@ export class RequestService {
 		return request;
 	}
 
+	async accept(user: User, id: string): Promise<Request> {
+		const request = await this.findOne(id);
+		if (request.product.lender.id !== user.id) {
+			throw new ForbiddenException();
+		}
+		if (request.status !== RequestStatus.PENDING) {
+			throw new ForbiddenException();
+		}
+		request.status = RequestStatus.APPROVED;
+		return this.requestRepository.save(request);
+	}
+
+	async reject(user: User, id: string): Promise<Request> {
+		const request = await this.findOne(id);
+		if (request.product.lender.id !== user.id) {
+			throw new ForbiddenException();
+		}
+		if (request.status !== RequestStatus.PENDING) {
+			throw new ForbiddenException();
+		}
+		request.status = RequestStatus.REJECTED;
+		return this.requestRepository.save(request);
+	}
+
 	async update(user: User, updateRequestDto: UpdateRequestDto): Promise<Request> {
 		let request = await this.findOne(updateRequestDto.id);
 		if (request.borrower.id !== user.id) {
