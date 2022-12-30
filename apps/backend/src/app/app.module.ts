@@ -13,6 +13,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RequestModule } from './request';
 import { ReviewModule } from './review';
+import { SearchModule } from './search/search.module';
 
 @Module({
 	imports: [
@@ -25,7 +26,8 @@ import { ReviewModule } from './review';
 		ProductModule,
 		ResourceModule,
 		RequestModule,
-		ReviewModule
+		ReviewModule,
+		SearchModule
 	],
 	controllers: [AppController],
 	providers: [AppService],
