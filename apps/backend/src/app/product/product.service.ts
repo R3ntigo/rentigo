@@ -73,6 +73,14 @@ export class ProductService {
 		return productWithReviews.reviews;
 	}
 
+	async getProductByPagination(page: number, limit: number) {
+		const products = await this.productRepository.find({
+			skip: (page - 1) * limit,
+			take: limit,
+		});
+		return products;
+	}
+
 	async hasPermissionTo(_: Operations, user: User, id: string) {
 		try {
 			const userWithProduct = await this.productRepository.findOne({

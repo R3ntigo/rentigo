@@ -8,7 +8,7 @@ const ProductTile = (props: { product: Product }) => {
 	const { product } = props;
 	return (
 		<a href="/sign-in">
-			<div className="p-4 bg-slate-100 rounded-lg grid grid-cols-2 gap-2 ">
+			<div className="p-4 bg-slate-100 rounded-lg grid grid-cols-2 gap-2 rounded-lg border-yellow-400 ">
 
 				<div>
 					<p className="font-bold">
@@ -26,9 +26,6 @@ const ProductTile = (props: { product: Product }) => {
 						{product.createdAt?.toLocaleString()}
 					</p>
 					{' '}
-					<p className="font-semibold">
-						money earned:
-					</p>
 				</div>
 				<div className="grid justify-items-end">
 					<div>

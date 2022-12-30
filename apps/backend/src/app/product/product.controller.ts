@@ -87,4 +87,10 @@ export class ProductController {
 	getReviews(@Param('id') id: string) {
 		return this.productService.findAllReviews(id);
 	}
+
+	// get product by pagination
+	@Get('pagination/:page')
+	getProductByPagination(@Param('page') page: number) {
+		return this.productService.getProductByPagination(page, 10);
+	}
 }
