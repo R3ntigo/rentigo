@@ -85,7 +85,11 @@ const ProductRentReq = () => {
 	return (
 		<>
 			<div className="absolute top-6 w-full text-center">
-				<h1 className="text-2xl font-semibold">Rent req for product X</h1>
+				<h1 className="text-2xl font-semibold">
+					Rent req for
+					{' '}
+					{demoProduct.title}
+				</h1>
 			</div>
 			<div className="h-24 md:p-8  grid grid-cols-3">
 				<div
@@ -201,14 +205,19 @@ const ProductRentReq = () => {
 					</div>
 					<br />
 
-					<div>
+					{/* <div>
 						<button type="button" onClick={calculatePaisa}> Calculate Fare </button>
 					</div>
 
-					<div><h1>{calculatePaisa()}</h1></div>
+					<div><h1>{calculatePaisa()}</h1></div> */}
 
 					<div>
-						<button type="button" onClick={handleSubmit}>
+						<button
+							type="button"
+							onClick={handleSubmit}
+							className="bg-transparent hover:bg-[#f59e0b] text-[#f59e0b] font-semibold
+						hover:text-white py-2 px-4 border border-[#f59e0b] hover:border-transparent rounded"
+						>
 							Send request to
 							{' '}
 							{demoProduct.lender.firstName}
