@@ -9,4 +9,5 @@ export * from './Tag';
 export * from './Resource';
 export * from './UserCredential';
 export * from './Review';
+export * from './Registration';
 export * from './Search';

@@ -12,4 +12,10 @@ module.exports = (config, context) => merge(config, {
       },
     ],
   },
+  devServer: {
+    allowedHosts: [
+      'localhost',
+      'rentigo.store',
+    ],
+  },
 });

@@ -5,6 +5,7 @@ import { RiLoginBoxLine } from 'react-icons/ri';
 import { MdOutlineProductionQuantityLimits, MdOutlinePayments } from 'react-icons/md';
 import { GrNotification } from 'react-icons/gr';
 import { IoMdStats } from 'react-icons/io';
+import { withAuth } from '../auth/withAuth';
 
 const Dashboard = () => {
 	const ll = 0;
@@ -14,7 +15,7 @@ const Dashboard = () => {
 	return (
 		<>
 			<div className="absolute top-6 w-full text-center">
-				<h1 className="text-2xl font-semibold">Hello User1</h1>
+				<h1 className="text-2xl font-semibold">Dashboard</h1>
 			</div>
 			<div className="h-24 md:p-8  grid grid-cols-3">
 				<div
@@ -113,4 +114,5 @@ const Dashboard = () => {
 	);
 };
 
-export { Dashboard };
+const DashboardWithAuth = withAuth(Dashboard);
+export { Dashboard, DashboardWithAuth };

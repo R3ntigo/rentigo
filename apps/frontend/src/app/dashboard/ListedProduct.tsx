@@ -67,4 +67,4 @@ const ListedProduct = () => {
 	);
 };
 
-export { ListedProduct};
+export { ListedProduct };

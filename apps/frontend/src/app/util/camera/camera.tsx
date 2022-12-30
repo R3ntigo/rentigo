@@ -6,12 +6,17 @@ interface CameraProps {
 	height: number;
 }
 
-interface Refs {
-	takePicture: () => Promise<unknown>;
+interface Photo {
+	url?: string;
+	blob?: Blob | null;
+}
+
+interface CameraRef {
+	takePicture: () => Promise<Photo>;
 }
 
 // eslint-disable-next-line react/display-name
-const Camera = forwardRef((props: CameraProps, ref: ForwardedRef<Refs>) => {
+const Camera = forwardRef((props: CameraProps, ref: ForwardedRef<CameraRef>) => {
 	const { constraints, width, height } = props;
 
 	const videoRef = useRef<HTMLVideoElement>(null);
@@ -51,7 +56,7 @@ const Camera = forwardRef((props: CameraProps, ref: ForwardedRef<Refs>) => {
 
 	return (
 		<div className="container">
-			<video ref={videoRef} width={width} height={height}>
+			<video ref={videoRef} style={{ width, height }}>
 				<track kind="captions" />
 			</video>
 			<canvas
@@ -71,4 +76,4 @@ Camera.defaultProps = {
 	},
 };
 
-export { Camera };
+export { Camera, Photo, CameraRef };

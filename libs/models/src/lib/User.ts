@@ -67,11 +67,11 @@ export class User {
 	@JoinTable({
 		name: 'user_received_reviews',
 	})
-	receivedReviews: Review[];
+	receivedReviews?: Review[];
 
 	@OneToMany(() => Review, (review) => review.reviewer)
 	@JoinColumn()
-	providedReviews: Review[];
+	providedReviews?: Review[];
 
 	@OneToMany(() => Search, (search) => search)
 	@JoinColumn()
