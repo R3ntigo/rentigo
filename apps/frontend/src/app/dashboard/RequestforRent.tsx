@@ -2,7 +2,6 @@ import { Product, Request } from '@rentigo/models';
 import { TimeUnit, RequestStatus } from '@rentigo/constants';
 import { useState, useEffect } from 'react';
 import { RequestTile } from './ProductTile';
-import { demoProductGlobal } from './ListedProduct';
 import { withAuth } from '../auth/withAuth';
 
 // decare a global variable

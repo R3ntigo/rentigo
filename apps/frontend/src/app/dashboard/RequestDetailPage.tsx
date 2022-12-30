@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Request } from '@rentigo/models';
 import { RequestStatus } from '@rentigo/constants';
+import axios from 'axios';
 import { withAuth } from '../auth/withAuth';
 import { ProductTile } from './ProductTile';
 
@@ -14,6 +15,19 @@ const RequestDetail = () => {
 		const data = await response.json();
 		console.log(data);
 		setInitialRequestState(data);
+	}
+	// function to patch request status
+	async function patchRequestStatus(i: number) {
+		if (i == 1) {
+			const response = await axios.patch(`/api/request/${id}`, {
+				status: RequestStatus.APPROVED
+			});
+		} else {
+			const response = await axios.patch(`/api/request/${id}`, {
+				status: RequestStatus.REJECTED
+			});
+		}
+		window.location.reload();
 	}
 	useEffect(() => {
 		fetchRequest();
@@ -116,15 +130,27 @@ const RequestDetail = () => {
 							{' '}
 							<p>
 								<span className="font-semibold ">Actions: </span>
-                                <br />
+								<br />
 								<span>
 									<p className="text-xl">
-										<button className="bg-[#2cf736] hover:bg-[#f7d72c] text-black font-bold py-2 px-4 rounded-full">
+										<button
+											className="bg-[#2cf736] hover:bg-[#f7d72c] text-black font-bold py-2 px-4 rounded-full"
+											onClick={(e) => {
+												e.preventDefault();
+												patchRequestStatus(1);
+											}}
+										>
 											Approve
 										</button>
-                                        {' '}
-                                        {' '}
-										<button className="bg-[#f73a2c] hover:bg-[#f7d72c] text-black font-bold py-2 px-4 rounded-full">
+										{' '}
+										{' '}
+										<button
+											className="bg-[#f73a2c] hover:bg-[#f7d72c] text-black font-bold py-2 px-4 rounded-full"
+											onClick={(e) => {
+												e.preventDefault();
+												patchRequestStatus(0);
+											}}
+										>
 											Reject
 										</button>
 									</p>
@@ -134,8 +160,8 @@ const RequestDetail = () => {
 					)}
 
 				</div>
-                <br />
-                <br />
+				<br />
+				<br />
 			</div>
 		</>
 	);
