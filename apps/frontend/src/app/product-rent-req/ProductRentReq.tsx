@@ -40,7 +40,7 @@ const ProductRentReq = () => {
 	if (!demoProduct) return (<div>Loading...</div>);
 	const rentReq = {
 		product: id,
-		quantity: quantity2,
+		quantity: parseInt(quantity2, 10),
 		address: demoProduct.address.id,
 		duration: {
 			unit: 'ee',
@@ -50,28 +50,33 @@ const ProductRentReq = () => {
 	};
 	const handleSubmit = () => {
 		console.log(rentReq);
-		
+
 		axios.post('/api/request', rentReq).then((res) => {
 			console.log(res);
+			if (res.status === 201) {
+				alert('Request sent successfully');
+			} else {
+				alert('Request failed');
+			}
 		});
 	};
 
 	const decreaseQuantity = () => {
 		// get integer value of quantity
-		let quantity = parseInt(rentReq.quantity, 10);
+		let { quantity } = rentReq;
 		if (quantity > 0) {
 			quantity -= 1;
 		}
-		rentReq.quantity = quantity.toString();
+		rentReq.quantity = quantity;
 		setQuantity(quantity.toString());
 	};
 
 	const increaseQuantity = () => {
-		let quantity = parseInt(rentReq.quantity, 10);
+		let { quantity } = rentReq;
 		console.log(quantity);
 		if (quantity < demoProduct.availableQuantity) {
 			quantity += 1;
-			rentReq.quantity = quantity.toString();
+			rentReq.quantity = quantity;
 			setQuantity(quantity.toString());
 		}
 	};
@@ -146,7 +151,7 @@ const ProductRentReq = () => {
 								value={quantity2}
 								onChange={
 									(e) => {
-										rentReq.quantity = e.target.value;
+										setQuantity(e.target.value);
 										console.log(rentReq);
 									}
 								}
