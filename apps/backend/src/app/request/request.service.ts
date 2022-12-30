@@ -29,11 +29,35 @@ export class RequestService {
 	}
 
 	async findOne(id: string, relations: FindOptionsRelations<Request> = {}): Promise<Request> {
-		const request = this.requestRepository.findOne({ where: { id }, relations });
+		const request = this.requestRepository.findOne({ where: { id }, relations: { ...relations, product: true, borrower: true } });
 		if (!request) {
 			throw new NotFoundException();
 		}
 		return request;
+	}
+
+	async accept(user: User, id: string): Promise<Request> {
+		const request = await this.findOne(id);
+		if (request.product.lender.id !== user.id) {
+			throw new ForbiddenException();
+		}
+		if (request.status !== RequestStatus.PENDING) {
+			throw new ForbiddenException();
+		}
+		request.status = RequestStatus.APPROVED;
+		return this.requestRepository.save(request);
+	}
+
+	async reject(user: User, id: string): Promise<Request> {
+		const request = await this.findOne(id);
+		if (request.product.lender.id !== user.id) {
+			throw new ForbiddenException();
+		}
+		if (request.status !== RequestStatus.PENDING) {
+			throw new ForbiddenException();
+		}
+		request.status = RequestStatus.REJECTED;
+		return this.requestRepository.save(request);
 	}
 
 	async update(user: User, updateRequestDto: UpdateRequestDto): Promise<Request> {

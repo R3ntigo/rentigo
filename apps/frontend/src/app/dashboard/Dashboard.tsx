@@ -42,19 +42,21 @@ const Dashboard = () => {
 						<div className=" top-20 left-3 text-left font-semibold text-xl">Request for rent</div>
 					</a>
 				</div>
-				<div
-					className="bg-slate-100
+				<a href="/add-new-address">
+					<div
+						className="bg-slate-100
 					rounded-lg p-1 border-4 border-solid border-purple-400"
-					onClick={sayHello}
-					onKeyDown={sayHello}
-				>
-					<div className="flex justify-end">
-						<div className="p-3">
-							<BsChatLeftText size="44" color="yellow[300]" />
+						onClick={sayHello}
+						onKeyDown={sayHello}
+					>
+						<div className="flex justify-end">
+							<div className="p-3">
+								<BsChatLeftText size="44" color="yellow[300]" />
+							</div>
 						</div>
+						<div className=" relativeoff top-5 left-3 text-left font-semibold text-xl">My Address</div>
 					</div>
-					<div className=" relativeoff top-5 left-3 text-left font-semibold text-xl">Inbox</div>
-				</div>
+				</a>
 				<div className="bg-slate-100 rounded-lg p-1 border-4 border-solid border-pink-600">
 					<div className="flex justify-end">
 						<div className="px-2">

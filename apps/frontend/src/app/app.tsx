@@ -19,6 +19,7 @@ import { ConfirmNID } from './register/confirm-nid';
 import { ConfirmEmail } from './register/confirm-email';
 import { VerifyEmail } from './register/verify-emai';
 import { ConfirmPassword } from './register/verify-password';
+import { AddNewAddress } from './product-upload/addressUpload';
 
 enableFreezeUI();
 
@@ -46,6 +47,7 @@ const App = () => (
 					<Route path="/register/verify-email/:id" element={<VerifyEmail />} />
 					<Route path="/register/verify-password" element={<ConfirmPassword />} />
 					<Route path="/register/complete" element={<Dashboard />} />
+					<Route path="/add-new-address" element={<AddNewAddress />} />
 					<Route path="*" element={<div>404</div>} />
 				</Routes>
 			</div>
