@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Select from 'react-select';
 
 const AddNewAddress = () => {
@@ -22,6 +22,9 @@ const AddNewAddress = () => {
 	const [zipCode, setProductZipCode] = useState('');
 	const [details, setProductDetails] = useState('');
 	const [label, setProductLabel] = useState('');
+	useEffect(() => {
+		getDivisionOptions();
+	}, []);
 	async function getDivisionOptions() {
 		const { data } = await axios.get(
 			`https://bdapis.com/api/v1.1/divisions`
@@ -107,7 +110,7 @@ const AddNewAddress = () => {
 						}}
 						name="subjects"
 					/>
-
+                    <br />
 					District
 					<Select
 						options={districtOptions}
@@ -122,13 +125,16 @@ const AddNewAddress = () => {
 						}}
 						name="subjects"
 					/>
-
+<br />
 					sub district:
 					<input
 						type="text"
 						name="subDistrict"
 						id="subDistrict"
 						placeholder="sub district"
+                        className="shadow appearance-none
+									border rounded w-full py-2 px-3 text-[#db2777]
+										leading-tight focus:outline-[#10b981]"
 						onChange={(e) => {
 							setProductSubDistrict(e.target.value);
 						}}
@@ -139,38 +145,54 @@ const AddNewAddress = () => {
 						name="zipCode"
 						id="zipCode"
 						placeholder="zip code"
+                        className="shadow appearance-none
+									border rounded w-full py-2 px-3 text-[#db2777]
+										leading-tight focus:outline-[#10b981]"
 						onChange={(e) => {
 							setProductZipCode(e.target.value);
 						}}
 					/>
+                    <br />
 					details:
 					<input
 						type="text"
 						name="details"
 						id="details"
 						placeholder="details"
+                        className="shadow appearance-none
+									border rounded w-full py-2 px-3 text-[#db2777]
+										leading-tight focus:outline-[#10b981]"
 						onChange={(e) => {
 							setProductDetails(e.target.value);
 						}}
 					/>
+                    <br />
 					label:
 					<input
 						type="text"
 						name="label"
 						id="label"
 						placeholder="label"
+                        className="shadow appearance-none
+									border rounded w-full py-2 px-3 text-[#db2777]
+										leading-tight focus:outline-[#10b981]"
 						onChange={(e) => {
 							setProductLabel(e.target.value);
 						}}
 					/>
+                    <br />
 
 					<button
 						type="button"
 						onClick={handleSubmit}
+                        className="bg-transparent hover:bg-[#f59e0b] text-[#f59e0b] font-semibold
+							hover:text-white py-2 px-4 border border-[#f59e0b] hover:border-transparent rounded"
 					>
 						{' '}
 						Add new address
 					</button>
+                    <br />
+                    <br />
 				</div>
 			</div>
 
