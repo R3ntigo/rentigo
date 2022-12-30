@@ -89,8 +89,8 @@ const NIDPhoto = () => {
 
 						// send the barcode to the server
 						const formData = new FormData();
-						formData.append('frontImage', frontPhoto!);
-						formData.append('backImage', backPhoto!);
+						formData.append('imageUrls', frontPhoto!);
+						formData.append('imageUrls', backPhoto!);
 						formData.append('nid', JSON.stringify(nid));
 						const response = await axios.post(
 							'/api/register/verify-nid',

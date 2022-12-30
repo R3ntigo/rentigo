@@ -14,12 +14,12 @@ export class ResourceService {
 		private readonly storageService: StorageService,
 	) {}
 
-	async create(file: Express.Multer.File) {
+	async create(file: Express.Multer.File, bucket: Buckets = Buckets.PRODUCT_IMAGES) {
 		const id = randomUUID();
 		const name = `${id}-${file.originalname}`;
 
 		await this.storageService.putObjectFromBuffer(
-			Buckets.PRODUCT_IMAGES,
+			bucket,
 			name,
 			file.buffer,
 		);

@@ -1,5 +1,7 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Post, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { VerifyNidDto } from '@rentigo/dto';
 
 import { TextResult } from 'dynamsoft-javascript-barcode';
 
@@ -12,8 +14,17 @@ export class RegisterController {
 
 	}
 
-	@Post('verify-nid')
-	async verifyNIDPhoto(@Body('textResult') textResult: TextResult) {
-		return this.registerService.verifyNID(textResult.barcodeText);
+	@Post()
+	@ApiConsumes('multipart/form-data')
+	@UseInterceptors(FilesInterceptor('imageUrls', 100))
+	async verifyNid(
+	@Body() verifyNidDto: VerifyNidDto,
+		@UploadedFiles() files: Express.Multer.File[]
+	) {
+		const verifyNidDtoWithImageUrls = {
+			...verifyNidDto,
+			imageUrls: files
+		};
+		return this.registerService.verifyNID(verifyNidDtoWithImageUrls);
 	}
 }
